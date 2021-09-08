@@ -66,7 +66,7 @@ public class GameView extends Application{
 
 		////TOP////
 		FlowPane mainFP = new FlowPane();
-		Text mainTitle = new Text("DON'T TOUCH THE MINES !!!");
+		Text mainTitle = new Text("CRAZY PLATEFORMER");
 		mainTitle.getStyleClass().add("title");
 		mainTitle.setTextAlignment(TextAlignment.CENTER);
 		mainFP.getChildren().add(mainTitle);
@@ -82,14 +82,14 @@ public class GameView extends Application{
 
 		mainVB.setSpacing(15);
 		CustomMenuButton pg = new CustomMenuButton("PLAY GAME");
-		CustomMenuButton rules = new CustomMenuButton("RULES");			
+		CustomMenuButton rules = new CustomMenuButton("ABOUT THE GAME");			
 		CustomMenuButton settings = new CustomMenuButton("SETTINGS");			
 		CustomMenuButton exit = new CustomMenuButton("EXIT GAME");
 
 
 		mainVB.getChildren().add(pg);
-		mainVB.getChildren().add(rules);
 		mainVB.getChildren().add(settings);
+		mainVB.getChildren().add(rules);
 		mainVB.getChildren().add(exit);
 
 		mainMenu.setCenter(mainVB);
@@ -106,7 +106,7 @@ public class GameView extends Application{
 
 		////TOP////
 		FlowPane rulesFP = new FlowPane();
-		Text rulesTitle = new Text("RULES");
+		Text rulesTitle = new Text("ABOUT THE GAME");
 		rulesTitle.getStyleClass().add("title");
 		rulesTitle.setTextAlignment(TextAlignment.CENTER);
 		rulesFP.getChildren().add(rulesTitle);

@@ -53,7 +53,7 @@ public class GameView extends Application{
 	public void start(Stage stg) throws IOException {
 
 		primaryStage=stg;
-	//	control = new Control(this);
+		control = new Control(this);
 
 		mainPane = new StackPane();
 		mainPane.setPrefSize(Control.WIDTH, Control.HEIGHT);

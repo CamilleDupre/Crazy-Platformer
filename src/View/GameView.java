@@ -28,9 +28,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
 
 public class GameView extends Application{
 
@@ -145,19 +147,19 @@ public class GameView extends Application{
 		HBox leftClick = new HBox();
 		leftClick.setSpacing(20);
 		leftClick.setAlignment(Pos.CENTER);
-		File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
-		ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
+	//	File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
+	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
 		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
-		leftClick.getChildren().add(imgLeft);
+	//	leftClick.getChildren().add(imgLeft);
 		leftClick.getChildren().add(leftTxt);
 
 		HBox rightClick = new HBox();
 		rightClick.setSpacing(20);
 		rightClick.setAlignment(Pos.CENTER);
-		File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
-		ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
+	//	File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
+	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
 		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
-		rightClick.getChildren().add(imgRight);
+	//	rightClick.getChildren().add(imgRight);
 		rightClick.getChildren().add(rightTxt);
 
 		rulesVB.getChildren().add(rulesTxt);
@@ -223,6 +225,158 @@ public class GameView extends Application{
 
 		///////////////////////
 
+		
+		
+	
+		
+		/****** LEVEL PANE ******/
+/*
+		BorderPane skinPane = new BorderPane();
+
+		skinPane.setPrefSize(Control.WIDTH,Control.HEIGHT);
+		
+		FlowPane skinFP = new FlowPane();
+		Text skinTitle = new Text("SWIPE TO CHOOSE PLAYER SKIN");
+		skinTitle.getStyleClass().add("title");
+		skinTitle.setTextAlignment(TextAlignment.CENTER);
+		skinFP.getChildren().add(skinTitle);
+		skinFP.setAlignment(Pos.CENTER);
+		skinFP.setPadding(new Insets(20,0,0,0));
+		skinFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+		skinPane.setTop(skinFP);
+		 
+		//// CENTER ////
+		StackPane stackSkin = new StackPane();
+		stackSkin.setAlignment(Pos.CENTER);
+		
+
+		ImageView current = new ImageView(warrior);
+		current.setId("0");
+		current.setPreserveRatio(true);
+		current.setFitHeight(Control.WIDTH/5);
+		Button currentB = new Button("",current);
+		currentB.setDisable(true);
+		currentB.setOpacity(1);
+		
+		ImageView left = new ImageView(archer);
+		left.setId("1");
+		left.setPreserveRatio(true);
+		left.setFitHeight(Control.WIDTH/6);
+		Button leftB = new Button("",left);
+		leftB.setDisable(true);
+		
+		
+		ImageView right = new ImageView(soldier);
+		right.setId("3");
+		right.setPreserveRatio(true);
+		right.setFitHeight(Control.WIDTH/6);
+		Button rightB = new Button("",right);
+		rightB.setDisable(true);
+	
+		
+		ImageView back = new ImageView(wizard);
+		back.setId("2");
+		back.setPreserveRatio(true);
+		back.setFitHeight(Control.WIDTH/6);
+		Button backB = new Button("",back);
+		backB.setDisable(true);
+		
+		
+		
+		VBox skinVBFront= new VBox();
+		skinVBFront.setAlignment(Pos.CENTER);
+		skinVBFront.getChildren().add(currentB);
+		
+		
+		VBox skinVBBack = new VBox();
+		skinVBBack.setSpacing(70);
+		skinVBBack.setAlignment(Pos.CENTER);
+		
+		HBox firstLine = new HBox();
+		firstLine.setAlignment(Pos.CENTER);
+		firstLine.getChildren().add(backB);
+		
+		HBox secondLine = new HBox();
+		secondLine.setAlignment(Pos.CENTER);
+		secondLine.setSpacing(200);
+		secondLine.getChildren().add(leftB);
+		secondLine.getChildren().add(rightB);
+		
+		skinVBBack.getChildren().add(firstLine);
+		skinVBBack.getChildren().add(secondLine);
+		
+		
+		skinPane.setOnMousePressed(e->{
+			ctrl.swipeCheck(e, false);
+		});
+		
+		skinPane.setOnMouseReleased(e->{
+			Image temp;
+			String tempId;
+			if(ctrl.swipeCheck(e, true)==1) {//left
+				temp = current.getImage();
+				tempId = current.getId();
+				
+				current.setImage(right.getImage()); 
+				current.setId(right.getId());
+				
+				right.setImage(back.getImage());
+				right.setId(back.getId());
+				
+				back.setImage(left.getImage());
+				back.setId(left.getId());
+				
+				left.setImage(temp);
+				left.setId(tempId);
+				
+			}else if(ctrl.swipeCheck(e, true)==2) {//right
+				temp = current.getImage();
+				tempId = current.getId();
+				
+				current.setImage(left.getImage()); 
+				current.setId(left.getId());
+				
+				left.setImage(back.getImage());
+				left.setId(back.getId());
+				
+				back.setImage(right.getImage());
+				back.setId(right.getId());
+				
+				right.setImage(temp);
+				right.setId(tempId);
+			}
+			switch(current.getId()) {
+				case "0" :
+					skinId = 0;
+					break;
+				case "1" :
+					skinId = 1;
+					break;
+				case "2" :
+					skinId = 2;
+					break;
+				case "3" :
+					skinId = 3;
+					break;
+			}
+			
+			primaryStage.show();
+		});
+		
+		stackSkin.getChildren().add(skinVBBack);
+		stackSkin.getChildren().add(skinVBFront);
+
+		skinPane.setCenter(stackSkin);
+		
+		///Bottom///
+		HBox validateSkinHB = new HBox();
+		validateSkinHB.setPadding(new Insets(0,0,20,0));
+		CustomMenuButton validateSkin = new CustomMenuButton("CHOOSE THIS SKIN");
+		validateSkinHB.getChildren().add(validateSkin);
+		validateSkinHB.setAlignment(Pos.CENTER);
+		skinPane.setBottom(validateSkinHB);
+		*/
 
 
 		////// SETTINGS ///////
@@ -247,7 +401,7 @@ public class GameView extends Application{
 		HBox settHB = new HBox();
 		settHB.setAlignment(Pos.CENTER);
 		settHB.setSpacing(70);
-
+/*
 		File soundFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
 		ImageView imgSound = new ImageView( new Image(soundFile.toURI().toURL().toString(),50,50,false,false));
 		Button sound = new Button("",imgSound);
@@ -259,7 +413,7 @@ public class GameView extends Application{
 		Button music = new Button("",imgMusic);
 		music.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
 		music.getStyleClass().add("setting-button");
-
+*/
 
 		VBox settVB = new VBox();
 		settVB.setAlignment(Pos.CENTER_LEFT);
@@ -290,8 +444,8 @@ public class GameView extends Application{
 		settVB.getChildren().add(dark);
 		settVB.getChildren().add(neon);
 
-		settHB.getChildren().add(sound);
-		settHB.getChildren().add(music);
+	//	settHB.getChildren().add(sound);
+	//	settHB.getChildren().add(music);
 		settHB.getChildren().add(settVB);
 
 		settingMenu.setCenter(settHB);
@@ -325,8 +479,8 @@ public class GameView extends Application{
 		pBomb.setAlignment(Pos.CENTER);
 		pBomb.setPrefWidth(Control.WIDTH/6);
 	//	Label nbBomb = new Label("" + control.getModel().getNbBombMissing());
-		File bombFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/bomb.png/");
-		ImageView imgBomb = new ImageView( new Image(bombFile.toURI().toURL().toString(),40,40,false,false));
+	//	File bombFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/bomb.png/");
+	//	ImageView imgBomb = new ImageView( new Image(bombFile.toURI().toURL().toString(),40,40,false,false));
 	//	pBomb.getChildren().add(nbBomb);
 
 		CustomMenuButton pauseButton = new CustomMenuButton("Pause");
@@ -343,7 +497,7 @@ public class GameView extends Application{
 			
 		});
 		
-		flagButton.setGraphic(new ImageView(new Image("/flag.png",30,30,false,false)));
+		//flagButton.setGraphic(new ImageView(new Image("/flag.png",30,30,false,false)));
 
 		
 		
@@ -351,8 +505,8 @@ public class GameView extends Application{
 		finishButton.setPrefSize(Control.WIDTH/15,Control.HEIGHT/20 );
 		finishButton.setDisable(true);
 
-		File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
-		ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
+	//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
+		//ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
 		FlowPane pChrono = new FlowPane();
 		pChrono.setAlignment(Pos.CENTER);
 		pChrono.setPrefWidth(Control.WIDTH/6);
@@ -363,18 +517,18 @@ public class GameView extends Application{
 		pauseButton.setPrefWidth(Control.WIDTH/5);
 
 		gameHB.getChildren().add(pBomb);
-		gameHB.getChildren().add(imgBomb);
+	//	gameHB.getChildren().add(imgBomb);
 		gameHB.getChildren().add(pauseButton);
 		gameHB.getChildren().add(flagButton);
 		gameHB.getChildren().add(finishButton);
-		gameHB.getChildren().add(imgChrono);
+		//gameHB.getChildren().add(imgChrono);
 		gameHB.getChildren().add(pChrono);
 
 		gamePane.setTop(gameHB);;
 
 		////CENTER////
 	//	grid = control.initGrid(finishButton,nbBomb);
-		grid.setAlignment(Pos.CENTER);
+	//	grid.setAlignment(Pos.CENTER);
 		gamePane.setCenter(grid);
 
 		//////////////////////////
@@ -411,17 +565,17 @@ public class GameView extends Application{
 		pauseHB.setAlignment(Pos.CENTER);
 		pauseHB.setSpacing(70);
 
-		File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-		ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
-		Button soundP = new Button("",imgSoundP);
-		soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		soundP.setCursor(Cursor.HAND);
+	//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
+	//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
+		//Button soundP = new Button("",imgSoundP);
+	//	soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+	//	soundP.setCursor(Cursor.HAND);
 
-		File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-		ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
-		Button musicP = new Button("",imgMusicP);
-		musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		musicP.setCursor(Cursor.HAND);
+	//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
+	//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
+	//	Button musicP = new Button("",imgMusicP);
+	//	musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+	//	musicP.setCursor(Cursor.HAND);
 
 
 		VBox pauseVB = new VBox();
@@ -453,8 +607,8 @@ public class GameView extends Application{
 		pauseVB.getChildren().add(darkP);
 		pauseVB.getChildren().add(neonP);
 
-		pauseHB.getChildren().add(soundP);
-		pauseHB.getChildren().add(musicP);
+	//	pauseHB.getChildren().add(soundP);
+	//	pauseHB.getChildren().add(musicP);
 		pauseHB.getChildren().add(pauseVB);
 
 		mainPauseVB.getChildren().add(resume);
@@ -580,10 +734,10 @@ public class GameView extends Application{
 		///MAIN///
 
 
-//		exit.setOnMouseClicked(e -> control.exitDTTM());
+		exit.setOnMouseClicked(e -> control.exitApp());
 		exit.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-	//			control.exitDTTM();
+				control.exitApp();
 			}
 		});
 
@@ -678,10 +832,10 @@ public class GameView extends Application{
 				}
 			}
 		});
-	//	exitGame.setOnMouseClicked(e -> control.exitDTTM());
+		exitGame.setOnMouseClicked(e -> control.exitApp());
 		exitGame.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-	//			control.exitDTTM();
+				control.exitApp();
 			}
 		});
 
@@ -707,17 +861,17 @@ public class GameView extends Application{
 				}
 			}
 		});
-	//	exitGame2.setOnMouseClicked(e -> control.exitDTTM());
+		exitGame2.setOnMouseClicked(e -> control.exitApp());
 		exitGame2.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-	//			control.exitDTTM();
+				control.exitApp();
 			}
 		});
 		
 		
 		scene = new Scene(getMainPane(), Control.WIDTH, Control.HEIGHT);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
-		primaryStage.setTitle("Don't touch the mines!");
+		primaryStage.setTitle("Crazy Platformer");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -818,6 +972,7 @@ public class GameView extends Application{
 	public void setTimeSeconds(IntegerProperty timeSeconds) {
 		this.timeSeconds = timeSeconds;
 	}
+	
 
 }
 

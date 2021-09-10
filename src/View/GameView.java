@@ -65,213 +65,12 @@ public class GameView extends Application{
 
 
 		setUpMainMenuPanel();
-
-
 		setUpRulesPanel();
-
-
-		////// DIFFICULTY ///////
-
-
-		BorderPane difMenu = new BorderPane();
-		difMenu.setId("difMenu");
-
-		////TOP////
-		FlowPane difFP = new FlowPane();
-		Text difTitle = new Text("CHOOSE DIFFICULTY");
-		difTitle.getStyleClass().add("title");
-		difTitle.setTextAlignment(TextAlignment.CENTER);
-		difFP.getChildren().add(difTitle);
-		difFP.setAlignment(Pos.CENTER);
-		difFP.setPadding(new Insets(40,0,0,0));
-		difFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-		difMenu.setTop(difFP);
-
-		////CENTER////
-		VBox difVB = new VBox();
-		difVB.setAlignment(Pos.CENTER);
-		difVB.setSpacing(15);
-
-		CustomMenuButton zen = new CustomMenuButton("ZEN");
-		CustomMenuButton beginner = new CustomMenuButton("BEGINNER");			
-		CustomMenuButton advanced = new CustomMenuButton("ADVANCED");			
-		CustomMenuButton expert = new CustomMenuButton("EXPERT");
-
-		difVB.getChildren().add(zen);
-		difVB.getChildren().add(beginner);
-		difVB.getChildren().add(advanced);
-		difVB.getChildren().add(expert);
-
-		difMenu.setCenter(difVB);
-
-		////BOTTOM//// 
-		HBox difHB = new HBox();
-		difHB.setAlignment(Pos.BOTTOM_RIGHT);
-		difHB.setPadding(new Insets(0,10,10,10));
-		CustomMenuButton backButtonD = new CustomMenuButton("←");
-		difHB.getChildren().add(backButtonD);
-		difMenu.setBottom(difHB);
-
-		///////////////////////
-
-		
-		
-	
-		
-		/****** LEVEL PANE ******/
-/*
-		BorderPane skinPane = new BorderPane();
-
-		skinPane.setPrefSize(Control.WIDTH,Control.HEIGHT);
-		
-		FlowPane skinFP = new FlowPane();
-		Text skinTitle = new Text("SWIPE TO CHOOSE PLAYER SKIN");
-		skinTitle.getStyleClass().add("title");
-		skinTitle.setTextAlignment(TextAlignment.CENTER);
-		skinFP.getChildren().add(skinTitle);
-		skinFP.setAlignment(Pos.CENTER);
-		skinFP.setPadding(new Insets(20,0,0,0));
-		skinFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-		skinPane.setTop(skinFP);
-		 
-		//// CENTER ////
-		StackPane stackSkin = new StackPane();
-		stackSkin.setAlignment(Pos.CENTER);
-		
-
-		ImageView current = new ImageView(warrior);
-		current.setId("0");
-		current.setPreserveRatio(true);
-		current.setFitHeight(Control.WIDTH/5);
-		Button currentB = new Button("",current);
-		currentB.setDisable(true);
-		currentB.setOpacity(1);
-		
-		ImageView left = new ImageView(archer);
-		left.setId("1");
-		left.setPreserveRatio(true);
-		left.setFitHeight(Control.WIDTH/6);
-		Button leftB = new Button("",left);
-		leftB.setDisable(true);
-		
-		
-		ImageView right = new ImageView(soldier);
-		right.setId("3");
-		right.setPreserveRatio(true);
-		right.setFitHeight(Control.WIDTH/6);
-		Button rightB = new Button("",right);
-		rightB.setDisable(true);
-	
-		
-		ImageView back = new ImageView(wizard);
-		back.setId("2");
-		back.setPreserveRatio(true);
-		back.setFitHeight(Control.WIDTH/6);
-		Button backB = new Button("",back);
-		backB.setDisable(true);
-		
-		
-		
-		VBox skinVBFront= new VBox();
-		skinVBFront.setAlignment(Pos.CENTER);
-		skinVBFront.getChildren().add(currentB);
-		
-		
-		VBox skinVBBack = new VBox();
-		skinVBBack.setSpacing(70);
-		skinVBBack.setAlignment(Pos.CENTER);
-		
-		HBox firstLine = new HBox();
-		firstLine.setAlignment(Pos.CENTER);
-		firstLine.getChildren().add(backB);
-		
-		HBox secondLine = new HBox();
-		secondLine.setAlignment(Pos.CENTER);
-		secondLine.setSpacing(200);
-		secondLine.getChildren().add(leftB);
-		secondLine.getChildren().add(rightB);
-		
-		skinVBBack.getChildren().add(firstLine);
-		skinVBBack.getChildren().add(secondLine);
-		
-		
-		skinPane.setOnMousePressed(e->{
-			ctrl.swipeCheck(e, false);
-		});
-		
-		skinPane.setOnMouseReleased(e->{
-			Image temp;
-			String tempId;
-			if(ctrl.swipeCheck(e, true)==1) {//left
-				temp = current.getImage();
-				tempId = current.getId();
-				
-				current.setImage(right.getImage()); 
-				current.setId(right.getId());
-				
-				right.setImage(back.getImage());
-				right.setId(back.getId());
-				
-				back.setImage(left.getImage());
-				back.setId(left.getId());
-				
-				left.setImage(temp);
-				left.setId(tempId);
-				
-			}else if(ctrl.swipeCheck(e, true)==2) {//right
-				temp = current.getImage();
-				tempId = current.getId();
-				
-				current.setImage(left.getImage()); 
-				current.setId(left.getId());
-				
-				left.setImage(back.getImage());
-				left.setId(back.getId());
-				
-				back.setImage(right.getImage());
-				back.setId(right.getId());
-				
-				right.setImage(temp);
-				right.setId(tempId);
-			}
-			switch(current.getId()) {
-				case "0" :
-					skinId = 0;
-					break;
-				case "1" :
-					skinId = 1;
-					break;
-				case "2" :
-					skinId = 2;
-					break;
-				case "3" :
-					skinId = 3;
-					break;
-			}
-			
-			primaryStage.show();
-		});
-		
-		stackSkin.getChildren().add(skinVBBack);
-		stackSkin.getChildren().add(skinVBFront);
-
-		skinPane.setCenter(stackSkin);
-		
-		///Bottom///
-		HBox validateSkinHB = new HBox();
-		validateSkinHB.setPadding(new Insets(0,0,20,0));
-		CustomMenuButton validateSkin = new CustomMenuButton("CHOOSE THIS SKIN");
-		validateSkinHB.getChildren().add(validateSkin);
-		validateSkinHB.setAlignment(Pos.CENTER);
-		skinPane.setBottom(validateSkinHB);
-		*/
-
-
-		
+		setUpLevelSelectorPanel();
 		setUpSettingPanel();
+		setUpPausePanel();
+		setUpVictoryPanel();
+		setUpLosingPanel();
 
 
 
@@ -345,117 +144,8 @@ public class GameView extends Application{
 		//////////////////////////
 
 
-		setUpPausePanel();
 		
 		
-
-		////////WIN MENU/////////
-
-		winMenu = new BorderPane();
-		winMenu.setId("winMenu");
-
-		////TOP////
-		FlowPane winFP = new FlowPane();
-		Text winTitle = new Text("YOU WIN !!!!!!");
-		winTitle.getStyleClass().add("title");
-		winTitle.setTextAlignment(TextAlignment.CENTER);
-		winFP.getChildren().add(winTitle);
-		winFP.setAlignment(Pos.CENTER);
-		winFP.setPadding(new Insets(20,0,0,0));
-		winFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-		winMenu.setTop(winFP);
-
-		////CENTER////
-
-
-		HBox winHB = new HBox();
-		winHB.setAlignment(Pos.CENTER);
-		winHB.setSpacing(70);
-		Text winScore = new Text("YOUR SCORE : ");
-		winScore.getStyleClass().add("title");
-		winScore.setTextAlignment(TextAlignment.CENTER);
-		winHB.getChildren().add(winScore);
-
-		winMenu.setCenter(winHB);
-		////BOTTOM////
-
-		HBox botWinHB = new HBox();
-		botWinHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botWinHB.setSpacing(30);
-		botWinHB.setPadding(new Insets(0,20,20,20));
-
-		CustomMenuButton playAgain = new CustomMenuButton("PLAY AGAIN");
-		CustomMenuButton exitGame = new CustomMenuButton("EXIT GAME");
-		botWinHB.getChildren().add(playAgain);
-		botWinHB.getChildren().add(exitGame);
-
-		winMenu.setBottom(botWinHB);
-
-		/////////////////////////
-
-		////////LOOSE MENU/////////
-
-		looseMenu = new BorderPane();
-		looseMenu.setId("looseMenu");
-
-		////TOP////
-		FlowPane looseFP = new FlowPane();
-		Text looseTitle = new Text("OH NO...");
-		looseTitle.getStyleClass().add("title");
-		looseTitle.setTextAlignment(TextAlignment.CENTER);
-		looseFP.getChildren().add(looseTitle);
-		looseFP.setAlignment(Pos.CENTER);
-		looseFP.setPadding(new Insets(20,0,0,0));
-		looseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-		looseMenu.setTop(looseFP);
-
-		////CENTER////
-
-
-		HBox looseHB = new HBox();
-		looseHB.setAlignment(Pos.CENTER);
-		looseHB.setSpacing(70);
-		Text looseScore = new Text("YOU LOOSE...\n MAYBE THE NEXT TIME");
-		looseScore.getStyleClass().add("title");
-		looseScore.setTextAlignment(TextAlignment.CENTER);
-		looseHB.getChildren().add(looseScore);
-
-		looseMenu.setCenter(looseHB);
-		////BOTTOM////
-
-		HBox botlooseHB = new HBox();
-		botlooseHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botlooseHB.setPadding(new Insets(0,20,20,20));
-		botlooseHB.setSpacing(30);
-
-		CustomMenuButton tryAgain = new CustomMenuButton("TRY AGAIN");
-		CustomMenuButton exitGame2 = new CustomMenuButton("EXIT GAME");
-		botlooseHB.getChildren().add(tryAgain);
-		botlooseHB.getChildren().add(exitGame2);
-
-		looseMenu.setBottom(botlooseHB);
-		/////////////////////////
-
-		mainPane.getChildren().add(difMenu);
-		mainPane.getChildren().add(settingMenu);
-		mainPane.getChildren().add(rulesMenu);
-		mainPane.getChildren().add(gamePane);
-		mainPane.getChildren().add(mainMenu);
-		mainPane.getChildren().add(pauseMenu);
-		mainPane.getChildren().add(winMenu);
-		mainPane.getChildren().add(looseMenu);
-
-		difMenu.setVisible(false);
-		settingMenu.setVisible(false);
-		gamePane.setVisible(false);
-		rulesMenu.setVisible(false);
-		pauseMenu.setVisible(false);
-		winMenu.setVisible(false);
-		looseMenu.setVisible(false);
 
 		/////// ACTIONS ///////
 
@@ -505,65 +195,25 @@ public class GameView extends Application{
 		
 
 
+
+		mainPane.getChildren().add(settingMenu);
+		mainPane.getChildren().add(rulesMenu);
+		mainPane.getChildren().add(gamePane);
+		mainPane.getChildren().add(mainMenu);
+		mainPane.getChildren().add(pauseMenu);
+		mainPane.getChildren().add(winMenu);
+		mainPane.getChildren().add(looseMenu);
+
+		settingMenu.setVisible(false);
+		gamePane.setVisible(false);
+		rulesMenu.setVisible(false);
+		pauseMenu.setVisible(false);
+		winMenu.setVisible(false);
+		looseMenu.setVisible(false);
+
 		
 
-		///WIN///
-	//	control.checkActions(playAgain, winMenu, difMenu);
-		playAgain.setOnMouseClicked(e->{
-			getTimeline().stop();
-			try {
-				this.start(primaryStage);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		playAgain.setOnKeyPressed(e->{
-			getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				try {
-					this.start(primaryStage);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		exitGame.setOnMouseClicked(e -> control.exitApp());
-		exitGame.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-				control.exitApp();
-			}
-		});
-
-		///LOOSE///
-	//	control.checkActions(tryAgain, looseMenu, difMenu);
-		tryAgain.setOnMouseClicked(e->{
-			getTimeline().stop();
-			try {
-				this.start(primaryStage);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		tryAgain.setOnKeyPressed(e->{
-			getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				try {
-					this.start(primaryStage);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		exitGame2.setOnMouseClicked(e -> control.exitApp());
-		exitGame2.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-				control.exitApp();
-			}
-		});
+		
 		
 		
 		scene = new Scene(getMainPane(), Control.WIDTH, Control.HEIGHT);
@@ -743,8 +393,7 @@ public class GameView extends Application{
 			});
 	}
 
-	private void setUpRulesPanel() {
-		
+	private void setUpRulesPanel() {	
 		/////// RULES ///////
 
 		rulesMenu = new BorderPane();
@@ -821,12 +470,10 @@ public class GameView extends Application{
 
 		botRuleHB.getChildren().add(backButtonR);
 		rulesMenu.setBottom(botRuleHB);
-		/////////////////////////
 	}
 	
 	
 	private void setUpSettingPanel() {
-
 		////// SETTINGS ///////
 
 		settingMenu = new BorderPane();
@@ -905,10 +552,309 @@ public class GameView extends Application{
 
 		CustomMenuButton backButtonS = new CustomMenuButton("←");
 		botSetHB.getChildren().add(backButtonS);
-		settingMenu.setBottom(botSetHB);
+		settingMenu.setBottom(botSetHB);	
+	}
+	
+	
+	private void setUpVictoryPanel() {
+		////////WIN MENU/////////
+
+		winMenu = new BorderPane();
+		winMenu.setId("winMenu");
+
+		////TOP////
+		FlowPane winFP = new FlowPane();
+		Text winTitle = new Text("YOU WIN !!!!!!");
+		winTitle.getStyleClass().add("title");
+		winTitle.setTextAlignment(TextAlignment.CENTER);
+		winFP.getChildren().add(winTitle);
+		winFP.setAlignment(Pos.CENTER);
+		winFP.setPadding(new Insets(20,0,0,0));
+		winFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
 
 
-		/////////////////////////
+		winMenu.setTop(winFP);
+
+		////CENTER////
+
+
+		HBox winHB = new HBox();
+		winHB.setAlignment(Pos.CENTER);
+		winHB.setSpacing(70);
+		Text winScore = new Text("YOUR SCORE : ");
+		winScore.getStyleClass().add("title");
+		winScore.setTextAlignment(TextAlignment.CENTER);
+		winHB.getChildren().add(winScore);
+
+		winMenu.setCenter(winHB);
+		////BOTTOM////
+
+		HBox botWinHB = new HBox();
+		botWinHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botWinHB.setSpacing(30);
+		botWinHB.setPadding(new Insets(0,20,20,20));
+
+		CustomMenuButton playAgain = new CustomMenuButton("PLAY AGAIN");
+		CustomMenuButton exitGame = new CustomMenuButton("EXIT GAME");
+		botWinHB.getChildren().add(playAgain);
+		botWinHB.getChildren().add(exitGame);
+
+		winMenu.setBottom(botWinHB);
+		
+		///WIN///
+		//	control.checkActions(playAgain, winMenu, difMenu);
+			playAgain.setOnMouseClicked(e->{
+				getTimeline().stop();
+				try {
+					this.start(primaryStage);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+			playAgain.setOnKeyPressed(e->{
+				getTimeline().stop();
+				if(e.getCode()==KeyCode.ENTER) {
+					try {
+						this.start(primaryStage);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			exitGame.setOnMouseClicked(e -> control.exitApp());
+			exitGame.setOnKeyPressed(e -> {
+				if(e.getCode()==KeyCode.ENTER) {
+					control.exitApp();
+				}
+			});
+	}
+	
+	private void setUpLosingPanel() {
+		////////LOOSE MENU/////////
+
+		looseMenu = new BorderPane();
+		looseMenu.setId("looseMenu");
+
+		////TOP////
+		FlowPane looseFP = new FlowPane();
+		Text looseTitle = new Text("OH NO...");
+		looseTitle.getStyleClass().add("title");
+		looseTitle.setTextAlignment(TextAlignment.CENTER);
+		looseFP.getChildren().add(looseTitle);
+		looseFP.setAlignment(Pos.CENTER);
+		looseFP.setPadding(new Insets(20,0,0,0));
+		looseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+
+		looseMenu.setTop(looseFP);
+
+		////CENTER////
+
+
+		HBox looseHB = new HBox();
+		looseHB.setAlignment(Pos.CENTER);
+		looseHB.setSpacing(70);
+		Text looseScore = new Text("YOU LOOSE...\n MAYBE THE NEXT TIME");
+		looseScore.getStyleClass().add("title");
+		looseScore.setTextAlignment(TextAlignment.CENTER);
+		looseHB.getChildren().add(looseScore);
+
+		looseMenu.setCenter(looseHB);
+		////BOTTOM////
+
+		HBox botlooseHB = new HBox();
+		botlooseHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botlooseHB.setPadding(new Insets(0,20,20,20));
+		botlooseHB.setSpacing(30);
+
+		CustomMenuButton tryAgain = new CustomMenuButton("TRY AGAIN");
+		CustomMenuButton exitGame2 = new CustomMenuButton("EXIT GAME");
+		botlooseHB.getChildren().add(tryAgain);
+		botlooseHB.getChildren().add(exitGame2);
+
+		looseMenu.setBottom(botlooseHB);
+		
+		///LOOSE///
+		//	control.checkActions(tryAgain, looseMenu, difMenu);
+			tryAgain.setOnMouseClicked(e->{
+				getTimeline().stop();
+				try {
+					this.start(primaryStage);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+			tryAgain.setOnKeyPressed(e->{
+				getTimeline().stop();
+				if(e.getCode()==KeyCode.ENTER) {
+					try {
+						this.start(primaryStage);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			exitGame2.setOnMouseClicked(e -> control.exitApp());
+			exitGame2.setOnKeyPressed(e -> {
+				if(e.getCode()==KeyCode.ENTER) {
+					control.exitApp();
+				}
+			});
+	}
+	
+	private void setUpLevelSelectorPanel() {
+		/////// LEVEL PANE ///////
+		/*
+				BorderPane skinPane = new BorderPane();
+
+				skinPane.setPrefSize(Control.WIDTH,Control.HEIGHT);
+				
+				FlowPane skinFP = new FlowPane();
+				Text skinTitle = new Text("SWIPE TO CHOOSE PLAYER SKIN");
+				skinTitle.getStyleClass().add("title");
+				skinTitle.setTextAlignment(TextAlignment.CENTER);
+				skinFP.getChildren().add(skinTitle);
+				skinFP.setAlignment(Pos.CENTER);
+				skinFP.setPadding(new Insets(20,0,0,0));
+				skinFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+				skinPane.setTop(skinFP);
+				 
+				//// CENTER ////
+				StackPane stackSkin = new StackPane();
+				stackSkin.setAlignment(Pos.CENTER);
+				
+
+				ImageView current = new ImageView(warrior);
+				current.setId("0");
+				current.setPreserveRatio(true);
+				current.setFitHeight(Control.WIDTH/5);
+				Button currentB = new Button("",current);
+				currentB.setDisable(true);
+				currentB.setOpacity(1);
+				
+				ImageView left = new ImageView(archer);
+				left.setId("1");
+				left.setPreserveRatio(true);
+				left.setFitHeight(Control.WIDTH/6);
+				Button leftB = new Button("",left);
+				leftB.setDisable(true);
+				
+				
+				ImageView right = new ImageView(soldier);
+				right.setId("3");
+				right.setPreserveRatio(true);
+				right.setFitHeight(Control.WIDTH/6);
+				Button rightB = new Button("",right);
+				rightB.setDisable(true);
+			
+				
+				ImageView back = new ImageView(wizard);
+				back.setId("2");
+				back.setPreserveRatio(true);
+				back.setFitHeight(Control.WIDTH/6);
+				Button backB = new Button("",back);
+				backB.setDisable(true);
+				
+				
+				
+				VBox skinVBFront= new VBox();
+				skinVBFront.setAlignment(Pos.CENTER);
+				skinVBFront.getChildren().add(currentB);
+				
+				
+				VBox skinVBBack = new VBox();
+				skinVBBack.setSpacing(70);
+				skinVBBack.setAlignment(Pos.CENTER);
+				
+				HBox firstLine = new HBox();
+				firstLine.setAlignment(Pos.CENTER);
+				firstLine.getChildren().add(backB);
+				
+				HBox secondLine = new HBox();
+				secondLine.setAlignment(Pos.CENTER);
+				secondLine.setSpacing(200);
+				secondLine.getChildren().add(leftB);
+				secondLine.getChildren().add(rightB);
+				
+				skinVBBack.getChildren().add(firstLine);
+				skinVBBack.getChildren().add(secondLine);
+				
+				
+				skinPane.setOnMousePressed(e->{
+					ctrl.swipeCheck(e, false);
+				});
+				
+				skinPane.setOnMouseReleased(e->{
+					Image temp;
+					String tempId;
+					if(ctrl.swipeCheck(e, true)==1) {//left
+						temp = current.getImage();
+						tempId = current.getId();
+						
+						current.setImage(right.getImage()); 
+						current.setId(right.getId());
+						
+						right.setImage(back.getImage());
+						right.setId(back.getId());
+						
+						back.setImage(left.getImage());
+						back.setId(left.getId());
+						
+						left.setImage(temp);
+						left.setId(tempId);
+						
+					}else if(ctrl.swipeCheck(e, true)==2) {//right
+						temp = current.getImage();
+						tempId = current.getId();
+						
+						current.setImage(left.getImage()); 
+						current.setId(left.getId());
+						
+						left.setImage(back.getImage());
+						left.setId(back.getId());
+						
+						back.setImage(right.getImage());
+						back.setId(right.getId());
+						
+						right.setImage(temp);
+						right.setId(tempId);
+					}
+					switch(current.getId()) {
+						case "0" :
+							skinId = 0;
+							break;
+						case "1" :
+							skinId = 1;
+							break;
+						case "2" :
+							skinId = 2;
+							break;
+						case "3" :
+							skinId = 3;
+							break;
+					}
+					
+					primaryStage.show();
+				});
+				
+				stackSkin.getChildren().add(skinVBBack);
+				stackSkin.getChildren().add(skinVBFront);
+
+				skinPane.setCenter(stackSkin);
+				
+				///Bottom///
+				HBox validateSkinHB = new HBox();
+				validateSkinHB.setPadding(new Insets(0,0,20,0));
+				CustomMenuButton validateSkin = new CustomMenuButton("CHOOSE THIS SKIN");
+				validateSkinHB.getChildren().add(validateSkin);
+				validateSkinHB.setAlignment(Pos.CENTER);
+				skinPane.setBottom(validateSkinHB);
+				*/
 	}
 	
 

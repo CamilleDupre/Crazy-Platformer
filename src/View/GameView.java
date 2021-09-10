@@ -40,8 +40,12 @@ public class GameView extends Application{
 	private Scene scene;
 	private Control control;
 
+	private BorderPane mainMenu;
 	private StackPane mainPane;
+	private BorderPane settingMenu;
+	private BorderPane rulesMenu;
 	private BorderPane gamePane;
+	private BorderPane pauseMenu;
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
 	private GridPane grid;
@@ -60,123 +64,10 @@ public class GameView extends Application{
 
 
 
-		/////// MAIN MENU ///////
-
-		BorderPane mainMenu = new BorderPane();
-		mainMenu.setId("mainMenu");
-		mainMenu.setPrefSize(Control.WIDTH,Control.HEIGHT );
-
-		////TOP////
-		FlowPane mainFP = new FlowPane();
-		Text mainTitle = new Text("CRAZY PLATEFORMER");
-		mainTitle.getStyleClass().add("title");
-		mainTitle.setTextAlignment(TextAlignment.CENTER);
-		mainFP.getChildren().add(mainTitle);
-		mainFP.setAlignment(Pos.CENTER);
-		mainFP.setPadding(new Insets(40,0,0,0));
-		mainFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-		mainMenu.setTop(mainFP);
-
-		////CENTER////
-		VBox mainVB = new VBox();
-		mainVB.setAlignment(Pos.CENTER);
-
-		mainVB.setSpacing(15);
-		CustomMenuButton pg = new CustomMenuButton("PLAY GAME");
-		CustomMenuButton rules = new CustomMenuButton("ABOUT THE GAME");			
-		CustomMenuButton settings = new CustomMenuButton("SETTINGS");			
-		CustomMenuButton exit = new CustomMenuButton("EXIT GAME");
+		setUpMainMenuPanel();
 
 
-		mainVB.getChildren().add(pg);
-		mainVB.getChildren().add(settings);
-		mainVB.getChildren().add(rules);
-		mainVB.getChildren().add(exit);
-
-		mainMenu.setCenter(mainVB);
-		mainMenu.toFront();
-
-		///////////////////////
-
-
-		/////// RULES ///////
-
-		BorderPane rulesMenu = new BorderPane();
-		rulesMenu.setPrefSize(Control.WIDTH, Control.HEIGHT);
-
-
-		////TOP////
-		FlowPane rulesFP = new FlowPane();
-		Text rulesTitle = new Text("ABOUT THE GAME");
-		rulesTitle.getStyleClass().add("title");
-		rulesTitle.setTextAlignment(TextAlignment.CENTER);
-		rulesFP.getChildren().add(rulesTitle);
-		rulesFP.setAlignment(Pos.CENTER);
-		rulesFP.setPadding(new Insets(20,0,0,0));
-		rulesFP.setPrefSize(Control.WIDTH, Control.HEIGHT/8);
-
-		rulesMenu.setTop(rulesFP);
-
-		////CENTER////
-
-		VBox rulesVB = new VBox();
-		rulesVB.setSpacing(20);
-		rulesVB.setPadding(new Insets(0,5,0,0));
-
-		Text rulesTxt = new Text(" Minesweeper has a very basic gameplay style.\n"
-				+ " In its original form, mines are scattered throughout a board.\n"
-				+ " This board is divided into cells, which have three states: uncovered, covered and flagged.\n"
-				+ " A covered cell is blank and clickable, while an uncovered cell is exposed,\n"
-				+ " either containing a number (the mines adjacent to it),\n"
-				+ " or a mine. When a cell is uncovered by a player click, and if it bears a mine, the game ends.\n"
-				+ " A flagged cell is similar to a covered one, in the way that mines are not triggered when a cell is flagged,\n"
-				+ " and it is impossible to lose through the action of flagging a cell.\n"
-				+ " However, flagging a cell implies that a player thinks there is a mine underneath,\n"
-				+ " which causes the game to deduct an available mine from the display. In order to win the game,\n"
-				+ " players must logically deduce where mines exist through the use of the numbers given by uncovered cells.\n"
-				+ " To win, all non-mine cells must be uncovered. At this stage, the timer is stopped. Commonly all mine cells\n"
-				+ " are also flagged, but this is not required. When a player left-clicks on a cell, the game will uncover it.\n"
-				+ " If there are no mines adjacent to that particular cell, the cell will display a blank tile,\n"
-				+ " and all adjacent cells will automatically be uncovered. Right-clicking on a cell will flag it,\n"
-				+ " causing a flag to appear on it.\n"
-				+ " Note that flagged cells are still covered, and a player can click on it to uncover it, like a normal covered cell\n"
-				+ " A click will clear the map and place numbers on the grid. The numbers reflect the number of mines touching a square.");
-
-
-		HBox leftClick = new HBox();
-		leftClick.setSpacing(20);
-		leftClick.setAlignment(Pos.CENTER);
-	//	File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
-	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
-		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
-	//	leftClick.getChildren().add(imgLeft);
-		leftClick.getChildren().add(leftTxt);
-
-		HBox rightClick = new HBox();
-		rightClick.setSpacing(20);
-		rightClick.setAlignment(Pos.CENTER);
-	//	File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
-	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
-		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
-	//	rightClick.getChildren().add(imgRight);
-		rightClick.getChildren().add(rightTxt);
-
-		rulesVB.getChildren().add(rulesTxt);
-		rulesVB.getChildren().add(leftClick);
-		rulesVB.getChildren().add(rightClick);
-
-		rulesMenu.setCenter(rulesVB);
-
-		////BOTTOM////
-		HBox botRuleHB = new HBox();
-		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botRuleHB.setPadding(new Insets(0,10,10,10));
-		CustomMenuButton backButtonR = new CustomMenuButton("←");
-
-		botRuleHB.getChildren().add(backButtonR);
-		rulesMenu.setBottom(botRuleHB);
-		/////////////////////////
+		setUpRulesPanel();
 
 
 		////// DIFFICULTY ///////
@@ -379,88 +270,8 @@ public class GameView extends Application{
 		*/
 
 
-		////// SETTINGS ///////
-
-		BorderPane settingMenu = new BorderPane();
-		settingMenu.setId("settingMenu");
-
-		////TOP////
-		FlowPane settingFP = new FlowPane();
-		Text settingTitle = new Text("SETTINGS");
-		settingTitle.getStyleClass().add("title");
-		settingTitle.setTextAlignment(TextAlignment.CENTER);
-		settingFP.getChildren().add(settingTitle);
-		settingFP.setAlignment(Pos.CENTER);
-		settingFP.setPadding(new Insets(40,0,0,0));
-		settingFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-		settingMenu.setTop(settingFP);
-
-		////CENTER////
-		HBox settHB = new HBox();
-		settHB.setAlignment(Pos.CENTER);
-		settHB.setSpacing(70);
-/*
-		File soundFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-		ImageView imgSound = new ImageView( new Image(soundFile.toURI().toURL().toString(),50,50,false,false));
-		Button sound = new Button("",imgSound);
-		sound.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		sound.getStyleClass().add("setting-button");
-
-		File musicFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-		ImageView imgMusic = new ImageView( new Image(musicFile.toURI().toURL().toString(),50,50,false,false));
-		Button music = new Button("",imgMusic);
-		music.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		music.getStyleClass().add("setting-button");
-*/
-
-		VBox settVB = new VBox();
-		settVB.setAlignment(Pos.CENTER_LEFT);
-		settVB.setSpacing(30);
-
-		CustomMenuButton white = new CustomMenuButton("WHITE THEME");
-	//	white.setOnMouseClicked(e -> control.getModel().changeCSS(0));
-		white.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(0);
-			}
-		});
-		CustomMenuButton dark = new CustomMenuButton("DARK THEME");
-	//	dark.setOnMouseClicked(e -> control.getModel().changeCSS(1));
-		dark.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(1);
-			}
-		});
-		CustomMenuButton neon = new CustomMenuButton("NEON THEME");
-	//	neon.setOnMouseClicked(e -> control.getModel().changeCSS(2));
-		neon.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(2);
-			}
-		});
-		settVB.getChildren().add(white);
-		settVB.getChildren().add(dark);
-		settVB.getChildren().add(neon);
-
-	//	settHB.getChildren().add(sound);
-	//	settHB.getChildren().add(music);
-		settHB.getChildren().add(settVB);
-
-		settingMenu.setCenter(settHB);
-
-		////BOTTOM////
-		HBox botSetHB = new HBox();
-		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botSetHB.setPadding(new Insets(0,10,10,10));
-
-		CustomMenuButton backButtonS = new CustomMenuButton("←");
-		botSetHB.getChildren().add(backButtonS);
-		settingMenu.setBottom(botSetHB);
-
-
-		/////////////////////////
+		
+		setUpSettingPanel();
 
 
 
@@ -534,92 +345,9 @@ public class GameView extends Application{
 		//////////////////////////
 
 
-		/////// PAUSE MENU ////////
-
-		BorderPane pauseMenu = new BorderPane();
-		pauseMenu.setId("pauseMenu");
-
-		////TOP////
-		FlowPane pauseFP = new FlowPane();
-		Text pauseTitle = new Text("PAUSE");
-		pauseTitle.getStyleClass().add("title");
-		pauseTitle.setTextAlignment(TextAlignment.CENTER);
-		pauseFP.getChildren().add(pauseTitle);
-		pauseFP.setAlignment(Pos.CENTER);
-		pauseFP.setPadding(new Insets(20,0,0,0));
-		pauseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-		pauseMenu.setTop(pauseFP);
-
-		////CENTER////
-
-		VBox mainPauseVB = new VBox();
-		mainPauseVB.setAlignment(Pos.CENTER);
-		mainPauseVB.setSpacing(40);
-
-		CustomMenuButton resume = new CustomMenuButton("RESUME");			
-		CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
-
-		HBox pauseHB = new HBox();
-		pauseHB.setAlignment(Pos.CENTER);
-		pauseHB.setSpacing(70);
-
-	//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-	//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
-		//Button soundP = new Button("",imgSoundP);
-	//	soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-	//	soundP.setCursor(Cursor.HAND);
-
-	//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-	//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
-	//	Button musicP = new Button("",imgMusicP);
-	//	musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-	//	musicP.setCursor(Cursor.HAND);
-
-
-		VBox pauseVB = new VBox();
-		pauseVB.setAlignment(Pos.CENTER_LEFT);
-		pauseVB.setSpacing(30);
-
-		CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
-	//	whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
-		whiteP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-	//			control.getModel().changeCSS(0);
-			}
-		});
-		CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
-	//	darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
-		darkP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(1);
-			}
-		});
-		CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
-	//	neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
-		neonP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-	//			control.getModel().changeCSS(2);
-			}
-		});
-		pauseVB.getChildren().add(whiteP);
-		pauseVB.getChildren().add(darkP);
-		pauseVB.getChildren().add(neonP);
-
-	//	pauseHB.getChildren().add(soundP);
-	//	pauseHB.getChildren().add(musicP);
-		pauseHB.getChildren().add(pauseVB);
-
-		mainPauseVB.getChildren().add(resume);
-		mainPauseVB.getChildren().add(pauseHB);
-		mainPauseVB.getChildren().add(exitP);
-
-
-		pauseMenu.setCenter(mainPauseVB);
-
-
-		/////////////////////////
+		setUpPausePanel();
+		
+		
 
 		////////WIN MENU/////////
 
@@ -731,15 +459,7 @@ public class GameView extends Application{
 
 		/////// ACTIONS ///////
 
-		///MAIN///
-
-
-		exit.setOnMouseClicked(e -> control.exitApp());
-		exit.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-				control.exitApp();
-			}
-		});
+		
 
 	//	control.checkActions(pg,mainMenu, difMenu);
 	//	control.checkActions(settings,mainMenu, settingMenu);
@@ -785,30 +505,7 @@ public class GameView extends Application{
 		
 
 
-		///PAUSE///
-		resume.setOnAction(e -> timeline.play());
-	//	control.checkActions(resume, pauseMenu, gamePane);
-	//	control.checkActions(exitP, pauseMenu, mainMenu);
-		exitP.setOnAction(e -> {
-			getTimeline().stop();
-			try {
-				this.start(primaryStage);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		exitP.setOnKeyPressed(e->{
-			getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				try {
-					this.start(primaryStage);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 
 		///WIN///
 	//	control.checkActions(playAgain, winMenu, difMenu);
@@ -876,7 +573,344 @@ public class GameView extends Application{
 		primaryStage.show();
 
 	}
+	
+	
+	
+	private void setUpMainMenuPanel() {
+	/////// MAIN MENU ///////
 
+		mainMenu = new BorderPane();
+		mainMenu.setId("mainMenu");
+		mainMenu.setPrefSize(Control.WIDTH,Control.HEIGHT );
+
+		////TOP////
+		FlowPane mainFP = new FlowPane();
+		Text mainTitle = new Text("CRAZY PLATEFORMER");
+		mainTitle.getStyleClass().add("title");
+		mainTitle.setTextAlignment(TextAlignment.CENTER);
+		mainFP.getChildren().add(mainTitle);
+		mainFP.setAlignment(Pos.CENTER);
+		mainFP.setPadding(new Insets(40,0,0,0));
+		mainFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+		mainMenu.setTop(mainFP);
+
+		////CENTER////
+		VBox mainVB = new VBox();
+		mainVB.setAlignment(Pos.CENTER);
+
+		mainVB.setSpacing(15);
+		CustomMenuButton pg = new CustomMenuButton("PLAY GAME");
+		CustomMenuButton rules = new CustomMenuButton("ABOUT THE GAME");			
+		CustomMenuButton settings = new CustomMenuButton("SETTINGS");			
+		CustomMenuButton exit = new CustomMenuButton("EXIT GAME");
+
+
+		mainVB.getChildren().add(pg);
+		mainVB.getChildren().add(settings);
+		mainVB.getChildren().add(rules);
+		mainVB.getChildren().add(exit);
+
+		mainMenu.setCenter(mainVB);
+		mainMenu.toFront();
+
+		///////////////////////
+		
+		///MAIN ACTION///
+
+
+				exit.setOnMouseClicked(e -> control.exitApp());
+				exit.setOnKeyPressed(e -> {
+					if(e.getCode()==KeyCode.ENTER) {
+						control.exitApp();
+					}
+				});
+	}
+	
+	
+	private void setUpPausePanel() {
+	/////// PAUSE MENU ////////
+
+			pauseMenu = new BorderPane();
+			pauseMenu.setId("pauseMenu");
+
+			////TOP////
+			FlowPane pauseFP = new FlowPane();
+			Text pauseTitle = new Text("PAUSE");
+			pauseTitle.getStyleClass().add("title");
+			pauseTitle.setTextAlignment(TextAlignment.CENTER);
+			pauseFP.getChildren().add(pauseTitle);
+			pauseFP.setAlignment(Pos.CENTER);
+			pauseFP.setPadding(new Insets(20,0,0,0));
+			pauseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+
+			pauseMenu.setTop(pauseFP);
+
+			////CENTER////
+
+			VBox mainPauseVB = new VBox();
+			mainPauseVB.setAlignment(Pos.CENTER);
+			mainPauseVB.setSpacing(40);
+
+			CustomMenuButton resume = new CustomMenuButton("RESUME");			
+			CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
+
+			HBox pauseHB = new HBox();
+			pauseHB.setAlignment(Pos.CENTER);
+			pauseHB.setSpacing(70);
+
+		//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
+		//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
+			//Button soundP = new Button("",imgSoundP);
+		//	soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+		//	soundP.setCursor(Cursor.HAND);
+
+		//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
+		//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
+		//	Button musicP = new Button("",imgMusicP);
+		//	musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+		//	musicP.setCursor(Cursor.HAND);
+
+
+			VBox pauseVB = new VBox();
+			pauseVB.setAlignment(Pos.CENTER_LEFT);
+			pauseVB.setSpacing(30);
+
+			CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
+		//	whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+			whiteP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+		//			control.getModel().changeCSS(0);
+				}
+			});
+			CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
+		//	darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+			darkP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+			//		control.getModel().changeCSS(1);
+				}
+			});
+			CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
+		//	neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+			neonP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+		//			control.getModel().changeCSS(2);
+				}
+			});
+			pauseVB.getChildren().add(whiteP);
+			pauseVB.getChildren().add(darkP);
+			pauseVB.getChildren().add(neonP);
+
+		//	pauseHB.getChildren().add(soundP);
+		//	pauseHB.getChildren().add(musicP);
+			pauseHB.getChildren().add(pauseVB);
+
+			mainPauseVB.getChildren().add(resume);
+			mainPauseVB.getChildren().add(pauseHB);
+			mainPauseVB.getChildren().add(exitP);
+
+
+			pauseMenu.setCenter(mainPauseVB);
+
+
+			/////////////////////////
+			
+			
+			///PAUSE///
+			resume.setOnAction(e -> timeline.play());
+		//	control.checkActions(resume, pauseMenu, gamePane);
+		//	control.checkActions(exitP, pauseMenu, mainMenu);
+			exitP.setOnAction(e -> {
+				getTimeline().stop();
+				try {
+					this.start(primaryStage);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+			exitP.setOnKeyPressed(e->{
+				getTimeline().stop();
+				if(e.getCode()==KeyCode.ENTER) {
+					try {
+						this.start(primaryStage);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+	}
+
+	private void setUpRulesPanel() {
+		
+		/////// RULES ///////
+
+		rulesMenu = new BorderPane();
+		rulesMenu.setPrefSize(Control.WIDTH, Control.HEIGHT);
+
+
+		////TOP////
+		FlowPane rulesFP = new FlowPane();
+		Text rulesTitle = new Text("ABOUT THE GAME");
+		rulesTitle.getStyleClass().add("title");
+		rulesTitle.setTextAlignment(TextAlignment.CENTER);
+		rulesFP.getChildren().add(rulesTitle);
+		rulesFP.setAlignment(Pos.CENTER);
+		rulesFP.setPadding(new Insets(20,0,0,0));
+		rulesFP.setPrefSize(Control.WIDTH, Control.HEIGHT/8);
+
+		rulesMenu.setTop(rulesFP);
+
+		////CENTER////
+
+		VBox rulesVB = new VBox();
+		rulesVB.setSpacing(20);
+		rulesVB.setPadding(new Insets(0,5,0,0));
+
+		Text rulesTxt = new Text(" Minesweeper has a very basic gameplay style.\n"
+				+ " In its original form, mines are scattered throughout a board.\n"
+				+ " This board is divided into cells, which have three states: uncovered, covered and flagged.\n"
+				+ " A covered cell is blank and clickable, while an uncovered cell is exposed,\n"
+				+ " either containing a number (the mines adjacent to it),\n"
+				+ " or a mine. When a cell is uncovered by a player click, and if it bears a mine, the game ends.\n"
+				+ " A flagged cell is similar to a covered one, in the way that mines are not triggered when a cell is flagged,\n"
+				+ " and it is impossible to lose through the action of flagging a cell.\n"
+				+ " However, flagging a cell implies that a player thinks there is a mine underneath,\n"
+				+ " which causes the game to deduct an available mine from the display. In order to win the game,\n"
+				+ " players must logically deduce where mines exist through the use of the numbers given by uncovered cells.\n"
+				+ " To win, all non-mine cells must be uncovered. At this stage, the timer is stopped. Commonly all mine cells\n"
+				+ " are also flagged, but this is not required. When a player left-clicks on a cell, the game will uncover it.\n"
+				+ " If there are no mines adjacent to that particular cell, the cell will display a blank tile,\n"
+				+ " and all adjacent cells will automatically be uncovered. Right-clicking on a cell will flag it,\n"
+				+ " causing a flag to appear on it.\n"
+				+ " Note that flagged cells are still covered, and a player can click on it to uncover it, like a normal covered cell\n"
+				+ " A click will clear the map and place numbers on the grid. The numbers reflect the number of mines touching a square.");
+
+
+		HBox leftClick = new HBox();
+		leftClick.setSpacing(20);
+		leftClick.setAlignment(Pos.CENTER);
+	//	File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
+	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
+		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
+	//	leftClick.getChildren().add(imgLeft);
+		leftClick.getChildren().add(leftTxt);
+
+		HBox rightClick = new HBox();
+		rightClick.setSpacing(20);
+		rightClick.setAlignment(Pos.CENTER);
+	//	File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
+	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
+		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
+	//	rightClick.getChildren().add(imgRight);
+		rightClick.getChildren().add(rightTxt);
+
+		rulesVB.getChildren().add(rulesTxt);
+		rulesVB.getChildren().add(leftClick);
+		rulesVB.getChildren().add(rightClick);
+
+		rulesMenu.setCenter(rulesVB);
+
+		////BOTTOM////
+		HBox botRuleHB = new HBox();
+		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botRuleHB.setPadding(new Insets(0,10,10,10));
+		CustomMenuButton backButtonR = new CustomMenuButton("←");
+
+		botRuleHB.getChildren().add(backButtonR);
+		rulesMenu.setBottom(botRuleHB);
+		/////////////////////////
+	}
+	
+	
+	private void setUpSettingPanel() {
+
+		////// SETTINGS ///////
+
+		settingMenu = new BorderPane();
+		settingMenu.setId("settingMenu");
+
+		////TOP////
+		FlowPane settingFP = new FlowPane();
+		Text settingTitle = new Text("SETTINGS");
+		settingTitle.getStyleClass().add("title");
+		settingTitle.setTextAlignment(TextAlignment.CENTER);
+		settingFP.getChildren().add(settingTitle);
+		settingFP.setAlignment(Pos.CENTER);
+		settingFP.setPadding(new Insets(40,0,0,0));
+		settingFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
+
+
+		settingMenu.setTop(settingFP);
+
+		////CENTER////
+		HBox settHB = new HBox();
+		settHB.setAlignment(Pos.CENTER);
+		settHB.setSpacing(70);
+/*
+		File soundFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
+		ImageView imgSound = new ImageView( new Image(soundFile.toURI().toURL().toString(),50,50,false,false));
+		Button sound = new Button("",imgSound);
+		sound.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+		sound.getStyleClass().add("setting-button");
+
+		File musicFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
+		ImageView imgMusic = new ImageView( new Image(musicFile.toURI().toURL().toString(),50,50,false,false));
+		Button music = new Button("",imgMusic);
+		music.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+		music.getStyleClass().add("setting-button");
+*/
+
+		VBox settVB = new VBox();
+		settVB.setAlignment(Pos.CENTER_LEFT);
+		settVB.setSpacing(30);
+
+		CustomMenuButton white = new CustomMenuButton("WHITE THEME");
+	//	white.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+		white.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+		//		control.getModel().changeCSS(0);
+			}
+		});
+		CustomMenuButton dark = new CustomMenuButton("DARK THEME");
+	//	dark.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+		dark.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+		//		control.getModel().changeCSS(1);
+			}
+		});
+		CustomMenuButton neon = new CustomMenuButton("NEON THEME");
+	//	neon.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+		neon.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+		//		control.getModel().changeCSS(2);
+			}
+		});
+		settVB.getChildren().add(white);
+		settVB.getChildren().add(dark);
+		settVB.getChildren().add(neon);
+
+	//	settHB.getChildren().add(sound);
+	//	settHB.getChildren().add(music);
+		settHB.getChildren().add(settVB);
+
+		settingMenu.setCenter(settHB);
+
+		////BOTTOM////
+		HBox botSetHB = new HBox();
+		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botSetHB.setPadding(new Insets(0,10,10,10));
+
+		CustomMenuButton backButtonS = new CustomMenuButton("←");
+		botSetHB.getChildren().add(backButtonS);
+		settingMenu.setBottom(botSetHB);
+
+
+		/////////////////////////
+	}
+	
 
 	public Label getTime() {
 		return time;

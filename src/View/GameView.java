@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import Controller.Control;
 import javafx.animation.Timeline;
-//import Controller.Control;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -64,14 +63,14 @@ public class GameView extends Application{
 
 
 
-		setUpMainMenuPanel();
+		
 		setUpRulesPanel();
 		setUpLevelSelectorPanel();
 		setUpSettingPanel();
 		setUpPausePanel();
 		setUpVictoryPanel();
 		setUpLosingPanel();
-
+		setUpMainMenuPanel();
 
 
 		/////// GAME PANE ///////
@@ -151,10 +150,9 @@ public class GameView extends Application{
 
 		
 
-	//	control.checkActions(pg,mainMenu, difMenu);
-	//	control.checkActions(settings,mainMenu, settingMenu);
-	//	control.checkActions(rules,mainMenu, rulesMenu);
-	//	control.checkActions(backButtonR,(BorderPane)backButtonR.getParent().getParent(), mainMenu);
+	
+
+	//	
 	//	control.checkActions(backButtonD,(BorderPane)backButtonD.getParent().getParent(), mainMenu);
 	//	control.checkActions(backButtonS,(BorderPane)backButtonS.getParent().getParent(), mainMenu);
 
@@ -268,129 +266,131 @@ public class GameView extends Application{
 		
 		///MAIN ACTION///
 
+		this.control.checkActions(settings,this.mainMenu, this.settingMenu);
+		this.control.checkActions(rules,this.mainMenu, this.rulesMenu);
 
-				exit.setOnMouseClicked(e -> control.exitApp());
-				exit.setOnKeyPressed(e -> {
-					if(e.getCode()==KeyCode.ENTER) {
-						control.exitApp();
-					}
-				});
+		exit.setOnMouseClicked(e -> control.exitApp());
+		exit.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.ENTER) {
+				control.exitApp();
+			}
+		});
 	}
 	
 	
 	private void setUpPausePanel() {
 	/////// PAUSE MENU ////////
 
-			pauseMenu = new BorderPane();
-			pauseMenu.setId("pauseMenu");
+		pauseMenu = new BorderPane();
+		pauseMenu.setId("pauseMenu");
 
-			////TOP////
-			FlowPane pauseFP = new FlowPane();
-			Text pauseTitle = new Text("PAUSE");
-			pauseTitle.getStyleClass().add("title");
-			pauseTitle.setTextAlignment(TextAlignment.CENTER);
-			pauseFP.getChildren().add(pauseTitle);
-			pauseFP.setAlignment(Pos.CENTER);
-			pauseFP.setPadding(new Insets(20,0,0,0));
-			pauseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
-
-
-			pauseMenu.setTop(pauseFP);
-
-			////CENTER////
-
-			VBox mainPauseVB = new VBox();
-			mainPauseVB.setAlignment(Pos.CENTER);
-			mainPauseVB.setSpacing(40);
-
-			CustomMenuButton resume = new CustomMenuButton("RESUME");			
-			CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
-
-			HBox pauseHB = new HBox();
-			pauseHB.setAlignment(Pos.CENTER);
-			pauseHB.setSpacing(70);
-
-		//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-		//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
-			//Button soundP = new Button("",imgSoundP);
-		//	soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		//	soundP.setCursor(Cursor.HAND);
-
-		//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-		//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
-		//	Button musicP = new Button("",imgMusicP);
-		//	musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
-		//	musicP.setCursor(Cursor.HAND);
+		////TOP////
+		FlowPane pauseFP = new FlowPane();
+		Text pauseTitle = new Text("PAUSE");
+		pauseTitle.getStyleClass().add("title");
+		pauseTitle.setTextAlignment(TextAlignment.CENTER);
+		pauseFP.getChildren().add(pauseTitle);
+		pauseFP.setAlignment(Pos.CENTER);
+		pauseFP.setPadding(new Insets(20,0,0,0));
+		pauseFP.setPrefSize(Control.WIDTH, Control.HEIGHT/6);
 
 
-			VBox pauseVB = new VBox();
-			pauseVB.setAlignment(Pos.CENTER_LEFT);
-			pauseVB.setSpacing(30);
+		pauseMenu.setTop(pauseFP);
 
-			CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
-		//	whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
-			whiteP.setOnKeyPressed(e->{
-				if(e.getCode()==KeyCode.ENTER) {
-		//			control.getModel().changeCSS(0);
-				}
-			});
-			CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
-		//	darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
-			darkP.setOnKeyPressed(e->{
-				if(e.getCode()==KeyCode.ENTER) {
-			//		control.getModel().changeCSS(1);
-				}
-			});
-			CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
-		//	neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
-			neonP.setOnKeyPressed(e->{
-				if(e.getCode()==KeyCode.ENTER) {
-		//			control.getModel().changeCSS(2);
-				}
-			});
-			pauseVB.getChildren().add(whiteP);
-			pauseVB.getChildren().add(darkP);
-			pauseVB.getChildren().add(neonP);
+		////CENTER////
 
-		//	pauseHB.getChildren().add(soundP);
-		//	pauseHB.getChildren().add(musicP);
-			pauseHB.getChildren().add(pauseVB);
+		VBox mainPauseVB = new VBox();
+		mainPauseVB.setAlignment(Pos.CENTER);
+		mainPauseVB.setSpacing(40);
 
-			mainPauseVB.getChildren().add(resume);
-			mainPauseVB.getChildren().add(pauseHB);
-			mainPauseVB.getChildren().add(exitP);
+		CustomMenuButton resume = new CustomMenuButton("RESUME");			
+		CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
+
+		HBox pauseHB = new HBox();
+		pauseHB.setAlignment(Pos.CENTER);
+		pauseHB.setSpacing(70);
+
+	//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
+	//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
+		//Button soundP = new Button("",imgSoundP);
+	//	soundP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+	//	soundP.setCursor(Cursor.HAND);
+
+	//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
+	//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
+	//	Button musicP = new Button("",imgMusicP);
+	//	musicP.setPrefSize(Control.WIDTH/5,Control.WIDTH/5);
+	//	musicP.setCursor(Cursor.HAND);
 
 
-			pauseMenu.setCenter(mainPauseVB);
+		VBox pauseVB = new VBox();
+		pauseVB.setAlignment(Pos.CENTER_LEFT);
+		pauseVB.setSpacing(30);
+
+		CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
+	//	whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+		whiteP.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+	//			control.getModel().changeCSS(0);
+			}
+		});
+		CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
+	//	darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+		darkP.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+		//		control.getModel().changeCSS(1);
+			}
+		});
+		CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
+	//	neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+		neonP.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER) {
+	//			control.getModel().changeCSS(2);
+			}
+		});
+		pauseVB.getChildren().add(whiteP);
+		pauseVB.getChildren().add(darkP);
+		pauseVB.getChildren().add(neonP);
+
+	//	pauseHB.getChildren().add(soundP);
+	//	pauseHB.getChildren().add(musicP);
+		pauseHB.getChildren().add(pauseVB);
+
+		mainPauseVB.getChildren().add(resume);
+		mainPauseVB.getChildren().add(pauseHB);
+		mainPauseVB.getChildren().add(exitP);
 
 
-			/////////////////////////
-			
-			
-			///PAUSE///
-			resume.setOnAction(e -> timeline.play());
-		//	control.checkActions(resume, pauseMenu, gamePane);
-		//	control.checkActions(exitP, pauseMenu, mainMenu);
-			exitP.setOnAction(e -> {
-				getTimeline().stop();
+		pauseMenu.setCenter(mainPauseVB);
+
+
+		/////////////////////////
+		
+		
+		///PAUSE///
+		resume.setOnAction(e -> timeline.play());
+	//	control.checkActions(resume, pauseMenu, gamePane);
+	//	control.checkActions(exitP, pauseMenu, mainMenu);
+		exitP.setOnAction(e -> {
+			getTimeline().stop();
+			try {
+				this.start(primaryStage);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		exitP.setOnKeyPressed(e->{
+			getTimeline().stop();
+			if(e.getCode()==KeyCode.ENTER) {
 				try {
 					this.start(primaryStage);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			});
-			exitP.setOnKeyPressed(e->{
-				getTimeline().stop();
-				if(e.getCode()==KeyCode.ENTER) {
-					try {
-						this.start(primaryStage);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
+			}
+		});
 	}
 
 	private void setUpRulesPanel() {	
@@ -470,6 +470,10 @@ public class GameView extends Application{
 
 		botRuleHB.getChildren().add(backButtonR);
 		rulesMenu.setBottom(botRuleHB);
+		
+		
+		//Action//
+		control.checkActions(backButtonR,(BorderPane)backButtonR.getParent().getParent(), mainMenu);
 	}
 	
 	

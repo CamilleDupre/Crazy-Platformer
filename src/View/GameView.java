@@ -56,7 +56,7 @@ public class GameView extends Application{
 	public void start(Stage stg) throws IOException {
 
 		primaryStage=stg;
-		control = new Control(this);
+		this.control = new Control(this);
 
 		mainPane = new StackPane();
 		mainPane.setPrefSize(Control.WIDTH, Control.HEIGHT);
@@ -148,18 +148,13 @@ public class GameView extends Application{
 
 		/////// ACTIONS ///////
 
-		
-
-	
-
-	//	
 	//	control.checkActions(backButtonD,(BorderPane)backButtonD.getParent().getParent(), mainMenu);
-	//	control.checkActions(backButtonS,(BorderPane)backButtonS.getParent().getParent(), mainMenu);
+		
 
 
 		///SETTINGS///
 		/*
-		 music.setOnMouseClicked(e -> control.startStopMusic());
+		music.setOnMouseClicked(e -> control.startStopMusic());
 		sound.setOnMouseClicked(e-> control.startStopSound());
 		 */
 
@@ -189,19 +184,20 @@ public class GameView extends Application{
 		});
 		
 		pauseButton.setOnAction(e-> timeline.pause());
-	//	control.checkActions(pauseButton, gamePane, pauseMenu);
+		control.checkActions(pauseButton, gamePane, pauseMenu);
 		
 
-
+		mainPane.getChildren().add(mainMenu);
 
 		mainPane.getChildren().add(settingMenu);
 		mainPane.getChildren().add(rulesMenu);
 		mainPane.getChildren().add(gamePane);
-		mainPane.getChildren().add(mainMenu);
+		
 		mainPane.getChildren().add(pauseMenu);
 		mainPane.getChildren().add(winMenu);
 		mainPane.getChildren().add(looseMenu);
 
+		mainMenu.setVisible(true);
 		settingMenu.setVisible(false);
 		gamePane.setVisible(false);
 		rulesMenu.setVisible(false);
@@ -209,6 +205,7 @@ public class GameView extends Application{
 		winMenu.setVisible(false);
 		looseMenu.setVisible(false);
 
+		
 		
 
 		
@@ -266,8 +263,8 @@ public class GameView extends Application{
 		
 		///MAIN ACTION///
 
-		this.control.checkActions(settings,this.mainMenu, this.settingMenu);
-		this.control.checkActions(rules,this.mainMenu, this.rulesMenu);
+		control.checkActions(settings, mainMenu, settingMenu);
+		control.checkActions(rules, mainMenu, rulesMenu);
 
 		exit.setOnMouseClicked(e -> control.exitApp());
 		exit.setOnKeyPressed(e -> {
@@ -328,24 +325,24 @@ public class GameView extends Application{
 		pauseVB.setSpacing(30);
 
 		CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
-	//	whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+		whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
 		whiteP.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-	//			control.getModel().changeCSS(0);
+				control.getModel().changeCSS(0);
 			}
 		});
 		CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
-	//	darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+		darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
 		darkP.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(1);
+				control.getModel().changeCSS(1);
 			}
 		});
 		CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
-	//	neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+		neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
 		neonP.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-	//			control.getModel().changeCSS(2);
+				control.getModel().changeCSS(2);
 			}
 		});
 		pauseVB.getChildren().add(whiteP);
@@ -369,8 +366,8 @@ public class GameView extends Application{
 		
 		///PAUSE///
 		resume.setOnAction(e -> timeline.play());
-	//	control.checkActions(resume, pauseMenu, gamePane);
-	//	control.checkActions(exitP, pauseMenu, mainMenu);
+		control.checkActions(resume, pauseMenu, gamePane);
+		control.checkActions(exitP, pauseMenu, mainMenu);
 		exitP.setOnAction(e -> {
 			getTimeline().stop();
 			try {
@@ -473,7 +470,7 @@ public class GameView extends Application{
 		
 		
 		//Action//
-		control.checkActions(backButtonR,(BorderPane)backButtonR.getParent().getParent(), mainMenu);
+		control.checkActions(backButtonR, rulesMenu, mainMenu);
 	}
 	
 	
@@ -519,24 +516,24 @@ public class GameView extends Application{
 		settVB.setSpacing(30);
 
 		CustomMenuButton white = new CustomMenuButton("WHITE THEME");
-	//	white.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+		white.setOnMouseClicked(e -> control.getModel().changeCSS(0));
 		white.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(0);
+				control.getModel().changeCSS(0);
 			}
 		});
 		CustomMenuButton dark = new CustomMenuButton("DARK THEME");
-	//	dark.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+		dark.setOnMouseClicked(e -> control.getModel().changeCSS(1));
 		dark.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(1);
+				control.getModel().changeCSS(1);
 			}
 		});
 		CustomMenuButton neon = new CustomMenuButton("NEON THEME");
-	//	neon.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+		neon.setOnMouseClicked(e -> control.getModel().changeCSS(2));
 		neon.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
-		//		control.getModel().changeCSS(2);
+				control.getModel().changeCSS(2);
 			}
 		});
 		settVB.getChildren().add(white);
@@ -557,6 +554,8 @@ public class GameView extends Application{
 		CustomMenuButton backButtonS = new CustomMenuButton("←");
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
+		
+		control.checkActions(backButtonS,settingMenu, mainMenu);
 	}
 	
 	

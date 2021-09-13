@@ -26,7 +26,7 @@ public class Control {
 	public static final double SWIPE_DISTANCY = WIDTH/7;
 	
 	public Control(GameView v){
-		this.model = new Model(v);
+		this.setModel(new Model(v));
 		this.joystickDrag = false;
 	}
 	
@@ -35,7 +35,7 @@ public class Control {
 	}
 	
 	
-	public void checkActions(CustomMenuButton b,BorderPane src, BorderPane  target) {
+	public void checkActions(CustomMenuButton b,BorderPane src, BorderPane target) {
 		b.setOnMouseClicked(e -> displayMenu(src, target));
 		b.setOnKeyPressed(e ->{
 			if(e.getCode()==KeyCode.ENTER) {
@@ -45,7 +45,6 @@ public class Control {
 	}
 
 	public void displayMenu(BorderPane src, BorderPane target) {
-
 		src.setVisible(false);
 		target.setVisible(true);
 
@@ -78,5 +77,13 @@ public class Control {
 		}
 		return 0;
 	
+	}
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
 	}
 }

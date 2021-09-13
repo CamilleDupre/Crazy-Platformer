@@ -89,49 +89,31 @@
 }
 
 #mainMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }
 
 #difMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }
 
 #settingMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }
 
 #pauseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }
 
 #winMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }
 
 #looseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#mainMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#difMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#settingMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#pauseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#winMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
-}
-
-#looseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
 }

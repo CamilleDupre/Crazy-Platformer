@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 
 public class CustomMenuButton extends Button {
 
-	private Font buttonFont = new Font("Source Code Pro Bold",12);
+	private Font buttonFont = new Font("Source Code Pro Bold",20);
 	
 	public CustomMenuButton(String buttonText) {
 		
@@ -16,7 +16,7 @@ public class CustomMenuButton extends Button {
 		setFont(buttonFont);
 		setCursor(Cursor.HAND);
 		setPadding(new Insets(10,10,10,10));
-		setPrefSize(Control.WIDTH/3.5, Control.HEIGHT/10);
+		setPrefSize(GameView.WIDTH/4, GameView.HEIGHT/12);
 		getStyleClass().add("menus-button");
 	}
 	

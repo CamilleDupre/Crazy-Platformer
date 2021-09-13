@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.IOException;
+
 import Model.Model;
 import View.CustomMenuButton;
 import View.GameView;
@@ -15,18 +17,17 @@ import javafx.util.Duration;
 
 public class Control {
 	private Model model;
-
-	public static final double WIDTH=900;
-	public static final double HEIGHT=600;
+	private GameView view;
 	
 	private double cursorX=0;
 	private boolean joystickDrag;
 	private Timeline cursorTime= new Timeline();
 	public static final double SWIPE_TIME=1; 
-	public static final double SWIPE_DISTANCY = WIDTH/7;
+	public static double SWIPE_DISTANCY = GameView.WIDTH/7;
 	
 	public Control(GameView v){
 		this.setModel(new Model(v));
+		this.view = v;
 		this.joystickDrag = false;
 	}
 	
@@ -47,6 +48,24 @@ public class Control {
 	public void displayMenu(BorderPane src, BorderPane target) {
 		src.setVisible(false);
 		target.setVisible(true);
+
+	}
+	
+	public void loadSkin(CustomMenuButton b, BorderPane src, BorderPane target) throws IOException {
+
+		b.setOnMouseClicked(e ->{
+			src.setVisible(false);
+			target.setVisible(true);
+			this.model.setCurrentLevel(view.getLevelId());}
+				);
+
+		b.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.ENTER) {
+				src.setVisible(false);
+				target.setVisible(true);
+				this.model.setCurrentLevel(view.getLevelId());}
+		}
+				);
 
 	}
 	

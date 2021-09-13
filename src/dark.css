@@ -90,25 +90,31 @@
 }
 
 #mainMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }
 
 #difMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }
 
 #settingMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }
 
 #pauseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }
 
 #winMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }
 
 #looseMenu{
-	-fx-background-image: url("/mainBackgroundDark.png") ;
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
 }

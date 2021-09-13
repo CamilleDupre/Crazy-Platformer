@@ -42,7 +42,7 @@
 .menus-button{
 	-fx-text-fill: #000000;
 	-fx-cursor: hand;
-	-fx-background-color: lightgrey;
+	-fx-background-color: #7a8793;
 }
 
 .menus-button:hover{
@@ -68,7 +68,7 @@
 .setting-button{
 	-fx-text-fill: #000000;
 	-fx-cursor: hand;
-	-fx-background-color: lightgrey;
+	-fx-background-color: #7a8793;
 }
 
 .setting-button:hover{
@@ -91,25 +91,31 @@
 }
 
 #mainMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }
 
 #difMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }
 
 #settingMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }
 
 #pauseMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }
 
 #winMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }
 
 #looseMenu{
-	-fx-background-image: url("/mainBackground.png") ;
+	-fx-background-image: url("/background/mainBackground.png") ;
+	
 }

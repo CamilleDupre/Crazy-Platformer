@@ -56,6 +56,7 @@ public class GameView extends Application{
 	private Label time;
 	
 	CustomMenuButton backButtonR;
+	CustomMenuButton backButtonS;
 	
 	private int levelId=0;
 	
@@ -96,7 +97,10 @@ public class GameView extends Application{
 		mainPane.getChildren().add(looseMenu);
 		mainPane.getChildren().add(levelPane);
 		
+		
+		//Action back to main menu
 		control.checkActions(backButtonR, rulesMenu, this.mainMenu);
+		control.checkActions(backButtonS,settingMenu, mainMenu);
 
 		mainMenu.setVisible(true);
 		settingMenu.setVisible(false);
@@ -459,7 +463,7 @@ public class GameView extends Application{
 		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
 		botSetHB.setPadding(new Insets(0,10,10,10));
 
-		CustomMenuButton backButtonS = new CustomMenuButton("←");
+		backButtonS = new CustomMenuButton("←");
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
 		

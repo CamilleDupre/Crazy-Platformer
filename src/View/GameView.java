@@ -55,6 +55,9 @@ public class GameView extends Application{
 	private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
 	private Label time;
 	
+	CustomMenuButton backButtonR;
+	CustomMenuButton backButtonS;
+	
 	private int levelId=0;
 	
 	public static int HEIGHT;
@@ -81,8 +84,9 @@ public class GameView extends Application{
 		setUpVictoryPanel();
 		setUpLosingPanel();
 		setUpLevelSelectorPanel();
-		setUpMainMenuPanel();
+		setUpMainMenuPanel();   //creer apres les autres donc retour à ce menu non possible
 		setUpInGamePanel();
+		
 
 		mainPane.getChildren().add(mainMenu);
 		mainPane.getChildren().add(settingMenu);
@@ -92,6 +96,11 @@ public class GameView extends Application{
 		mainPane.getChildren().add(winMenu);
 		mainPane.getChildren().add(looseMenu);
 		mainPane.getChildren().add(levelPane);
+		
+		
+		//Action back to main menu
+		control.checkActions(backButtonR, rulesMenu, this.mainMenu);
+		control.checkActions(backButtonS,settingMenu, mainMenu);
 
 		mainMenu.setVisible(true);
 		settingMenu.setVisible(false);
@@ -113,14 +122,12 @@ public class GameView extends Application{
 
 	}
 	
-	
-	
 	private void setUpMainMenuPanel() {
 	/////// MAIN MENU ///////
 
-		mainMenu = new BorderPane();
-		mainMenu.setId("mainMenu");
-		mainMenu.setPrefSize(WIDTH,HEIGHT);
+		this.mainMenu = new BorderPane();
+		this.mainMenu.setId("mainMenu");
+		this.mainMenu.setPrefSize(WIDTH,HEIGHT);
 
 		////TOP////
 		FlowPane mainFP = new FlowPane();
@@ -132,7 +139,7 @@ public class GameView extends Application{
 		mainFP.setPadding(new Insets(HEIGHT/10,0,0,0));
 		mainFP.setPrefSize(WIDTH, HEIGHT/6);
 
-		mainMenu.setTop(mainFP);
+		this.mainMenu.setTop(mainFP);
 
 		////CENTER////
 		VBox mainVB = new VBox();
@@ -150,16 +157,16 @@ public class GameView extends Application{
 		mainVB.getChildren().add(rules);
 		mainVB.getChildren().add(exit);
 
-		mainMenu.setCenter(mainVB);
-		mainMenu.toFront();
+		this.mainMenu.setCenter(mainVB);
+		this.mainMenu.toFront();
 
 		///////////////////////
 		
 		///MAIN ACTION///
 
-		control.checkActions(pg, mainMenu, levelPane);
-		control.checkActions(settings, mainMenu, settingMenu);
-		control.checkActions(rules, mainMenu, rulesMenu);
+		control.checkActions(pg, this.mainMenu, levelPane);
+		control.checkActions(settings, this.mainMenu, settingMenu);
+		control.checkActions(rules, this.mainMenu, rulesMenu);
 
 		exit.setOnMouseClicked(e -> control.exitApp());
 		exit.setOnKeyPressed(e -> {
@@ -363,21 +370,23 @@ public class GameView extends Application{
 		HBox botRuleHB = new HBox();
 		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
 		botRuleHB.setPadding(new Insets(0,10,10,10));
-		CustomMenuButton backButtonR = new CustomMenuButton("←");
+		backButtonR = new CustomMenuButton("←");
 
 		botRuleHB.getChildren().add(backButtonR);
 		rulesMenu.setBottom(botRuleHB);
 		
 		
 		//Action//
-		control.checkActions(backButtonR, rulesMenu, this.mainMenu);
+		//control.checkActions(backButtonR, rulesMenu, this.mainMenu);
 	}
 	
 	
 	
 	
 	private void setUpSettingPanel() {
-		////// SETTINGS ///////
+		
+		 ////// SETTINGS ///////
+		 
 
 		settingMenu = new BorderPane();
 		settingMenu.setId("settingMenu");
@@ -454,7 +463,7 @@ public class GameView extends Application{
 		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
 		botSetHB.setPadding(new Insets(0,10,10,10));
 
-		CustomMenuButton backButtonS = new CustomMenuButton("←");
+		backButtonS = new CustomMenuButton("←");
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
 		
@@ -467,6 +476,8 @@ public class GameView extends Application{
 		music.setOnMouseClicked(e -> control.startStopMusic());
 		sound.setOnMouseClicked(e-> control.startStopSound());
 		 */
+		
+		
 	}
 	
 	

@@ -847,13 +847,7 @@ public class GameView extends Application{
 	
 	
 	
-	private 
-	
-	
-	
-	
-
-	void setUpInGamePanel() {	
+	private void setUpInGamePanel() {	
 		/////// GAME PANE ///////
 
 		gamePane = new BorderPane();

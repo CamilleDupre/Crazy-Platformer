@@ -84,7 +84,7 @@ public class GameView extends Application{
 		setUpVictoryPanel();
 		setUpLosingPanel();
 		setUpLevelSelectorPanel();
-		setUpMainMenuPanel();   //creer apres les autres donc retour à ce menu non possible
+		setUpMainMenuPanel();   
 		setUpInGamePanel();
 		
 
@@ -322,24 +322,24 @@ public class GameView extends Application{
 		rulesVB.setSpacing(20);
 		rulesVB.setPadding(new Insets(0,5,0,0));
 
-		Text rulesTxt = new Text(" Minesweeper has a very basic gameplay style.\n"
-				+ " In its original form, mines are scattered throughout a board.\n"
-				+ " This board is divided into cells, which have three states: uncovered, covered and flagged.\n"
-				+ " A covered cell is blank and clickable, while an uncovered cell is exposed,\n"
-				+ " either containing a number (the mines adjacent to it),\n"
-				+ " or a mine. When a cell is uncovered by a player click, and if it bears a mine, the game ends.\n"
-				+ " A flagged cell is similar to a covered one, in the way that mines are not triggered when a cell is flagged,\n"
-				+ " and it is impossible to lose through the action of flagging a cell.\n"
-				+ " However, flagging a cell implies that a player thinks there is a mine underneath,\n"
-				+ " which causes the game to deduct an available mine from the display. In order to win the game,\n"
-				+ " players must logically deduce where mines exist through the use of the numbers given by uncovered cells.\n"
-				+ " To win, all non-mine cells must be uncovered. At this stage, the timer is stopped. Commonly all mine cells\n"
-				+ " are also flagged, but this is not required. When a player left-clicks on a cell, the game will uncover it.\n"
-				+ " If there are no mines adjacent to that particular cell, the cell will display a blank tile,\n"
-				+ " and all adjacent cells will automatically be uncovered. Right-clicking on a cell will flag it,\n"
-				+ " causing a flag to appear on it.\n"
-				+ " Note that flagged cells are still covered, and a player can click on it to uncover it, like a normal covered cell\n"
-				+ " A click will clear the map and place numbers on the grid. The numbers reflect the number of mines touching a square.");
+		Text rulesTxt = new Text(" aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
+				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.");
 
 
 		HBox leftClick = new HBox();
@@ -369,9 +369,10 @@ public class GameView extends Application{
 		////BOTTOM////
 		HBox botRuleHB = new HBox();
 		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botRuleHB.setPadding(new Insets(0,10,10,10));
+		botRuleHB.setPadding(new Insets(0,30,30,30));
 		backButtonR = new CustomMenuButton("←");
-
+		backButtonR.setPrefWidth(WIDTH/8);
+		
 		botRuleHB.getChildren().add(backButtonR);
 		rulesMenu.setBottom(botRuleHB);
 		
@@ -461,9 +462,10 @@ public class GameView extends Application{
 		////BOTTOM////
 		HBox botSetHB = new HBox();
 		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botSetHB.setPadding(new Insets(0,10,10,10));
+		botSetHB.setPadding(new Insets(0,30,30,30));
 
 		backButtonS = new CustomMenuButton("←");
+		backButtonS.setPrefWidth(WIDTH/8);
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
 		

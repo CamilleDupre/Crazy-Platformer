@@ -23,7 +23,7 @@ public class Gravity extends Thread{
 			catch (Exception e) { e.printStackTrace(); }
 		}
 	}
-	
+
 	public boolean isActive() {
 		return active;
 	}
@@ -31,8 +31,5 @@ public class Gravity extends Thread{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 }
-
-
-

@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.IOException;
 
@@ -57,6 +58,7 @@ public class GameView extends Application{
 	
 	CustomMenuButton backButtonR;
 	CustomMenuButton backButtonS;
+	CustomMenuButton backButtonL;
 	
 	private int levelId=0;
 	
@@ -99,8 +101,9 @@ public class GameView extends Application{
 		
 		
 		//Action back to main menu
-		control.checkActions(backButtonR, rulesMenu, this.mainMenu);
+		control.checkActions(backButtonR, rulesMenu, mainMenu);
 		control.checkActions(backButtonS,settingMenu, mainMenu);
+		control.checkActions(backButtonL,levelPane, mainMenu);
 
 		mainMenu.setVisible(true);
 		settingMenu.setVisible(false);
@@ -302,6 +305,7 @@ public class GameView extends Application{
 
 		rulesMenu = new BorderPane();
 		rulesMenu.setPrefSize(WIDTH, HEIGHT);
+		rulesMenu.setId("rulesMenu");
 
 
 		////TOP////
@@ -342,6 +346,7 @@ public class GameView extends Application{
 				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.");
 
 
+		rulesTxt.getStyleClass().add("rules");
 		HBox leftClick = new HBox();
 		leftClick.setSpacing(20);
 		leftClick.setAlignment(Pos.CENTER);
@@ -849,10 +854,17 @@ public class GameView extends Application{
 			
 			///Bottom///
 			HBox validatelevelHB = new HBox();
-			validatelevelHB.setPadding(new Insets(0,0,20,0));
+			validatelevelHB.setPadding(new Insets(0,0,30,0));
 			CustomMenuButton validatelevel = new CustomMenuButton("TRY THIS LEVEL");
 			validatelevelHB.getChildren().add(validatelevel);
 			validatelevelHB.setAlignment(Pos.CENTER);
+			
+			backButtonL = new CustomMenuButton("←");
+			backButtonL.setPrefWidth(WIDTH/8);
+			validatelevelHB.setSpacing(100);
+			
+			validatelevelHB.getChildren().add(backButtonL);
+			
 			levelPane.setBottom(validatelevelHB);
 				
 	}

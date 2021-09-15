@@ -11,6 +11,10 @@
 	-fx-fill: yellow;
 }
 
+.rules{
+	-fx-font-size: 20;
+	-fx-fill: yellow;
+}
 
 
 .box{
@@ -99,6 +103,11 @@
 }
 
 #settingMenu{
+	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
+	
+}
+
+#rulesMenu{
 	-fx-background-image: url("/background/mainBackgroundNeon.png") ;
 	
 }

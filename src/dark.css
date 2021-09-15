@@ -11,6 +11,11 @@
 	-fx-fill: #ffffff;
 }
 
+.rules{
+	-fx-font-size: 16;
+	-fx-fill: white;
+}
+
 .box{
 	-fx-background-color: #555555;
 	 -fx-border-image-width: 2, 2;
@@ -100,6 +105,11 @@
 }
 
 #settingMenu{
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
+	
+}
+
+#rulesMenu{
 	-fx-background-image: url("/background/mainBackgroundDark.png") ;
 	
 }

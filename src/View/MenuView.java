@@ -357,18 +357,7 @@ public class MenuView extends Application{
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	private void setUpLevelSelectorPanel() {
 		/////// LEVEL PANE ///////
 		

@@ -36,6 +36,7 @@ public class GameView {
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
 	private BorderPane pauseMenu;
+	private GraphicsContext context;
 	
 	private StackPane mainGameView;
 	
@@ -73,7 +74,6 @@ public class GameView {
 
 			gamePane = new BorderPane();
 
-
 			////TOP////
 			HBox gameHB = new HBox();
 			gameHB.setAlignment(Pos.CENTER);
@@ -107,7 +107,7 @@ public class GameView {
 			
 			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
 			//System.out.println(gamePane.getWidth());
-			GraphicsContext context = canvas.getGraphicsContext2D();
+			context = canvas.getGraphicsContext2D();
 			context.setFill(Color.YELLOW);
 			context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			
@@ -116,6 +116,7 @@ public class GameView {
 			context.setFill(Color.BLACK);
 			context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
 							20, 20);
+			System.out.println("Y" +control.getModel().getPlayer().getPosition().getX());
 			
 			
 			
@@ -124,6 +125,16 @@ public class GameView {
 			//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
 			//pauseButton.setOnAction(e -> control.getGravity().isActive());
 			//control.checkActions(pauseButton, gamePane, pauseMenu);
+	}
+	
+	public void repaint() {
+		context = canvas.getGraphicsContext2D();
+		context.setFill(Color.YELLOW);
+		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		context.setFill(Color.BLACK);
+		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
+						20, 20);
+		System.out.println("Y" +control.getModel().getPlayer().getPosition().getY());
 	}
 	
 	

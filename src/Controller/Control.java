@@ -29,6 +29,7 @@ public class Control {
 	public static final double SWIPE_TIME=1; 
 	public static double SWIPE_DISTANCY = MenuView.WIDTH/7;
 	private Gravity gravity;
+	private GameView gameView;
 	
 	
 
@@ -38,6 +39,7 @@ public class Control {
 		this.joystickDrag = false;
 		
 		gravity = new Gravity(this);
+		gameView = new GameView(this);
 	}
 	
 	public void exitApp() {
@@ -82,10 +84,7 @@ public class Control {
 		view.getValidatelevel().setOnMouseClicked(e ->{
 			gravity.setActive(true);
 			gravity.start();
-			
-			
-			
-			GameView gameView = new GameView(this);
+		
 			gameView.getMainGameView().setVisible(true);
 			view.setGameScene((new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT)));
 			stg.setScene(view.getGameScene());
@@ -137,6 +136,7 @@ public class Control {
 			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +2)) ;
 			//System.out.println("Je tombe : " + hauteur);
 			System.out.println(model.getPlayer().getPosition().getY());
+			gameView.repaint();
 		}
 	}
 	

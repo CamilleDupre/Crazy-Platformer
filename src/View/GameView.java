@@ -14,6 +14,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -51,10 +53,12 @@ public class GameView extends Application{
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
 	private BorderPane levelPane;
-	private GridPane grid;
+	private BorderPane grid;
 	private Timeline timeline;
 	private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
 	private Label time;
+	
+	private Canvas canvas;
 	
 	CustomMenuButton backButtonR;
 	CustomMenuButton backButtonS;
@@ -85,11 +89,11 @@ public class GameView extends Application{
 		setUpPausePanel();
 		setUpVictoryPanel();
 		setUpLosingPanel();
+		setUpInGamePanel();
 		setUpLevelSelectorPanel();
 		setUpMainMenuPanel();   
-		setUpInGamePanel();
+	
 		
-
 		mainPane.getChildren().add(mainMenu);
 		mainPane.getChildren().add(settingMenu);
 		mainPane.getChildren().add(rulesMenu);
@@ -866,6 +870,8 @@ public class GameView extends Application{
 			validatelevelHB.getChildren().add(backButtonL);
 			
 			levelPane.setBottom(validatelevelHB);
+			
+			control.checkActions(validatelevel, levelPane, gamePane);
 				
 	}
 	
@@ -884,34 +890,9 @@ public class GameView extends Application{
 		gameHB.setSpacing(40);
 		gameHB.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY,Insets.EMPTY)));
 
-		FlowPane pBomb = new FlowPane();
-		pBomb.setAlignment(Pos.CENTER);
-		pBomb.setPrefWidth(WIDTH/6);
-	//	Label nbBomb = new Label("" + control.getModel().getNbBombMissing());
-	//	File bombFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/bomb.png/");
-	//	ImageView imgBomb = new ImageView( new Image(bombFile.toURI().toURL().toString(),40,40,false,false));
-	//	pBomb.getChildren().add(nbBomb);
-
 		CustomMenuButton pauseButton = new CustomMenuButton("Pause");
 		pauseButton.setPrefHeight(HEIGHT/20 );
 				
-		Button flagButton = new Button("");
-		flagButton.setOnMouseDragged(e ->{
-	//		control.setFlagDragged(true);
-			flagButton.setOpacity(1);
-		});
-		flagButton.setOnMouseClicked(e-> {
-			flagButton.setOpacity(0.5);
-	//		control.setFlagDragged(false);
-			
-		});
-		
-		//flagButton.setGraphic(new ImageView(new Image("/flag.png",30,30,false,false)));
-
-		
-		CustomMenuButton finishButton = new CustomMenuButton("End");
-		finishButton.setPrefSize(WIDTH/15,HEIGHT/20 );
-		finishButton.setDisable(true);
 
 	//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
 		//ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
@@ -924,53 +905,46 @@ public class GameView extends Application{
 
 		pauseButton.setPrefWidth(WIDTH/5);
 
-		gameHB.getChildren().add(pBomb);
-	//	gameHB.getChildren().add(imgBomb);
 		gameHB.getChildren().add(pauseButton);
-		gameHB.getChildren().add(flagButton);
-		gameHB.getChildren().add(finishButton);
 		//gameHB.getChildren().add(imgChrono);
 		gameHB.getChildren().add(pChrono);
 
 		gamePane.setTop(gameHB);;
 
 		////CENTER////
-	//	grid = control.initGrid(finishButton,nbBomb);
+		//grid = new BorderPane();
 	//	grid.setAlignment(Pos.CENTER);
-		gamePane.setCenter(grid);
-
-
-
-		//Action
-		finishButton.setOnMouseClicked(e ->{
-	//		if(control.checkWin()) {
-	//			int score = (int) (control.getModel().getInitTime() - timeline.getCurrentTime().toSeconds());
-	//			winScore.setText("YOUR SCORE : " + score );
-	//		}
-	//		control.displayEndGame(control.checkWin());
-		});
-		finishButton.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-	//			if(control.checkWin()) {
-	//				int score = (int) (control.getModel().getInitTime() - timeline.getCurrentTime().toSeconds());
-	//				winScore.setText("YOUR SCORE : " +  score );
-	//			}
-	//			control.displayEndGame(control.checkWin());
-			}
-				
-		});
 		
-		pauseButton.setOnAction(e-> timeline.pause());
-		control.checkActions(pauseButton, gamePane, pauseMenu);
+		canvas = new Canvas(WIDTH,HEIGHT-HEIGHT/12);
+		//System.out.println(gamePane.getWidth());
+		GraphicsContext context = canvas.getGraphicsContext2D();
+		context.setFill(Color.YELLOW);
+		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		//grid.getChildren().add(canvas);
+		
+		context.setFill(Color.BLACK);
+		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
+						20, 20);
+		
+		
+		
+		gamePane.setCenter(canvas);
+
+		//pauseButton.setOnAction(e-> timeline.pause());
+		//control.checkActions(pauseButton, gamePane, pauseMenu);
 		
 	}		
 		
-
-	
-	
-	
-	
 		
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+
 	public Label getTime() {
 		return time;
 	}

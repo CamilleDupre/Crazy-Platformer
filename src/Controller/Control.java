@@ -10,6 +10,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -24,11 +25,15 @@ public class Control {
 	private Timeline cursorTime= new Timeline();
 	public static final double SWIPE_TIME=1; 
 	public static double SWIPE_DISTANCY = GameView.WIDTH/7;
+	private Gravity gravity;
 	
 	public Control(GameView v){
 		this.setModel(new Model(v));
 		this.view = v;
 		this.joystickDrag = false;
+		
+		gravity = new Gravity(this);
+		gravity.start();
 	}
 	
 	public void exitApp() {
@@ -104,5 +109,15 @@ public class Control {
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+
+	public void moveDown() {
+		if (model.getPlayer().getPosition().getY() +2 < Model.MIN_FLOOR_HEIGHT ){
+			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +2)) ;
+			//System.out.println("Je tombe : " + hauteur);
+			//monAffichage.repaint();
+			//view.getCanvas().repaint();
+			System.out.println(model.getPlayer().getPosition().getY());
+		}
 	}
 }

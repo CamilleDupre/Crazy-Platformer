@@ -13,13 +13,15 @@ public class Model {
 	private int playerSpeed;
 	
 	private int currentLevel;
-	
-	
+	public static final int MIN_FLOOR_HEIGHT = GameView.HEIGHT - 100 ;
+	private Player player;
+		
 	
 	public Model(GameView v) {
 		this.gameView = v;
 		
 		initBackgroundRessources();
+		this.player = new Player();
 		
 	}
 	
@@ -69,6 +71,16 @@ public class Model {
 
 	public void setCurrentLevel(int currentLevel) {
 		this.currentLevel = currentLevel;
+	}
+
+
+	public Player getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 

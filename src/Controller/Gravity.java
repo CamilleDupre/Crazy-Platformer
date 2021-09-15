@@ -19,6 +19,8 @@ public class Gravity extends Thread{
 	public void run() {
 		while(active) {
 			ctrl.moveDown() ;
+			try { Thread.sleep(100); }
+			catch (Exception e) { e.printStackTrace(); }
 		}
 	}
 	

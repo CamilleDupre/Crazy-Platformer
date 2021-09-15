@@ -354,7 +354,7 @@ public class GameView extends Application{
 	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
 		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
 	//	leftClick.getChildren().add(imgLeft);
-		leftClick.getChildren().add(leftTxt);
+	//	leftClick.getChildren().add(leftTxt);
 
 		HBox rightClick = new HBox();
 		rightClick.setSpacing(20);
@@ -363,7 +363,7 @@ public class GameView extends Application{
 	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
 		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
 	//	rightClick.getChildren().add(imgRight);
-		rightClick.getChildren().add(rightTxt);
+	//	rightClick.getChildren().add(rightTxt);
 
 		rulesVB.getChildren().add(rulesTxt);
 		rulesVB.getChildren().add(leftClick);

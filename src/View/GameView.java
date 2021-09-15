@@ -1,498 +1,248 @@
 package View;
 
-import java.awt.BorderLayout;
-import java.io.File;
 import java.io.IOException;
 
 import Controller.Control;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
-
-public class GameView extends Application{
-
-	private Stage primaryStage;
-	private Scene scene;
+public class GameView {
+	
 	private Control control;
-
-	private BorderPane mainMenu;
-	private StackPane mainPane;
-	private BorderPane settingMenu;
-	private BorderPane rulesMenu;
+	
+	
+	private Label time;
+	private Timeline timeline;
+	
 	private BorderPane gamePane;
-	private BorderPane pauseMenu;
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
-	private BorderPane levelPane;
-	private BorderPane grid;
-	private Timeline timeline;
+	private BorderPane pauseMenu;
+	
+	private StackPane mainGameView;
+	
 	private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
-	private Label time;
 	
 	private Canvas canvas;
 	
-	CustomMenuButton backButtonR;
-	CustomMenuButton backButtonS;
-	CustomMenuButton backButtonL;
-	
-	private int levelId=0;
-	
-	public static int HEIGHT;
-	public static int WIDTH;
 
-
-	public void start(Stage stg) throws IOException {
+	public GameView(Control c) {
+		control = c;
 		
-		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-		HEIGHT = (int) screenBounds.getHeight();
-		WIDTH = (int) screenBounds.getWidth();
-
-		primaryStage=stg;
-		this.control = new Control(this);
-
-		mainPane = new StackPane();
-		mainPane.setPrefSize(WIDTH, HEIGHT);
-
+		mainGameView = new StackPane();
+		mainGameView.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT);
 		
-		setUpRulesPanel();
-		setUpLevelSelectorPanel();
-		setUpSettingPanel();
 		setUpPausePanel();
 		setUpVictoryPanel();
 		setUpLosingPanel();
-		setUpInGamePanel();
-		setUpLevelSelectorPanel();
-		setUpMainMenuPanel();   
-	
+		setUpGamePanel();
 		
-		mainPane.getChildren().add(mainMenu);
-		mainPane.getChildren().add(settingMenu);
-		mainPane.getChildren().add(rulesMenu);
-		mainPane.getChildren().add(gamePane);		
-		mainPane.getChildren().add(pauseMenu);
-		mainPane.getChildren().add(winMenu);
-		mainPane.getChildren().add(looseMenu);
-		mainPane.getChildren().add(levelPane);
+		mainGameView.getChildren().add(gamePane);
+		mainGameView.getChildren().add(pauseMenu);
+		mainGameView.getChildren().add(looseMenu);
+		mainGameView.getChildren().add(winMenu);
 		
-		
-		//Action back to main menu
-		control.checkActions(backButtonR, rulesMenu, mainMenu);
-		control.checkActions(backButtonS,settingMenu, mainMenu);
-		control.checkActions(backButtonL,levelPane, mainMenu);
-
-		mainMenu.setVisible(true);
-		settingMenu.setVisible(false);
-		gamePane.setVisible(false);
-		rulesMenu.setVisible(false);
-		pauseMenu.setVisible(false);
+		gamePane.setVisible(true);
 		winMenu.setVisible(false);
-		looseMenu.setVisible(false);
-		levelPane.setVisible(false);
-
-		scene = new Scene(getMainPane(), WIDTH, HEIGHT);
-		scene.getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
-		primaryStage.setTitle("Crazy Platformer");
-		primaryStage.setScene(scene);
-		primaryStage.setMaximized(true);
-		primaryStage.show();
-		primaryStage.setResizable(false);
-
-
+		looseMenu.setVisible(false);		
+		pauseMenu.setVisible(false);
+			
+			
 	}
 	
-	private void setUpMainMenuPanel() {
-	/////// MAIN MENU ///////
+	private void setUpGamePanel() {
+	/////// GAME PANE ///////
 
-		this.mainMenu = new BorderPane();
-		this.mainMenu.setId("mainMenu");
-		this.mainMenu.setPrefSize(WIDTH,HEIGHT);
-
-		////TOP////
-		FlowPane mainFP = new FlowPane();
-		Text mainTitle = new Text("CRAZY PLATEFORMER");
-		mainTitle.getStyleClass().add("title");
-		mainTitle.setTextAlignment(TextAlignment.CENTER);
-		mainFP.getChildren().add(mainTitle);
-		mainFP.setAlignment(Pos.CENTER);
-		mainFP.setPadding(new Insets(HEIGHT/10,0,0,0));
-		mainFP.setPrefSize(WIDTH, HEIGHT/6);
-
-		this.mainMenu.setTop(mainFP);
-
-		////CENTER////
-		VBox mainVB = new VBox();
-		mainVB.setAlignment(Pos.CENTER);
-
-		mainVB.setSpacing(15);
-		CustomMenuButton pg = new CustomMenuButton("PLAY GAME");
-		CustomMenuButton rules = new CustomMenuButton("ABOUT THE GAME");			
-		CustomMenuButton settings = new CustomMenuButton("SETTINGS");			
-		CustomMenuButton exit = new CustomMenuButton("EXIT GAME");
+			gamePane = new BorderPane();
 
 
-		mainVB.getChildren().add(pg);
-		mainVB.getChildren().add(settings);
-		mainVB.getChildren().add(rules);
-		mainVB.getChildren().add(exit);
+			////TOP////
+			HBox gameHB = new HBox();
+			gameHB.setAlignment(Pos.CENTER);
+			gameHB.setSpacing(40);
+			gameHB.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY,Insets.EMPTY)));
 
-		this.mainMenu.setCenter(mainVB);
-		this.mainMenu.toFront();
+			CustomMenuButton pauseButton = new CustomMenuButton("Pause");
+			pauseButton.setPrefHeight(MenuView.HEIGHT/20 );
+					
 
-		///////////////////////
-		
-		///MAIN ACTION///
+		//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
+			//ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
+			FlowPane pChrono = new FlowPane();
+			pChrono.setAlignment(Pos.CENTER);
+			pChrono.setPrefWidth(MenuView.WIDTH/6);
+			time = new Label();
+			time.textProperty().bind(timeSeconds.asString());
+			pChrono.getChildren().add(time);
 
-		control.checkActions(pg, this.mainMenu, levelPane);
-		control.checkActions(settings, this.mainMenu, settingMenu);
-		control.checkActions(rules, this.mainMenu, rulesMenu);
+			pauseButton.setPrefWidth(MenuView.WIDTH/5);
 
-		exit.setOnMouseClicked(e -> control.exitApp());
-		exit.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-				control.exitApp();
-			}
-		});
+			gameHB.getChildren().add(pauseButton);
+			//gameHB.getChildren().add(imgChrono);
+			gameHB.getChildren().add(pChrono);
+
+			gamePane.setTop(gameHB);;
+
+			////CENTER////
+			//grid = new BorderPane();
+		//	grid.setAlignment(Pos.CENTER);
+			
+			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
+			//System.out.println(gamePane.getWidth());
+			GraphicsContext context = canvas.getGraphicsContext2D();
+			context.setFill(Color.YELLOW);
+			context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			
+			//grid.getChildren().add(canvas);
+			
+			context.setFill(Color.BLACK);
+			context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
+							20, 20);
+			
+			
+			
+			gamePane.setCenter(canvas);
+
+			//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
+			//pauseButton.setOnAction(e -> control.getGravity().isActive());
+			//control.checkActions(pauseButton, gamePane, pauseMenu);
 	}
-	
 	
 	
 	
 	private void setUpPausePanel() {
-	/////// PAUSE MENU ////////
+		/////// PAUSE MENU ////////
 
-		pauseMenu = new BorderPane();
-		pauseMenu.setId("pauseMenu");
+			pauseMenu = new BorderPane();
+			pauseMenu.setId("pauseMenu");
 
-		////TOP////
-		FlowPane pauseFP = new FlowPane();
-		Text pauseTitle = new Text("PAUSE");
-		pauseTitle.getStyleClass().add("title");
-		pauseTitle.setTextAlignment(TextAlignment.CENTER);
-		pauseFP.getChildren().add(pauseTitle);
-		pauseFP.setAlignment(Pos.CENTER);
-		pauseFP.setPadding(new Insets(20,0,0,0));
-		pauseFP.setPrefSize(WIDTH, HEIGHT/6);
-
-
-		pauseMenu.setTop(pauseFP);
-
-		////CENTER////
-
-		VBox mainPauseVB = new VBox();
-		mainPauseVB.setAlignment(Pos.CENTER);
-		mainPauseVB.setSpacing(40);
-
-		CustomMenuButton resume = new CustomMenuButton("RESUME");			
-		CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
-
-		HBox pauseHB = new HBox();
-		pauseHB.setAlignment(Pos.CENTER);
-		pauseHB.setSpacing(70);
-
-	//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-	//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
-		//Button soundP = new Button("",imgSoundP);
-	//	soundP.setPrefSize(WIDTH/5,WIDTH/5);
-	//	soundP.setCursor(Cursor.HAND);
-
-	//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-	//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
-	//	Button musicP = new Button("",imgMusicP);
-	//	musicP.setPrefSize(WIDTH/5,WIDTH/5);
-	//	musicP.setCursor(Cursor.HAND);
+			////TOP////
+			FlowPane pauseFP = new FlowPane();
+			Text pauseTitle = new Text("PAUSE");
+			pauseTitle.getStyleClass().add("title");
+			pauseTitle.setTextAlignment(TextAlignment.CENTER);
+			pauseFP.getChildren().add(pauseTitle);
+			pauseFP.setAlignment(Pos.CENTER);
+			pauseFP.setPadding(new Insets(20,0,0,0));
+			pauseFP.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT/6);
 
 
-		VBox pauseVB = new VBox();
-		pauseVB.setAlignment(Pos.CENTER_LEFT);
-		pauseVB.setSpacing(30);
+			pauseMenu.setTop(pauseFP);
 
-		CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
-		whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
-		whiteP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(0);
-			}
-		});
-		CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
-		darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
-		darkP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(1);
-			}
-		});
-		CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
-		neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
-		neonP.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(2);
-			}
-		});
-		pauseVB.getChildren().add(whiteP);
-		pauseVB.getChildren().add(darkP);
-		pauseVB.getChildren().add(neonP);
+			////CENTER////
 
-	//	pauseHB.getChildren().add(soundP);
-	//	pauseHB.getChildren().add(musicP);
-		pauseHB.getChildren().add(pauseVB);
+			VBox mainPauseVB = new VBox();
+			mainPauseVB.setAlignment(Pos.CENTER);
+			mainPauseVB.setSpacing(40);
 
-		mainPauseVB.getChildren().add(resume);
-		mainPauseVB.getChildren().add(pauseHB);
-		mainPauseVB.getChildren().add(exitP);
+			CustomMenuButton resume = new CustomMenuButton("RESUME");			
+			CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
+
+			HBox pauseHB = new HBox();
+			pauseHB.setAlignment(Pos.CENTER);
+			pauseHB.setSpacing(70);
+
+		//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
+		//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
+			//Button soundP = new Button("",imgSoundP);
+		//	soundP.setPrefSize(WIDTH/5,WIDTH/5);
+		//	soundP.setCursor(Cursor.HAND);
+
+		//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
+		//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
+		//	Button musicP = new Button("",imgMusicP);
+		//	musicP.setPrefSize(WIDTH/5,WIDTH/5);
+		//	musicP.setCursor(Cursor.HAND);
 
 
-		pauseMenu.setCenter(mainPauseVB);
+			VBox pauseVB = new VBox();
+			pauseVB.setAlignment(Pos.CENTER_LEFT);
+			pauseVB.setSpacing(30);
+
+			CustomMenuButton whiteP = new CustomMenuButton("WHITE THEME");
+			whiteP.setOnMouseClicked(e -> control.getModel().changeCSS(0));
+			whiteP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+					control.getModel().changeCSS(0);
+				}
+			});
+			CustomMenuButton darkP = new CustomMenuButton("DARK THEME");
+			darkP.setOnMouseClicked(e -> control.getModel().changeCSS(1));
+			darkP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+					control.getModel().changeCSS(1);
+				}
+			});
+			CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
+			neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+			neonP.setOnKeyPressed(e->{
+				if(e.getCode()==KeyCode.ENTER) {
+					control.getModel().changeCSS(2);
+				}
+			});
+			pauseVB.getChildren().add(whiteP);
+			pauseVB.getChildren().add(darkP);
+			pauseVB.getChildren().add(neonP);
+
+		//	pauseHB.getChildren().add(soundP);
+		//	pauseHB.getChildren().add(musicP);
+			pauseHB.getChildren().add(pauseVB);
+
+			mainPauseVB.getChildren().add(resume);
+			mainPauseVB.getChildren().add(pauseHB);
+			mainPauseVB.getChildren().add(exitP);
 
 
-		/////////////////////////
-		
-		
-		///PAUSE///
-		resume.setOnAction(e -> timeline.play());
-		control.checkActions(resume, pauseMenu, gamePane);
-		control.checkActions(exitP, pauseMenu, mainMenu);
-		exitP.setOnAction(e -> {
-			getTimeline().stop();
-			try {
-				this.start(primaryStage);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		exitP.setOnKeyPressed(e->{
-			getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				try {
+			pauseMenu.setCenter(mainPauseVB);
+
+
+			/////////////////////////
+			
+			
+			///PAUSE///
+			resume.setOnAction(e -> timeline.play());
+			control.checkActions(resume, pauseMenu, gamePane);
+			//control.checkActions(exitP, pauseMenu, mainMenu);
+			exitP.setOnAction(e -> {
+				getTimeline().stop();
+			/*	try {
 					this.start(primaryStage);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				}*/
+			});
+			exitP.setOnKeyPressed(e->{
+				getTimeline().stop();
+				if(e.getCode()==KeyCode.ENTER) {
+			/*		try {
+						this.start(primaryStage);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}*/
 				}
-			}
-		});
-	}
-	
-	
-	
-
-	private void setUpRulesPanel() {	
-		/////// RULES ///////
-
-		rulesMenu = new BorderPane();
-		rulesMenu.setPrefSize(WIDTH, HEIGHT);
-		rulesMenu.setId("rulesMenu");
-
-
-		////TOP////
-		FlowPane rulesFP = new FlowPane();
-		Text rulesTitle = new Text("ABOUT THE GAME");
-		rulesTitle.getStyleClass().add("title");
-		rulesTitle.setTextAlignment(TextAlignment.CENTER);
-		rulesFP.getChildren().add(rulesTitle);
-		rulesFP.setAlignment(Pos.CENTER);
-		rulesFP.setPadding(new Insets(20,0,0,0));
-		rulesFP.setPrefSize(WIDTH, HEIGHT/8);
-
-		rulesMenu.setTop(rulesFP);
-
-		////CENTER////
-
-		VBox rulesVB = new VBox();
-		rulesVB.setSpacing(20);
-		rulesVB.setPadding(new Insets(0,5,0,0));
-
-		Text rulesTxt = new Text(" aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.\n"
-				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
-				+ " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.");
-
-
-		rulesTxt.getStyleClass().add("rules");
-		HBox leftClick = new HBox();
-		leftClick.setSpacing(20);
-		leftClick.setAlignment(Pos.CENTER);
-	//	File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
-	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
-		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
-	//	leftClick.getChildren().add(imgLeft);
-	//	leftClick.getChildren().add(leftTxt);
-
-		HBox rightClick = new HBox();
-		rightClick.setSpacing(20);
-		rightClick.setAlignment(Pos.CENTER);
-	//	File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
-	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
-		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
-	//	rightClick.getChildren().add(imgRight);
-	//	rightClick.getChildren().add(rightTxt);
-
-		rulesVB.getChildren().add(rulesTxt);
-		rulesVB.getChildren().add(leftClick);
-		rulesVB.getChildren().add(rightClick);
-
-		rulesMenu.setCenter(rulesVB);
-
-		////BOTTOM////
-		HBox botRuleHB = new HBox();
-		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botRuleHB.setPadding(new Insets(0,30,30,30));
-		backButtonR = new CustomMenuButton("←");
-		backButtonR.setPrefWidth(WIDTH/8);
+			});
+		}
 		
-		botRuleHB.getChildren().add(backButtonR);
-		rulesMenu.setBottom(botRuleHB);
-		
-		
-		//Action//
-		//control.checkActions(backButtonR, rulesMenu, this.mainMenu);
-	}
-	
-	
-	
-	
-	private void setUpSettingPanel() {
-		
-		 ////// SETTINGS ///////
-		 
-
-		settingMenu = new BorderPane();
-		settingMenu.setId("settingMenu");
-
-		////TOP////
-		FlowPane settingFP = new FlowPane();
-		Text settingTitle = new Text("SETTINGS");
-		settingTitle.getStyleClass().add("title");
-		settingTitle.setTextAlignment(TextAlignment.CENTER);
-		settingFP.getChildren().add(settingTitle);
-		settingFP.setAlignment(Pos.CENTER);
-		settingFP.setPadding(new Insets(40,0,0,0));
-		settingFP.setPrefSize(WIDTH, HEIGHT/6);
-
-
-		settingMenu.setTop(settingFP);
-
-		////CENTER////
-		HBox settHB = new HBox();
-		settHB.setAlignment(Pos.CENTER);
-		settHB.setSpacing(70);
-/*
-		File soundFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-		ImageView imgSound = new ImageView( new Image(soundFile.toURI().toURL().toString(),50,50,false,false));
-		Button sound = new Button("",imgSound);
-		sound.setPrefSize(WIDTH/5,WIDTH/5);
-		sound.getStyleClass().add("setting-button");
-
-		File musicFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-		ImageView imgMusic = new ImageView( new Image(musicFile.toURI().toURL().toString(),50,50,false,false));
-		Button music = new Button("",imgMusic);
-		music.setPrefSize(WIDTH/5,WIDTH/5);
-		music.getStyleClass().add("setting-button");
-*/
-
-		VBox settVB = new VBox();
-		settVB.setAlignment(Pos.CENTER_LEFT);
-		settVB.setSpacing(30);
-
-		CustomMenuButton white = new CustomMenuButton("WHITE THEME");
-		white.setOnMouseClicked(e -> control.getModel().changeCSS(0));
-		white.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(0);
-			}
-		});
-		CustomMenuButton dark = new CustomMenuButton("DARK THEME");
-		dark.setOnMouseClicked(e -> control.getModel().changeCSS(1));
-		dark.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(1);
-			}
-		});
-		CustomMenuButton neon = new CustomMenuButton("NEON THEME");
-		neon.setOnMouseClicked(e -> control.getModel().changeCSS(2));
-		neon.setOnKeyPressed(e->{
-			if(e.getCode()==KeyCode.ENTER) {
-				control.getModel().changeCSS(2);
-			}
-		});
-		settVB.getChildren().add(white);
-		settVB.getChildren().add(dark);
-		settVB.getChildren().add(neon);
-
-	//	settHB.getChildren().add(sound);
-	//	settHB.getChildren().add(music);
-		settHB.getChildren().add(settVB);
-
-		settingMenu.setCenter(settHB);
-		
-
-		////BOTTOM////
-		HBox botSetHB = new HBox();
-		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
-		botSetHB.setPadding(new Insets(0,30,30,30));
-
-		backButtonS = new CustomMenuButton("←");
-		backButtonS.setPrefWidth(WIDTH/8);
-		botSetHB.getChildren().add(backButtonS);
-		settingMenu.setBottom(botSetHB);	
-		
-		control.checkActions(backButtonS,settingMenu, mainMenu);
-		
-	
-
-		///SETTINGS///
-		/*
-		music.setOnMouseClicked(e -> control.startStopMusic());
-		sound.setOnMouseClicked(e-> control.startStopSound());
-		 */
-		
-		
-	}
-	
-	
-	
 	
 	
 	private void setUpVictoryPanel() {
@@ -509,7 +259,7 @@ public class GameView extends Application{
 		winFP.getChildren().add(winTitle);
 		winFP.setAlignment(Pos.CENTER);
 		winFP.setPadding(new Insets(20,0,0,0));
-		winFP.setPrefSize(WIDTH, HEIGHT/6);
+		winFP.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT/6);
 
 
 		winMenu.setTop(winFP);
@@ -544,22 +294,22 @@ public class GameView extends Application{
 		//	control.checkActions(playAgain, winMenu, difMenu);
 			playAgain.setOnMouseClicked(e->{
 				getTimeline().stop();
-				try {
-					this.start(primaryStage);
+			/*	try {
+					MenuView.start(primaryStage);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			});
 			playAgain.setOnKeyPressed(e->{
 				getTimeline().stop();
 				if(e.getCode()==KeyCode.ENTER) {
-					try {
+				/*	try {
 						this.start(primaryStage);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+					}*/
 				}
 			});
 			exitGame.setOnMouseClicked(e -> control.exitApp());
@@ -588,7 +338,7 @@ public class GameView extends Application{
 		looseFP.getChildren().add(looseTitle);
 		looseFP.setAlignment(Pos.CENTER);
 		looseFP.setPadding(new Insets(20,0,0,0));
-		looseFP.setPrefSize(WIDTH, HEIGHT/6);
+		looseFP.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT/6);
 
 
 		looseMenu.setTop(looseFP);
@@ -623,22 +373,22 @@ public class GameView extends Application{
 		//	control.checkActions(tryAgain, looseMenu, difMenu);
 			tryAgain.setOnMouseClicked(e->{
 				getTimeline().stop();
-				try {
+				/*try {
 					this.start(primaryStage);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					 TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			});
 			tryAgain.setOnKeyPressed(e->{
 				getTimeline().stop();
 				if(e.getCode()==KeyCode.ENTER) {
-					try {
+					/*try {
 						this.start(primaryStage);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+					}*/
 				}
 			});
 			exitGame2.setOnMouseClicked(e -> control.exitApp());
@@ -650,308 +400,15 @@ public class GameView extends Application{
 	}
 	
 	
-	
-	
-	
-	
-	private void setUpLevelSelectorPanel() {
-		/////// LEVEL PANE ///////
-		
-			levelPane = new BorderPane();
-	
-			levelPane.setPrefSize(WIDTH,HEIGHT);
-			
-			FlowPane levelFP = new FlowPane();
-			Text levelTitle = new Text("SWIPE TO CHOOSE THE LEVEL");
-			levelTitle.getStyleClass().add("title");
-			levelTitle.setTextAlignment(TextAlignment.CENTER);
-			levelFP.getChildren().add(levelTitle);
-			levelFP.setAlignment(Pos.CENTER);
-			levelFP.setPadding(new Insets(20,0,0,0));
-			levelFP.setPrefSize(WIDTH, HEIGHT/6);
-	
-			levelPane.setTop(levelFP);
-			 
-			//// CENTER ////
-			StackPane stacklevel = new StackPane();
-			stacklevel.setAlignment(Pos.CENTER);
-			
-	
-			ImageView current = new ImageView(control.getModel().getBackgroundList().get(0));
-			current.setId("0");
-			current.setPreserveRatio(true);
-			current.setFitHeight(WIDTH/5);
-			Button currentB = new Button("",current);
-			currentB.setDisable(true);
-			currentB.setOpacity(1);
-			Text currentLevelTitle = new Text("Level 1"); 
-			currentLevelTitle.getStyleClass().add("title");
-			
-			ImageView left = new ImageView(control.getModel().getBackgroundList().get(1));
-			left.setId("3");
-			left.setPreserveRatio(true);
-			left.setFitHeight(WIDTH/6);
-			Button leftB = new Button("",left);
-			leftB.setDisable(true);
-			
-			
-			ImageView right = new ImageView(control.getModel().getBackgroundList().get(2));
-			right.setId("1");
-			right.setPreserveRatio(true);
-			right.setFitHeight(WIDTH/6);
-			Button rightB = new Button("",right);
-			rightB.setDisable(true);
-		
-					
-			ImageView back = new ImageView(control.getModel().getBackgroundList().get(0));
-			back.setId("2");
-			back.setPreserveRatio(true);
-			back.setFitHeight(WIDTH/6);
-			Button backB = new Button("",back);
-			backB.setDisable(true);
-	
-			
-			
-			
-			VBox levelVBFront= new VBox();
-			levelVBFront.setAlignment(Pos.CENTER);
-			levelVBFront.getChildren().add(currentB);
-			levelVBFront.getChildren().add(currentLevelTitle);
-			
-			
-			VBox levelVBBack = new VBox();
-			levelVBBack.setSpacing(50);
-			levelVBBack.setAlignment(Pos.CENTER);
-			
-			HBox firstLine = new HBox();
-			firstLine.setAlignment(Pos.CENTER);
-			firstLine.getChildren().add(backB);
-			
-			HBox secondLine = new HBox();
-			secondLine.setAlignment(Pos.CENTER);
-			secondLine.setSpacing(300);
-			secondLine.getChildren().add(leftB);
-			secondLine.getChildren().add(rightB);
-			
-			levelVBBack.getChildren().add(firstLine);
-			levelVBBack.getChildren().add(secondLine);
-			
-			
-			levelPane.setOnMousePressed(e->{
-				control.swipeCheck(e, false);
-			});
-			
-			levelPane.setOnMouseReleased(e->{
-				Image temp;
-				String tempId;
-				if(control.swipeCheck(e, true)==1) {//left
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(right.getImage()); 
-					current.setId(right.getId());
-					
-					right.setImage(back.getImage());
-					right.setId(back.getId());
-					
-					back.setImage(left.getImage());
-					back.setId(left.getId());
-					
-					left.setImage(temp);
-					left.setId(tempId);
-					
-				}else if(control.swipeCheck(e, true)==2) {//right
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(left.getImage()); 
-					current.setId(left.getId());
-					
-					left.setImage(back.getImage());
-					left.setId(back.getId());
-					
-					back.setImage(right.getImage());
-					back.setId(right.getId());
-					
-					right.setImage(temp);
-					right.setId(tempId);
-				}
-				switch(current.getId()) {
-					case "0" :
-						levelId = 0;
-						break;
-					case "1" :
-						levelId = 1;
-						break;
-					case "2" :
-						levelId = 2;
-						break;
-					case "3" :
-						levelId = 3;
-						break;
-				}
-				currentLevelTitle.setText("Level "+ (levelId+1));	
-				primaryStage.show();
-			});
-			
-			levelPane.setOnKeyPressed(e -> {
-				Image temp;
-				String tempId;
-				if(e.getCode()==KeyCode.D || e.getCode()==KeyCode.RIGHT ) {
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(right.getImage()); 
-					current.setId(right.getId());
-					
-					right.setImage(back.getImage());
-					right.setId(back.getId());
-					
-					back.setImage(left.getImage());
-					back.setId(left.getId());
-					
-					left.setImage(temp);
-					left.setId(tempId);
-				}
-				if(e.getCode()==KeyCode.Q || e.getCode()==KeyCode.LEFT) {
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(left.getImage()); 
-					current.setId(left.getId());
-					
-					left.setImage(back.getImage());
-					left.setId(back.getId());
-					
-					back.setImage(right.getImage());
-					back.setId(right.getId());
-					
-					right.setImage(temp);
-					right.setId(tempId);
-				}
-				switch(current.getId()) {
-				case "0" :
-					levelId = 0;
-					break;
-				case "1" :
-					levelId = 1;
-					break;
-				case "2" :
-					levelId = 2;
-					break;
-				case "3" :
-					levelId = 3;
-					break;
-				}
-				currentLevelTitle.setText("Level "+ (levelId+1));	
-				primaryStage.show();
-			});
-			
-			currentLevelTitle.setText("Level "+ (levelId+1));
-			
-			primaryStage.show();
-			
-			stacklevel.getChildren().add(levelVBBack);
-			stacklevel.getChildren().add(levelVBFront);
-	
-			levelPane.setCenter(stacklevel);
-			
-			///Bottom///
-			HBox validatelevelHB = new HBox();
-			validatelevelHB.setPadding(new Insets(0,0,30,0));
-			CustomMenuButton validatelevel = new CustomMenuButton("TRY THIS LEVEL");
-			validatelevelHB.getChildren().add(validatelevel);
-			validatelevelHB.setAlignment(Pos.CENTER);
-			
-			backButtonL = new CustomMenuButton("←");
-			backButtonL.setPrefWidth(WIDTH/8);
-			validatelevelHB.setSpacing(100);
-			
-			validatelevelHB.getChildren().add(backButtonL);
-			
-			levelPane.setBottom(validatelevelHB);
-			
-			control.checkActions(validatelevel, levelPane, gamePane);
-				
-	}
-	
-	
-	
-	
-	private void setUpInGamePanel() {	
-		/////// GAME PANE ///////
-
-		gamePane = new BorderPane();
-
-
-		////TOP////
-		HBox gameHB = new HBox();
-		gameHB.setAlignment(Pos.CENTER);
-		gameHB.setSpacing(40);
-		gameHB.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY,Insets.EMPTY)));
-
-		CustomMenuButton pauseButton = new CustomMenuButton("Pause");
-		pauseButton.setPrefHeight(HEIGHT/20 );
-				
-
-	//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
-		//ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
-		FlowPane pChrono = new FlowPane();
-		pChrono.setAlignment(Pos.CENTER);
-		pChrono.setPrefWidth(WIDTH/6);
-		time = new Label();
-		time.textProperty().bind(timeSeconds.asString());
-		pChrono.getChildren().add(time);
-
-		pauseButton.setPrefWidth(WIDTH/5);
-
-		gameHB.getChildren().add(pauseButton);
-		//gameHB.getChildren().add(imgChrono);
-		gameHB.getChildren().add(pChrono);
-
-		gamePane.setTop(gameHB);;
-
-		////CENTER////
-		//grid = new BorderPane();
-	//	grid.setAlignment(Pos.CENTER);
-		
-		canvas = new Canvas(WIDTH,HEIGHT-HEIGHT/12);
-		//System.out.println(gamePane.getWidth());
-		GraphicsContext context = canvas.getGraphicsContext2D();
-		context.setFill(Color.YELLOW);
-		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
-		//grid.getChildren().add(canvas);
-		
-		context.setFill(Color.BLACK);
-		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-						20, 20);
-		
-		
-		
-		gamePane.setCenter(canvas);
-
-		//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
-		//pauseButton.setOnAction(e -> control.getGravity().isActive());
-		//control.checkActions(pauseButton, gamePane, pauseMenu);
-		
-		//TO DO pause pour activer / desactiver gravity 
-		pauseButton.setOnMouseClicked(e ->{
-			 control.getGravity().setActive(true);
-			 control.getGravity().isActive();}
-				);
-		
-	}		
-		
-		
-	public Canvas getCanvas() {
-		return canvas;
+	public BorderPane getGamePane() {
+		return gamePane;
 	}
 
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
-	}
 
+	public void setGamePane(BorderPane gamePane) {
+		this.gamePane = gamePane;
+	}
+	
 	public Label getTime() {
 		return time;
 	}
@@ -959,20 +416,16 @@ public class GameView extends Application{
 	public void setTime(Label time) {
 		this.time = time;
 	}
-
-	public StackPane getMainPane() {
-		return mainPane;
-	}
-
-	public Control getControl() {
-		return control;
-	}
-
-	public void setControl(Control control) {
-		this.control = control;
+	
+	public Timeline getTimeline() {
+		return timeline;
 	}
 
 
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
+	
 	public BorderPane getWinMenu() {
 		return winMenu;
 	}
@@ -987,57 +440,6 @@ public class GameView extends Application{
 		return looseMenu;
 	}
 
-
-	public void setLooseMenu(BorderPane looseMenu) {
-		this.looseMenu = looseMenu;
-	}
-
-
-	public BorderPane getGamePane() {
-		return gamePane;
-	}
-
-
-	public void setGamePane(BorderPane gamePane) {
-		this.gamePane = gamePane;
-	}
-
-
-	public Stage getPrimaryStage() {
-		return primaryStage;
-	}
-
-
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-	}
-
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-
-	public Scene getScene() {
-		return scene;
-	}
-
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
-
-
-	public Timeline getTimeline() {
-		return timeline;
-	}
-
-
-	public void setTimeline(Timeline timeline) {
-		this.timeline = timeline;
-	}
-
-
 	public IntegerProperty getTimeSeconds() {
 		return timeSeconds;
 	}
@@ -1047,15 +449,24 @@ public class GameView extends Application{
 		this.timeSeconds = timeSeconds;
 	}
 	
+
+	public void setLooseMenu(BorderPane looseMenu) {
+		this.looseMenu = looseMenu;
+	}
 	
-	public int getLevelId() {
-		return levelId;
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
-
-	public void setLevelId(int levelId) {
-		this.levelId = levelId;
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+	
+	public StackPane getMainGameView() {
+		return mainGameView;
 	}
 
+	public void setMainGameView(StackPane mainGameView) {
+		this.mainGameView = mainGameView;
+	}
 }
-

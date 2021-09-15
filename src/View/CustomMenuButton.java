@@ -16,7 +16,7 @@ public class CustomMenuButton extends Button {
 		setFont(buttonFont);
 		setCursor(Cursor.HAND);
 		setPadding(new Insets(10,10,10,10));
-		setPrefSize(GameView.WIDTH/4, GameView.HEIGHT/12);
+		setPrefSize(MenuView.WIDTH/4, MenuView.HEIGHT/12);
 		getStyleClass().add("menus-button");
 	}
 	

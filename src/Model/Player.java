@@ -11,6 +11,7 @@ public class Player {
 	private ArrayList<Power> powerList;
 	
 	private boolean invincibleAfterAttack;
+	private int playerSize;
 	
 	private int jumpHeight = 10;
 	
@@ -18,6 +19,7 @@ public class Player {
 		this.position = new Point2D(20,50);//Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
 		this.invincibleAfterAttack = false;
+		setPlayerSize(20);
 	}
 
 	public Point2D getPosition() {
@@ -50,5 +52,13 @@ public class Player {
 
 	public void setJumpHeight(int jumpHeight) {
 		this.jumpHeight = jumpHeight;
+	}
+
+	public int getPlayerSize() {
+		return playerSize;
+	}
+
+	public void setPlayerSize(int playerSize) {
+		this.playerSize = playerSize;
 	}
 }

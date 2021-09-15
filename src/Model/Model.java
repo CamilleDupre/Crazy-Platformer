@@ -2,23 +2,23 @@ package Model;
 
 import java.util.ArrayList;
 
-import View.GameView;
+import View.MenuView;
 
 public class Model {
 
-	private GameView gameView;
+	private MenuView menuView;
 	private int cssStyle;
 	private ArrayList<String> backgroundList;
 	
 	private int playerSpeed;
 	
 	private int currentLevel;
-	public static final int MIN_FLOOR_HEIGHT = GameView.HEIGHT - 100 ;
+	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 100 ;
 	private Player player;
 		
 	
-	public Model(GameView v) {
-		this.gameView = v;
+	public Model(MenuView v) {
+		this.menuView = v;
 		
 		initBackgroundRessources();
 		this.player = new Player();
@@ -37,24 +37,24 @@ public class Model {
 		cssStyle = cssId;
 		switch(cssStyle) {
 		case 0 :
-			gameView.getScene().getStylesheets().remove(0);
-			gameView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
+			menuView.getScene().getStylesheets().remove(0);
+			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
 			break;
 		
 		case 1 :
-			gameView.getScene().getStylesheets().remove(0);
-			gameView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
+			menuView.getScene().getStylesheets().remove(0);
+			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
 			break;
 		
 		case 2 :
-			gameView.getScene().getStylesheets().remove(0);
-			gameView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
+			menuView.getScene().getStylesheets().remove(0);
+			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
 			break;
 			
 		default :
 			break;
 		}
-		gameView.getPrimaryStage().show();
+		menuView.getPrimaryStage().show();
 
 	}
 	

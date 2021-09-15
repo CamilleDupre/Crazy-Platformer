@@ -4,15 +4,8 @@ public class Gravity extends Thread{
 
 	private Control ctrl;
 	private boolean active = false;
-	//private boolean active = false;
 
-	public boolean isActive() {
-		return active;
-	}
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
 
 	/*Constructeur*/
 	public Gravity(Control myctrl) {
@@ -28,5 +21,16 @@ public class Gravity extends Thread{
 			ctrl.moveDown() ;
 		}
 	}
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
 }
+
+
 

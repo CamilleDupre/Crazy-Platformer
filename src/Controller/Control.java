@@ -4,38 +4,40 @@ import java.io.IOException;
 
 import Model.Model;
 import View.CustomMenuButton;
-import View.GameView;
+import View.MenuView;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import View.GameView;
 
 public class Control {
 	private Model model;
-	private GameView view;
+	private MenuView view;
 	
 	private double cursorX=0;
 	private boolean joystickDrag;
 	private Timeline cursorTime= new Timeline();
 	public static final double SWIPE_TIME=1; 
-	public static double SWIPE_DISTANCY = GameView.WIDTH/7;
+	public static double SWIPE_DISTANCY = MenuView.WIDTH/7;
 	private Gravity gravity;
 	
 	
 
-	public Control(GameView v){
+	public Control(MenuView v){
 		this.setModel(new Model(v));
 		this.view = v;
 		this.joystickDrag = false;
 		
 		gravity = new Gravity(this);
-		gravity.start();
 	}
 	
 	public void exitApp() {
@@ -58,7 +60,7 @@ public class Control {
 
 	}
 	
-	public void loadSkin(CustomMenuButton b, BorderPane src, BorderPane target) throws IOException {
+	public void loadLevelSelector(CustomMenuButton b, BorderPane src, BorderPane target) throws IOException {
 
 		b.setOnMouseClicked(e ->{
 			src.setVisible(false);
@@ -74,6 +76,23 @@ public class Control {
 		}
 				);
 
+	}
+	
+	public void loadLevel(int levelId, Stage stg) {
+		view.getValidatelevel().setOnMouseClicked(e ->{
+			gravity.setActive(true);
+			gravity.start();
+			
+			
+			
+			GameView gameView = new GameView(this);
+			gameView.getMainGameView().setVisible(true);
+			view.setGameScene((new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT)));
+			stg.setScene(view.getGameScene());
+			stg.setResizable(false);
+			stg.show();
+			view.setGameView(gameView);
+		});
 	}
 	
 	public int swipeCheck(MouseEvent e,boolean boo) {
@@ -114,11 +133,9 @@ public class Control {
 	}
 
 	public void moveDown() {
-		if (model.getPlayer().getPosition().getY() +2 < Model.MIN_FLOOR_HEIGHT ){
+		if (model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() < Model.MIN_FLOOR_HEIGHT ){
 			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +2)) ;
 			//System.out.println("Je tombe : " + hauteur);
-			//monAffichage.repaint();
-			//view.getCanvas().repaint();
 			System.out.println(model.getPlayer().getPosition().getY());
 		}
 	}

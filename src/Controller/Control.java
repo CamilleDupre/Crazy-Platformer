@@ -27,6 +27,8 @@ public class Control {
 	public static double SWIPE_DISTANCY = GameView.WIDTH/7;
 	private Gravity gravity;
 	
+	
+
 	public Control(GameView v){
 		this.setModel(new Model(v));
 		this.view = v;
@@ -119,5 +121,13 @@ public class Control {
 			//view.getCanvas().repaint();
 			System.out.println(model.getPlayer().getPosition().getY());
 		}
+	}
+	
+	public Gravity getGravity() {
+		return gravity;
+	}
+
+	public void setGravity(Gravity gravity) {
+		this.gravity = gravity;
 	}
 }

@@ -931,8 +931,15 @@ public class GameView extends Application{
 		
 		gamePane.setCenter(canvas);
 
-		//pauseButton.setOnAction(e-> timeline.pause());
+		//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
+		//pauseButton.setOnAction(e -> control.getGravity().isActive());
 		//control.checkActions(pauseButton, gamePane, pauseMenu);
+		
+		//TO DO pause pour activer / desactiver gravity 
+		pauseButton.setOnMouseClicked(e ->{
+			 control.getGravity().setActive(true);
+			 control.getGravity().isActive();}
+				);
 		
 	}		
 		

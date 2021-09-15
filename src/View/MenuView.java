@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.IOException;
 
 import Controller.Control;
+import Controller.Gravity;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -36,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MenuView extends Application{
@@ -75,6 +78,15 @@ public class MenuView extends Application{
 		WIDTH = (int) screenBounds.getWidth();
 
 		primaryStage=stg;
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                control.getGravity().interrupt();
+                System.exit(0);
+            }
+        });
+		
 		this.control = new Control(this);
 
 		mainPane = new StackPane();

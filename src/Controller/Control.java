@@ -40,11 +40,13 @@ public class Control {
 		
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
+		
 	}
 	
 	public void exitApp() {
 		System.exit(0);
 	}
+	
 	
 	
 	public void checkActions(CustomMenuButton b,BorderPane src, BorderPane target) {
@@ -94,6 +96,21 @@ public class Control {
 		});
 	}
 	
+	
+	
+	/*
+	 * this function is used to listen on keyPressed in the game panel and to run the actions corresponding to the key
+	 */
+	public void checkKeyPressed(BorderPane gamePane) {
+		gamePane.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.SPACE) {
+				makePlayerJump();
+				System.out.println("dans keypressed jump");
+			}
+		});
+		
+	}
+	
 	public int swipeCheck(MouseEvent e,boolean boo) {
 		if(!boo) {
 			cursorX = e.getX();	
@@ -123,6 +140,30 @@ public class Control {
 	
 	}
 
+	
+	
+	public void makePlayerJump() {
+		if (!model.getPlayer().isJumping()){
+			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerJump())) ;
+			model.getPlayer().setJumping(true);
+		}
+		System.out.println("dans jump");
+	}
+	
+	
+
+	public void gravityForce() {
+		if (model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() < Model.MIN_FLOOR_HEIGHT ){
+			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +8)) ;
+			
+		}else if(model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() != Model.MIN_FLOOR_HEIGHT){
+			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(), Model.MIN_FLOOR_HEIGHT-model.getPlayer().getPlayerSize()));
+			model.getPlayer().setJumping(false);
+		}
+		gameView.repaint(); 
+	}
+	
+	
 	public Model getModel() {
 		return model;
 	}
@@ -130,15 +171,7 @@ public class Control {
 	public void setModel(Model model) {
 		this.model = model;
 	}
-
-	public void moveDown() {
-		if (model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() < Model.MIN_FLOOR_HEIGHT ){
-			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +2)) ;
-			//System.out.println("Je tombe : " + hauteur);
-			System.out.println(model.getPlayer().getPosition().getY());
-			gameView.repaint();
-		}
-	}
+	
 	
 	public Gravity getGravity() {
 		return gravity;

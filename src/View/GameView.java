@@ -65,7 +65,10 @@ public class GameView {
 		winMenu.setVisible(false);
 		looseMenu.setVisible(false);		
 		pauseMenu.setVisible(false);
+		
+		gamePane.toFront();
 			
+		control.checkKeyPressed(gamePane);
 			
 	}
 	
@@ -82,6 +85,7 @@ public class GameView {
 
 			CustomMenuButton pauseButton = new CustomMenuButton("Pause");
 			pauseButton.setPrefHeight(MenuView.HEIGHT/20 );
+			pauseButton.setPrefWidth(MenuView.WIDTH/20);
 					
 
 		//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
@@ -93,13 +97,12 @@ public class GameView {
 			time.textProperty().bind(timeSeconds.asString());
 			pChrono.getChildren().add(time);
 
-			pauseButton.setPrefWidth(MenuView.WIDTH/5);
 
 			gameHB.getChildren().add(pauseButton);
 			//gameHB.getChildren().add(imgChrono);
 			gameHB.getChildren().add(pChrono);
 
-			gamePane.setTop(gameHB);;
+			gamePane.setTop(gameHB);
 
 			////CENTER////
 			//grid = new BorderPane();
@@ -115,12 +118,13 @@ public class GameView {
 			
 			context.setFill(Color.BLACK);
 			context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-							20, 20);
-			System.out.println("Y" +control.getModel().getPlayer().getPosition().getX());
+							20, control.getModel().getPlayer().getPlayerSize());
 			
 			
 			
 			gamePane.setCenter(canvas);
+			
+			
 
 			//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
 			//pauseButton.setOnAction(e -> control.getGravity().isActive());
@@ -133,8 +137,7 @@ public class GameView {
 		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context.setFill(Color.BLACK);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-						20, 20);
-		System.out.println("Y" +control.getModel().getPlayer().getPosition().getY());
+						20, control.getModel().getPlayer().getPlayerSize());
 	}
 	
 	

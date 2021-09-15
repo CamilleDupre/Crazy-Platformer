@@ -10,7 +10,6 @@ public class Model {
 	private int cssStyle;
 	private ArrayList<String> backgroundList;
 	
-	private int playerSpeed;
 	
 	private int currentLevel;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 100 ;

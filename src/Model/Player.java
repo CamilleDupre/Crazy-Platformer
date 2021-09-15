@@ -12,14 +12,17 @@ public class Player {
 	
 	private boolean invincibleAfterAttack;
 	private int playerSize;
+	private int playerSpeed=10;
+	private int playerJump=100;
 	
-	private int jumpHeight = 10;
+	private boolean jumping;
 	
 	public Player(){
 		this.position = new Point2D(20,50);//Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
 		this.invincibleAfterAttack = false;
-		setPlayerSize(20);
+		setPlayerSize(80);
+		setJumping(false);
 	}
 
 	public Point2D getPosition() {
@@ -46,13 +49,6 @@ public class Player {
 		this.invincibleAfterAttack = invincibleAfterAttack;
 	}
 
-	public int getJumpHeight() {
-		return jumpHeight;
-	}
-
-	public void setJumpHeight(int jumpHeight) {
-		this.jumpHeight = jumpHeight;
-	}
 
 	public int getPlayerSize() {
 		return playerSize;
@@ -60,5 +56,29 @@ public class Player {
 
 	public void setPlayerSize(int playerSize) {
 		this.playerSize = playerSize;
+	}
+
+	public int getPlayerJump() {
+		return playerJump;
+	}
+
+	public void setPlayerJump(int playerJump) {
+		this.playerJump = playerJump;
+	}
+
+	public int getPlayerSpeed() {
+		return playerSpeed;
+	}
+
+	public void setPlayerSpeed(int playerSpeed) {
+		this.playerSpeed = playerSpeed;
+	}
+
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
 	}
 }

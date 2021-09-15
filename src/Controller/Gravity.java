@@ -18,8 +18,8 @@ public class Gravity extends Thread{
 	@Override
 	public void run() {
 		while(active) {
-			ctrl.moveDown() ;
-			try { Thread.sleep(100); }
+			ctrl.gravityForce() ;
+			try { Thread.sleep(20); }
 			catch (Exception e) { e.printStackTrace(); }
 		}
 	}

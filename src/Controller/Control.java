@@ -103,12 +103,17 @@ public class Control {
 	 */
 	public void checkKeyPressed(BorderPane gamePane) {
 		gamePane.setOnKeyPressed(e -> {
+			System.out.println("dans keypressed jump");
 			if(e.getCode()==KeyCode.SPACE) {
 				makePlayerJump();
 				System.out.println("dans keypressed jump");
 			}
 		});
 		
+		gamePane.setOnMouseClicked(e ->{
+				makePlayerJump();
+				System.out.println("dans keypressed jump");
+		});
 	}
 	
 	public int swipeCheck(MouseEvent e,boolean boo) {
@@ -146,6 +151,7 @@ public class Control {
 		if (!model.getPlayer().isJumping()){
 			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerJump())) ;
 			model.getPlayer().setJumping(true);
+			gameView.repaint(); 
 		}
 		System.out.println("dans jump");
 	}

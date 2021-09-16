@@ -13,7 +13,7 @@ public class Player {
 	private boolean invincibleAfterAttack;
 	private int playerSize;
 	private int playerSpeed=10;
-	private int playerJump=100;
+	private int playerJump= - 100;
 	
 	private boolean jumping;
 	

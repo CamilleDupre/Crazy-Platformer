@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import Controller.Control;
 import Controller.Gravity;
+import Sound.Sound;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
@@ -69,6 +70,7 @@ public class MenuView extends Application{
 	
 	public static int HEIGHT;
 	public static int WIDTH;
+	private Sound sound;
 
 
 	public void start(Stage stg) throws IOException {
@@ -87,7 +89,8 @@ public class MenuView extends Application{
             }
         });
 		
-		this.control = new Control(this);
+		this.sound = new Sound();
+		this.control = new Control(this, this.sound);
 
 		mainPane = new StackPane();
 		mainPane.setPrefSize(WIDTH, HEIGHT);

@@ -7,13 +7,16 @@ import javafx.geometry.Pos;
 
 public class Player {
 	
+	public static final int PLAYER_WIDTH = 30;
+	public static final int PLAYER_HEIGHT = 80;
+	
 	private Point2D position;
 	private ArrayList<Power> powerList;
 	
 	private boolean invincibleAfterAttack;
-	private int playerSize;
-	private int playerSpeed=10;
-	private int playerJump= - 300;
+	private Point2D playerSize;
+	private int playerSpeed = 10;
+	private int playerJump = - 300;
 	
 	private boolean jumping;
 	
@@ -21,8 +24,10 @@ public class Player {
 		this.position = new Point2D(20,50);//Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
 		this.invincibleAfterAttack = false;
-		setPlayerSize(80);
+		setPlayerSize(new Point2D(PLAYER_WIDTH, PLAYER_HEIGHT));
 		setJumping(false);
+		
+		this.setJumping(true);
 	}
 
 	public Point2D getPosition() {
@@ -50,11 +55,11 @@ public class Player {
 	}
 
 
-	public int getPlayerSize() {
+	public Point2D getPlayerSize() {
 		return playerSize;
 	}
 
-	public void setPlayerSize(int playerSize) {
+	public void setPlayerSize(Point2D playerSize) {
 		this.playerSize = playerSize;
 	}
 

@@ -18,7 +18,7 @@ public class Gravity extends Thread{
 	@Override
 	public void run() {
 		while(active) {
-			ctrl.gravityForce() ;
+			ctrl.getModel().gravityForce() ;
 			try { Thread.sleep(20); }
 			catch (Exception e) { e.printStackTrace(); }
 		}

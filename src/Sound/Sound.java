@@ -1,4 +1,5 @@
 package Sound;
+
 import java.io.BufferedInputStream;
 
 import javax.sound.sampled.AudioInputStream;
@@ -65,7 +66,7 @@ public class Sound {
 	 * Tries to load each sound effect, and creates appropriate Clip handlers
 	 */
 	public Sound() {
-		
+	/*	
 		try {
 			this.mainThemeClip = AudioSystem.getClip();
 			this.mainTheme = AudioSystem.getAudioInputStream(new BufferedInputStream(Sound.class.getClassLoader().getResourceAsStream("sounds/main.wav")));
@@ -119,7 +120,7 @@ public class Sound {
 			e.printStackTrace();
 			System.out.println("Failed to load sounds/gameover.wav !");
 		}
-		
+		*/
 	}
 	
 	/**

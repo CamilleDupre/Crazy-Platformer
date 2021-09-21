@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 
 import Model.Model;
+import Sound.Sound;
 import View.CustomMenuButton;
 import View.MenuView;
 import javafx.animation.KeyFrame;
@@ -30,16 +31,36 @@ public class Control {
 	public static double SWIPE_DISTANCY = MenuView.WIDTH/7;
 	private Gravity gravity;
 	private GameView gameView;
+	
+	/**
+	 * KeyListener implementation
+	 */
+	private KeyControl keyControl;
+	
+	/**
+	 * Left value for turning ship
+	 */
+	public static final int LEFT = 1;
+	
+	/**
+	 * Right value for turning ship
+	 */
+	public static final int RIGHT = 2;
+	
+	private Sound sound;
 
 
 
-	public Control(MenuView v){
-		this.setModel(new Model(v));
+	public Control(MenuView v, Sound s){
 		this.view = v;
 		this.joystickDrag = false;
 
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
+		
+		this.setModel(new Model(v, gameView));
+		this.sound = s;
+		
 
 	}
 
@@ -93,6 +114,7 @@ public class Control {
 			stg.setResizable(false);
 			stg.show();
 			view.setGameView(gameView);
+			this.setKeyControl(new KeyControl(this, this.sound));
 		});
 
 		view.getValidatelevel().setOnKeyPressed(e -> {
@@ -107,7 +129,9 @@ public class Control {
 				stg.show();
 				view.setGameView(gameView);
 			}
+			this.setKeyControl(new KeyControl(this, this.sound));
 		});
+		
 	}
 
 
@@ -119,13 +143,13 @@ public class Control {
 		gamePane.setOnKeyPressed(e -> {
 			System.out.println("dans keypressed");
 			if(e.getCode()==KeyCode.SPACE) {
-				makePlayerJump();
+				model.makePlayerJump();
 				System.out.println("jump space");
 			}
 		});
 
 		gamePane.setOnMouseClicked(e ->{
-			makePlayerJump();
+			model.makePlayerJump();
 			System.out.println("jump click");
 		});
 	}
@@ -159,29 +183,14 @@ public class Control {
 
 	}
 
-
-
-	public void makePlayerJump() {
-		if (!model.getPlayer().isJumping()){
-			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerJump())) ;
-			model.getPlayer().setJumping(true);
-			gameView.repaint(); 
-		}
-		System.out.println("dans jump");
+	public void pauseGame() {
+		displayMenu(gameView.getGamePane(), gameView.getPauseMenu());
+	}
+	
+	public void resumeGame() {
+		displayMenu(gameView.getPauseMenu(), gameView.getGamePane());
 	}
 
-
-
-	public void gravityForce() {
-		if (model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() < Model.MIN_FLOOR_HEIGHT ){
-			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(),model.getPlayer().getPosition().getY() +8)) ;
-
-		}else if(model.getPlayer().getPosition().getY() + model.getPlayer().getPlayerSize() != Model.MIN_FLOOR_HEIGHT){
-			model.getPlayer().setPosition( new Point2D(model.getPlayer().getPosition().getX(), Model.MIN_FLOOR_HEIGHT-model.getPlayer().getPlayerSize()));
-			model.getPlayer().setJumping(false);
-		}
-		gameView.repaint(); 
-	}
 
 
 	public Model getModel() {
@@ -199,5 +208,17 @@ public class Control {
 
 	public void setGravity(Gravity gravity) {
 		this.gravity = gravity;
+	}
+
+	public KeyControl getKeyControl() {
+		return keyControl;
+	}
+
+	public void setKeyControl(KeyControl keyControl) {
+		this.keyControl = keyControl;
+	}
+	
+	public GameView getGameView() {
+		return this.gameView;
 	}
 }

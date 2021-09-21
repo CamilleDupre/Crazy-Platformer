@@ -36,6 +36,7 @@ public class GameView {
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
 	private BorderPane pauseMenu;
+
 	private GraphicsContext context;
 	
 	private StackPane mainGameView;
@@ -117,9 +118,9 @@ public class GameView {
 			//grid.getChildren().add(canvas);
 			
 			context.setFill(Color.BLACK);
-			context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-							20, control.getModel().getPlayer().getPlayerSize());
-			
+			/*context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
+					control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			*/
 			
 			
 			gamePane.setCenter(canvas);
@@ -139,7 +140,7 @@ public class GameView {
 		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context.setFill(Color.BLACK);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-						20, control.getModel().getPlayer().getPlayerSize());
+				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 	}
 	
 	
@@ -458,6 +459,14 @@ public class GameView {
 
 	public IntegerProperty getTimeSeconds() {
 		return timeSeconds;
+	}
+	
+	public BorderPane getPauseMenu() {
+		return pauseMenu;
+	}
+
+	public void setPauseMenu(BorderPane pauseMenu) {
+		this.pauseMenu = pauseMenu;
 	}
 
 

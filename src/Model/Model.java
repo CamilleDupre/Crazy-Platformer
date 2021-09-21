@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import Controller.Control;
+import Sound.Sound;
 import View.GameView;
 import View.MenuView;
 import javafx.geometry.Point2D;
@@ -35,14 +36,18 @@ public class Model {
 	private int direction;
 	private ImageIcon imgPlayer;
 	
-	private double time = 0.0;
+	private double time = 30000;
+	
+	private Timer timer;
 	
 	private boolean gamePaused;
+	
+	private Sound sound;
 	
 	
 		
 	
-	public Model(MenuView menu, GameView game) {
+	public Model(MenuView menu, GameView game,Sound sound) {
 		this.menuView = menu;
 		this.gameView = game;
 		this.gameOver = false;
@@ -50,6 +55,8 @@ public class Model {
 		this.player = new Player();
 		this.direction = FACE_RIGHT;
 		this.gamePaused = false;
+		this.sound = sound;
+		timer = new Timer(this,sound);
 		
 	}
 	

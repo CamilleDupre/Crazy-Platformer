@@ -58,7 +58,7 @@ public class Control {
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
 		
-		this.setModel(new Model(v, gameView));
+		this.setModel(new Model(v, gameView,s));
 		this.sound = s;
 		
 
@@ -115,6 +115,7 @@ public class Control {
 			stg.show();
 			view.setGameView(gameView);
 			this.setKeyControl(new KeyControl(this, this.sound));
+		
 		});
 
 		view.getValidatelevel().setOnKeyPressed(e -> {

@@ -1,7 +1,5 @@
 package View;
 
-import java.io.IOException;
-
 import Controller.Control;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;

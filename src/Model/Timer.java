@@ -40,7 +40,7 @@ public class Timer extends Thread {
 			if (!this.model.isGamePaused()) {
 				
 				if (this.model.getTime() <= 0) {
-					this.model.endGame();
+					//this.model.endGame();
 					this.sound.pauseMainTheme();
 					this.sound.playGameOverSound();
 				} else {

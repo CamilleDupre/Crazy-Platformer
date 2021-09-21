@@ -68,7 +68,7 @@ public class GameView {
 		
 		gamePane.toFront();
 			
-		control.checkKeyPressed(gamePane);
+		
 			
 	}
 	
@@ -98,7 +98,7 @@ public class GameView {
 			pChrono.getChildren().add(time);
 
 
-			gameHB.getChildren().add(pauseButton);
+			//gameHB.getChildren().add(pauseButton);
 			//gameHB.getChildren().add(imgChrono);
 			gameHB.getChildren().add(pChrono);
 
@@ -123,12 +123,14 @@ public class GameView {
 			
 			
 			gamePane.setCenter(canvas);
+		
+			control.checkKeyPressed(gamePane);
 			
 			
 
-			//pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
-			//pauseButton.setOnAction(e -> control.getGravity().isActive());
-			//control.checkActions(pauseButton, gamePane, pauseMenu);
+			pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
+			pauseButton.setOnAction(e -> control.getGravity().isActive());
+			control.checkActions(pauseButton, gamePane, pauseMenu);
 	}
 	
 	public void repaint() {

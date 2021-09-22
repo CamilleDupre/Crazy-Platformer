@@ -44,7 +44,10 @@ public class Model {
 	
 	private Sound sound;
 	
-	
+	public Level LVL_1 = initLevel(1);
+	public Level LVL_2;
+	public Level LVL_3;
+	public Level LVL_4;	
 		
 	
 	public Model(MenuView menu, GameView game,Sound sound) {
@@ -153,6 +156,97 @@ public class Model {
 		}
 		gameView.repaint(); 
 	}
+	
+	
+	
+	public Level initLevel(int lvlId) {
+
+		Level lvl;
+		int size;
+
+		ArrayList<Block> blocks;
+
+		Block floorBlock;
+
+		Block block1;
+		Block block2;
+		Block block3;
+		Block block4;
+		Block block5;
+
+		Point2D[] ennemies;
+		Point2D[] coins;
+		Point2D[] powers;
+		Point2D[] traps;
+
+
+		switch(lvlId) {
+
+		case 1:
+			size = 1500;
+
+			blocks = new ArrayList<Block>();
+
+			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),GameView.CANVAS_WIDTH,50);
+			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
+			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
+			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-250),200,50);
+			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-400),200,50);
+			block5 = new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-550),200,550);
+
+			blocks.add(floorBlock);
+			blocks.add(block1);
+			blocks.add(block2);
+			blocks.add(block3);
+			blocks.add(block4);
+			blocks.add(block5);
+
+
+			ennemies = new Point2D[]{new Point2D(2500,GameView.CANVAS_HEIGHT -300)};
+			coins = new Point2D[]{new Point2D(300,GameView.CANVAS_HEIGHT - 400), new Point2D(600,GameView.CANVAS_HEIGHT -300), new Point2D(900,GameView.CANVAS_HEIGHT -200), new Point2D(1200,GameView.CANVAS_HEIGHT -700), new Point2D(1800,GameView.CANVAS_HEIGHT -300)};
+			powers = new Point2D[]{};
+			traps = new Point2D[]{new Point2D(600,GameView.CANVAS_HEIGHT -200)};
+
+			lvl = new Level(1500,blocks,ennemies,coins,powers,traps);
+
+			break;
+
+		default : 
+			size = 1500;
+
+			blocks = new ArrayList<Block>();
+
+			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),GameView.CANVAS_WIDTH,50);
+			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
+			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
+			block3 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-250),200,50);
+			block4 = new Block(new Point2D(950,Model.MIN_FLOOR_HEIGHT-400),200,50);
+			block5 = new Block(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-550),200,550);
+
+			blocks.add(floorBlock);
+			blocks.add(block1);
+			blocks.add(block2);
+			blocks.add(block3);
+			blocks.add(block4);
+			blocks.add(block5);
+
+
+			ennemies = new Point2D[]{new Point2D(2500,GameView.CANVAS_HEIGHT -300)};
+			coins = new Point2D[]{new Point2D(300,GameView.CANVAS_HEIGHT - 400), new Point2D(600,GameView.CANVAS_HEIGHT -300), new Point2D(900,GameView.CANVAS_HEIGHT -200), new Point2D(1200,GameView.CANVAS_HEIGHT -700), new Point2D(1800,GameView.CANVAS_HEIGHT -300)};
+			powers = new Point2D[]{};
+			traps = new Point2D[]{new Point2D(600,GameView.CANVAS_HEIGHT -200)};
+
+			lvl = new Level(1500,blocks,ennemies,coins,powers,traps);
+
+			break;
+
+		}
+
+		return lvl;
+
+
+	}
+
 	
 	
 	

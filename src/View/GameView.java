@@ -1,7 +1,10 @@
 package View;
 
+import java.util.ArrayList;
+
 import Controller.Control;
 import Controller.KeyControl;
+import Model.Block;
 import Sound.Sound;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -40,6 +43,10 @@ public class GameView {
 	private BorderPane pauseMenu;
 
 	private GraphicsContext context;
+	
+	public static final int CANVAS_WIDTH = MenuView.WIDTH;
+	public static final int CANVAS_HEIGHT = MenuView.HEIGHT-MenuView.HEIGHT/12;
+
 	
 	private StackPane mainGameView;
 	
@@ -113,7 +120,7 @@ public class GameView {
 			FlowPane center = new FlowPane();
 			center.setId("settingMenu");
 			
-			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
+			canvas = new Canvas(CANVAS_WIDTH,CANVAS_HEIGHT);
 			canvas.setFocusTraversable(true);
 			context = canvas.getGraphicsContext2D();
 			
@@ -134,9 +141,21 @@ public class GameView {
 		context.setFill(Color.TRANSPARENT);
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context = canvas.getGraphicsContext2D();
-		context.setFill(Color.BLACK);
-		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
+		//context.drawImage(new Image("other/player.png",control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY(), false, true), control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY());
+		context.setFill(Color.YELLOW);
+		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+		
+		paintBlocks(control.getModel().LVL_1.getBlocs()); 
+	}
+	
+	
+	public void paintBlocks(ArrayList<Block> blockList) {
+		
+		context.setFill(Color.SADDLEBROWN);
+		for(Block b : blockList) {
+			context.fillRect(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
+		}
 	}
 	
 	

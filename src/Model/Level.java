@@ -2,33 +2,71 @@ package Model;
 
 import java.util.ArrayList;
 
+import View.GameView;
+import View.MenuView;
 import javafx.geometry.Point2D;
 
 public class Level {
 
-	int nbLevel;
 	int maxSize;
-	
-	ArrayList<Point2D> ennemies = new ArrayList<Point2D>();
-	ArrayList<Point2D> coins = new ArrayList<Point2D>();
-	ArrayList<Point2D> blocs = new ArrayList<Point2D>();
-	ArrayList<Point2D> powers = new ArrayList<Point2D>();
-	
-	public Level(int lvl , int maxSize, ArrayList<Point2D> ennemies , ArrayList<Point2D> coins , ArrayList<Point2D> blocs, ArrayList<Point2D> powers) {
-	
-		this.nbLevel = lvl;
+
+	private Point2D[] ennemies;
+	private Point2D[] coins;
+	private ArrayList<Block> blocks;
+	private Point2D[] powers;
+	private Point2D[] trap;
+
+
+	public Level(int maxSize, ArrayList<Block> blocks, Point2D[] ennemies , Point2D[] coins , Point2D[] powers, Point2D[] trap) {
+
 		this.maxSize = maxSize;
+		this.setEnnemies(ennemies);
+		this.setCoins(coins);
+		this.setBlocs(blocks);
+		this.setPowers(powers);
+		this.setTrap(trap);
+
+	}
+
+
+
+	public Point2D[] getEnnemies() {
+		return ennemies;
+	}
+
+	public void setEnnemies(Point2D[] ennemies) {
 		this.ennemies = ennemies;
+	}
+
+	public Point2D[] getCoins() {
+		return coins;
+	}
+
+	public void setCoins(Point2D[] coins) {
 		this.coins = coins;
-		this.blocs = blocs;
-		this.powers =powers;
 	}
-	
-	public void addObject(ArrayList<Point2D> Array , Point2D coord ) {
-		Array.add(coord);
+
+	public ArrayList<Block> getBlocs() {
+		return blocks;
 	}
-	
-	public void removeObject(ArrayList<Point2D> Array , Point2D coord ) {
-		Array.remove(coord);
+
+	public void setBlocs(ArrayList<Block> blocs) {
+		this.blocks = blocs;
+	}
+
+	public Point2D[] getPowers() {
+		return powers;
+	}
+
+	public void setPowers(Point2D[] powers) {
+		this.powers = powers;
+	}
+
+	public Point2D[] getTrap() {
+		return trap;
+	}
+
+	public void setTrap(Point2D[] trap) {
+		this.trap = trap;
 	}
 }

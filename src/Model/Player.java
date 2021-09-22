@@ -7,8 +7,8 @@ import javafx.geometry.Pos;
 
 public class Player {
 	
-	public static final int PLAYER_WIDTH = 30;
-	public static final int PLAYER_HEIGHT = 80;
+	public static final int PLAYER_WIDTH = 80;
+	public static final int PLAYER_HEIGHT = 100;
 	
 	private Point2D position;
 	private ArrayList<Power> powerList;
@@ -21,7 +21,7 @@ public class Player {
 	private boolean jumping;
 	
 	public Player(){
-		this.position = new Point2D(20,50);//Model.MIN_FLOOR_HEIGHT);
+		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
 		this.invincibleAfterAttack = false;
 		setPlayerSize(new Point2D(PLAYER_WIDTH, PLAYER_HEIGHT));

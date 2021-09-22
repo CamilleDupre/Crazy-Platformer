@@ -49,8 +49,6 @@ public class Control {
 	
 	private Sound sound;
 
-
-
 	public Control(MenuView v, Sound s){
 		this.view = v;
 		this.joystickDrag = false;
@@ -220,4 +218,16 @@ public class Control {
 	public GameView getGameView() {
 		return this.gameView;
 	}
+	
+
+
+
+	public Sound getSound() {
+		return sound;
+	}
+
+	public void setSound(Sound sound) {
+		this.sound = sound;
+	}
+
 }

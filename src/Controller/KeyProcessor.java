@@ -20,7 +20,7 @@ public class KeyProcessor extends Thread {
 	 * It is thus not public, but package protected.
 	 * @param c
 	 */
-	KeyProcessor(Control c) {
+	public KeyProcessor(Control c) {
 		this.control = c;
 	}
 

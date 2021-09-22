@@ -33,7 +33,7 @@ public class KeyControl implements KeyListener {
 	 * @param c
 	 * @param s
 	 */
-	KeyControl(Control c, Sound s) {
+	public KeyControl(Control c, Sound s) {
 		this.control = c;
 		this.sound = s;
 		

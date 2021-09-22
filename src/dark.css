@@ -127,4 +127,6 @@
 #looseMenu{
 	-fx-background-image: url("/background/mainBackgroundDark.png") ;
 	
+}#game{
+	-fx-background-image: url("/background/mainBackgroundDark.png") ;
 }

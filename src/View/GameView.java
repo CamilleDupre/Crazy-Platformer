@@ -1,6 +1,8 @@
 package View;
 
 import Controller.Control;
+import Controller.KeyControl;
+import Sound.Sound;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -106,21 +109,18 @@ public class GameView {
 			////CENTER////
 			//grid = new BorderPane();
 		//	grid.setAlignment(Pos.CENTER);
+			FlowPane center = new FlowPane();
 			
 			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
 			//System.out.println(gamePane.getWidth());
 			context = canvas.getGraphicsContext2D();
-			context.setFill(Color.YELLOW);
+			
 			context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			//grid.getChildren().add(canvas);
 			
-			context.setFill(Color.BLACK);
-			/*context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
-					control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-			*/
+			center.getChildren().add(canvas);
 			
-			
+			context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
 			gamePane.setCenter(canvas);
 		
 			control.checkKeyPressed(gamePane);
@@ -132,8 +132,7 @@ public class GameView {
 	
 	public void repaint() {
 		context = canvas.getGraphicsContext2D();
-		context.setFill(Color.YELLOW);
-		context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		//context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
 		context.setFill(Color.BLACK);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());

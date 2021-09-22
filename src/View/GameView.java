@@ -8,6 +8,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -50,6 +51,7 @@ public class GameView {
 	public GameView(Control c) {
 		control = c;
 		
+		
 		mainGameView = new StackPane();
 		mainGameView.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT);
 		
@@ -69,6 +71,7 @@ public class GameView {
 		pauseMenu.setVisible(false);
 		
 		gamePane.toFront();
+		
 			
 		
 			
@@ -107,22 +110,18 @@ public class GameView {
 			gamePane.setTop(gameHB);
 
 			////CENTER////
-			//grid = new BorderPane();
-		//	grid.setAlignment(Pos.CENTER);
 			FlowPane center = new FlowPane();
+			center.setId("settingMenu");
 			
 			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
 			canvas.setFocusTraversable(true);
-			//System.out.println(gamePane.getWidth());
 			context = canvas.getGraphicsContext2D();
 			
-			context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			
 			
 			center.getChildren().add(canvas);
 			
-			context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
-			gamePane.setCenter(canvas);
+			gamePane.setCenter(center);
 		
 			control.checkKeyPressed(gamePane);
 			
@@ -132,8 +131,9 @@ public class GameView {
 	}
 	
 	public void repaint() {
+		context.setFill(Color.TRANSPARENT);
+		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context = canvas.getGraphicsContext2D();
-		context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
 		context.setFill(Color.BLACK);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());

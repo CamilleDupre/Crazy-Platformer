@@ -22,7 +22,8 @@ import View.GameView;
 
 public class Control {
 	private Model model;
-	private MenuView view;
+	private MenuView menuView;
+	
 
 	private double cursorX=0;
 	private boolean joystickDrag;
@@ -50,7 +51,7 @@ public class Control {
 	private Sound sound;
 
 	public Control(MenuView v, Sound s){
-		this.view = v;
+		this.menuView = v;
 		this.joystickDrag = false;
 
 		gravity = new Gravity(this);
@@ -86,45 +87,49 @@ public class Control {
 		b.setOnMouseClicked(e ->{
 			src.setVisible(false);
 			target.setVisible(true);
-			this.model.setCurrentLevel(view.getLevelId());
+			this.model.setCurrentLevel(menuView.getLevelId());
 		});
 
 		b.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 				src.setVisible(false);
 				target.setVisible(true);
-				this.model.setCurrentLevel(view.getLevelId());
+				this.model.setCurrentLevel(menuView.getLevelId());
 			}
 		});
 
 	}
 
 	public void loadLevel(int levelId, Stage stg) {
-		view.getValidatelevel().setOnMouseClicked(e ->{
+		menuView.getValidatelevel().setOnMouseClicked(e ->{
 			gravity.setActive(true);
 			gravity.start();
 
 			gameView.getMainGameView().setVisible(true);
-			view.setGameScene((new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT)));
-			stg.setScene(view.getGameScene());
+			Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
+			scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
+			menuView.setGameScene((scn));
+			stg.setScene(menuView.getGameScene());
 			stg.setResizable(false);
 			stg.show();
-			view.setGameView(gameView);
+			menuView.setGameView(gameView);
 			this.setKeyControl(new KeyControl(this, this.sound));
 		
 		});
 
-		view.getValidatelevel().setOnKeyPressed(e -> {
+		menuView.getValidatelevel().setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 				gravity.setActive(true);
 				gravity.start();
 
 				gameView.getMainGameView().setVisible(true);
-				view.setGameScene((new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT)));
-				stg.setScene(view.getGameScene());
+				Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
+				scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
+				menuView.setGameScene((scn));
+				stg.setScene(menuView.getGameScene());
 				stg.setResizable(false);
 				stg.show();
-				view.setGameView(gameView);
+				menuView.setGameView(gameView);
 			}
 			this.setKeyControl(new KeyControl(this, this.sound));
 		});

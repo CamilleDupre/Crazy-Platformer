@@ -36,7 +36,6 @@ public class KeyProcessor extends Thread {
 		while (true) {
 			
 			if (!this.control.getModel().isGameOver()) {
-				
 				if (this.control.getKeyControl().isQPressed()) {
 					
 					this.control.getModel().move(Control.LEFT);

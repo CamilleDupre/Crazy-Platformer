@@ -125,8 +125,6 @@ public class GameView {
 		
 			control.checkKeyPressed(gamePane);
 			
-			
-
 			pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
 			pauseButton.setOnAction(e -> control.getGravity().isActive());
 			control.checkActions(pauseButton, gamePane, pauseMenu);

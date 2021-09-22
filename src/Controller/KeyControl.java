@@ -68,6 +68,7 @@ public class KeyControl implements KeyListener {
             	if (!this.control.getModel().isGamePaused()) {
             		
             		this.qPressed = true;
+            	
             	}
             	
                 break;
@@ -83,6 +84,7 @@ public class KeyControl implements KeyListener {
                 
             case KeyEvent.VK_SPACE :
             	
+            	System.out.println("Jump");
             	if (!this.control.getModel().isGameOver() && !this.control.getModel().isGamePaused() && !this.control.getModel().getPlayer().isJumping()) {
             		
             		this.sound.playJumpSound();

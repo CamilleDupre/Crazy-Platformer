@@ -57,11 +57,9 @@ public class Control {
 
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
-		
+	
 		this.setModel(new Model(v, gameView,s));
 		this.sound = s;
-		
-
 	}
 
 	public void exitApp() {

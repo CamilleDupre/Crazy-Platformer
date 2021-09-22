@@ -31,7 +31,7 @@ public class Model {
 	
 	private int currentLevel;
 	private boolean gameOver;
-	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 100 ;
+	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
 	private Player player;
 	private int direction;
 	private ImageIcon imgPlayer;

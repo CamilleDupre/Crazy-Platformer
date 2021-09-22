@@ -138,18 +138,17 @@ public class Control {
 	 */
 	public void checkKeyPressed(BorderPane gamePane) {
 		gamePane.setOnKeyPressed(e -> {
-			System.out.println("dans keypressed");
 			if(e.getCode()==KeyCode.SPACE) {
 				model.makePlayerJump();
-				System.out.println("jump space");
 			}
-		});
-
-		gamePane.setOnMouseClicked(e ->{
-			model.makePlayerJump();
-			System.out.println("jump click");
-		});
-	}
+			if(e.getCode()==KeyCode.D) {
+				model.move(2);
+			}
+			else if(e.getCode()==KeyCode.Q) {
+				model.move(1);
+			}
+		});	
+}
 
 	public int swipeCheck(MouseEvent e,boolean boo) {
 		if(!boo) {

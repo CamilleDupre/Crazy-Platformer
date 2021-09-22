@@ -112,6 +112,7 @@ public class GameView {
 			FlowPane center = new FlowPane();
 			
 			canvas = new Canvas(MenuView.WIDTH,MenuView.HEIGHT-MenuView.HEIGHT/12);
+			canvas.setFocusTraversable(true);
 			//System.out.println(gamePane.getWidth());
 			context = canvas.getGraphicsContext2D();
 			
@@ -132,7 +133,7 @@ public class GameView {
 	
 	public void repaint() {
 		context = canvas.getGraphicsContext2D();
-		//context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
+		context.drawImage(new Image("background/mainBackground.png"), 0, 0, canvas.getWidth(), canvas.getHeight());
 		context.setFill(Color.BLACK);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY() - 60,
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());

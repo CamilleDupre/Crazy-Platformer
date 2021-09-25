@@ -2,8 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import View.GameView;
-import View.MenuView;
 import javafx.geometry.Point2D;
 
 public class Level {

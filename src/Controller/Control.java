@@ -160,13 +160,13 @@ public class Control {
 			
 			if(e.getCode()==KeyCode.D) {
 				//model.move(2);
-            		this.qPressed = true;
+            		this.dPressed = true;
             		System.out.println("D");
             	
 			}
 			if(e.getCode()==KeyCode.Q) {
 				//model.move(1);
-            		this.dPressed = true;
+            		this.qPressed = true;
             		System.out.println("Q");
 			}
 			if(e.getCode()==KeyCode.SPACE) {
@@ -180,11 +180,11 @@ public class Control {
 			
 			if(e.getCode()==KeyCode.D) {
 				//model.move(2);
-            		this.qPressed = false;
+            		this.dPressed = false;
 			}
 			if(e.getCode()==KeyCode.Q) {
 				//model.move(1);
-            		this.dPressed = false;
+            		this.qPressed = false;
 			}
 			if(e.getCode()==KeyCode.SPACE) {
 				//model.makePlayerJump();

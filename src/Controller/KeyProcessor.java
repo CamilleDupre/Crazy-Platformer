@@ -35,19 +35,19 @@ public class KeyProcessor extends Thread {
 	public void run() {
 		while (true) {
 			
-			if (!this.control.getModel().isGameOver()) {
-				if (this.control.getKeyControl().isQPressed()) {
+			//if (!this.control.getModel().isGameOver()) {
+				if (this.control.isQPressed()) {
 					
 					this.control.getModel().move(Control.LEFT);
-					this.control.getModel().setDirection(Model.FACE_LEFT);
+					//this.control.getModel().setDirection(Model.FACE_LEFT);
 					
-				} else if (this.control.getKeyControl().isDPressed()) {
+				} else if (this.control.isDPressed()) {
 					
 					this.control.getModel().move(Control.RIGHT);
-					this.control.getModel().setDirection(Model.FACE_RIGHT);
+					//this.control.getModel().setDirection(Model.FACE_RIGHT);
 					
 				}
-			}
+			//}
 			
 			try {
 				Thread.sleep(KeyProcessor.KEY_REPEAT_DELAY);

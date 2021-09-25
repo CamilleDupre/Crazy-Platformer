@@ -34,6 +34,18 @@ public class Control {
 	private GameView gameView;
 	
 	/**
+	 * Boolean attribute telling if the Q key is currently pressed.
+	 * Used as a mutex in KeyProcessor thread.
+	 */
+	private boolean qPressed;
+	/**
+	 * Boolean attribute telling if the D key is currently pressed
+	 * Used as a mutex in KeyProcessor thread.
+	 */
+	private boolean dPressed;
+
+	
+	/**
 	 * KeyListener implementation
 	 */
 	private KeyControl keyControl;
@@ -56,6 +68,8 @@ public class Control {
 
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
+		
+		(new KeyProcessor(this)).start();
 	
 		this.setModel(new Model(v, gameView,s));
 		this.sound = s;
@@ -143,14 +157,39 @@ public class Control {
 	 */
 	public void checkKeyPressed(BorderPane gamePane) {
 		gamePane.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.SPACE) {
-				model.makePlayerJump();
-			}
+			
 			if(e.getCode()==KeyCode.D) {
-				model.move(2);
+				//model.move(2);
+            		this.qPressed = true;
+            		System.out.println("D");
+            	
 			}
-			else if(e.getCode()==KeyCode.Q) {
-				model.move(1);
+			if(e.getCode()==KeyCode.Q) {
+				//model.move(1);
+            		this.dPressed = true;
+            		System.out.println("Q");
+			}
+			if(e.getCode()==KeyCode.SPACE) {
+				//model.makePlayerJump();
+				System.out.println("Jump");
+            		this.getModel().makePlayerJump();	
+			}
+		});	
+		
+		gamePane.setOnKeyReleased(e -> {
+			
+			if(e.getCode()==KeyCode.D) {
+				//model.move(2);
+            		this.qPressed = false;
+			}
+			if(e.getCode()==KeyCode.Q) {
+				//model.move(1);
+            		this.dPressed = false;
+			}
+			if(e.getCode()==KeyCode.SPACE) {
+				//model.makePlayerJump();
+				System.out.println("Jump");
+            	
 			}
 		});	
 }
@@ -224,6 +263,13 @@ public class Control {
 	}
 	
 
+	public boolean isQPressed() {
+		return this.qPressed;
+	}
+	
+	public boolean isDPressed() {
+		return this.dPressed;
+	}
 
 
 	public Sound getSound() {

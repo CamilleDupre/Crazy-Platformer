@@ -171,8 +171,7 @@ public class Control {
 					break;
 			default:
 				break;
-			}
-			
+			}	
 		});	
 		
 		gamePane.setOnKeyReleased(e -> {
@@ -189,7 +188,7 @@ public class Control {
 	
 			}
 		});	
-}
+	}
 
 	public int swipeCheck(MouseEvent e,boolean boo) {
 		if(!boo) {

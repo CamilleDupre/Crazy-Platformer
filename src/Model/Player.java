@@ -15,7 +15,7 @@ public class Player {
 	
 	private boolean invincibleAfterAttack;
 	private Point2D playerSize;
-	private int playerSpeed = 10;
+	private int playerSpeed = 7;
 	private int playerJump = - 300;
 	
 	private boolean jumping;
@@ -28,6 +28,20 @@ public class Player {
 		setJumping(false);
 		
 		this.setJumping(true);
+	}
+	
+	public boolean isPlayerTouchingBlock(Block block) {	
+		return (block.getPosition().getX() + block.getWidth() > this.position.getX() &&
+				block.getPosition().getX() < this.position.getX() + this.playerSize.getX() &&
+				block.getPosition().getY() + block.getHeight() > this.position.getY() &&
+				block.getPosition().getY() < this.position.getY() + this.playerSize.getY());
+	}
+	
+	public boolean isPlayerTouchingObject(Block block) {	
+		return (block.getPosition().getX() + block.getWidth() > this.position.getX() &&
+				block.getPosition().getX() < this.position.getX() + this.playerSize.getX() &&
+				block.getPosition().getY() + block.getHeight() > this.position.getY() &&
+				block.getPosition().getY() < this.position.getY() + this.playerSize.getY());
 	}
 
 	public Point2D getPosition() {

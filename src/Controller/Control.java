@@ -101,14 +101,14 @@ public class Control {
 		b.setOnMouseClicked(e ->{
 			src.setVisible(false);
 			target.setVisible(true);
-			this.model.setCurrentLevel(menuView.getLevelId());
+			this.model.initLevel(menuView.getLevelId());
 		});
 
 		b.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 				src.setVisible(false);
 				target.setVisible(true);
-				this.model.setCurrentLevel(menuView.getLevelId());
+				this.model.initLevel(menuView.getLevelId());
 			}
 		});
 
@@ -127,7 +127,6 @@ public class Control {
 			stg.setResizable(false);
 			stg.show();
 			menuView.setGameView(gameView);
-			this.setKeyControl(new KeyControl(this, this.sound));
 		
 		});
 
@@ -145,7 +144,6 @@ public class Control {
 				stg.show();
 				menuView.setGameView(gameView);
 			}
-			this.setKeyControl(new KeyControl(this, this.sound));
 		});
 		
 	}
@@ -158,38 +156,37 @@ public class Control {
 	public void checkKeyPressed(BorderPane gamePane) {
 		gamePane.setOnKeyPressed(e -> {
 			
-			if(e.getCode()==KeyCode.D) {
-				//model.move(2);
-            		this.qPressed = true;
-            		System.out.println("D");
-            	
+			switch(e.getCode()) {
+				case Q:
+					this.qPressed = true;
+					break;
+				case D:
+					this.dPressed = true;
+					break;
+				case SPACE:
+					this.getModel().makePlayerJump();
+					break;
+				case ESCAPE:
+					displayMenu(gamePane, gameView.getPauseMenu());
+					break;
+			default:
+				break;
 			}
-			if(e.getCode()==KeyCode.Q) {
-				//model.move(1);
-            		this.dPressed = true;
-            		System.out.println("Q");
-			}
-			if(e.getCode()==KeyCode.SPACE) {
-				//model.makePlayerJump();
-				System.out.println("Jump");
-            		this.getModel().makePlayerJump();	
-			}
+			
 		});	
 		
 		gamePane.setOnKeyReleased(e -> {
 			
-			if(e.getCode()==KeyCode.D) {
-				//model.move(2);
-            		this.qPressed = false;
-			}
-			if(e.getCode()==KeyCode.Q) {
-				//model.move(1);
-            		this.dPressed = false;
-			}
-			if(e.getCode()==KeyCode.SPACE) {
-				//model.makePlayerJump();
-				System.out.println("Jump");
-            	
+			switch(e.getCode()) {
+			case Q:
+				this.qPressed = false;
+				break;
+			case D:
+				this.dPressed = false;
+				break;
+			default:
+				break;
+	
 			}
 		});	
 }

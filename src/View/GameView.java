@@ -146,7 +146,7 @@ public class GameView {
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		
-		paintBlocks(control.getModel().LVL_1.getBlocs()); 
+		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 	}
 	
 	

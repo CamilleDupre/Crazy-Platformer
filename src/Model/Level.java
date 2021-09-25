@@ -20,7 +20,7 @@ public class Level {
 		this.maxSize = maxSize;
 		this.setEnnemies(ennemies);
 		this.setCoins(coins);
-		this.setBlocs(blocks);
+		this.setBlocks(blocks);
 		this.setPowers(powers);
 		this.setTrap(trap);
 
@@ -44,11 +44,11 @@ public class Level {
 		this.coins = coins;
 	}
 
-	public ArrayList<Block> getBlocs() {
+	public ArrayList<Block> getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocs(ArrayList<Block> blocs) {
+	public void setBlocks(ArrayList<Block> blocs) {
 		this.blocks = blocs;
 	}
 

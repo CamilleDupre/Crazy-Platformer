@@ -29,7 +29,7 @@ public class Model {
 	private ArrayList<String> backgroundList;
 	
 	
-	private int currentLevel;
+	private Level currentLevel;
 	private boolean gameOver;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
 	private Player player;
@@ -143,10 +143,15 @@ public class Model {
 			player.setJumping(true);
 			gameView.repaint(); 
 		}
-		System.out.println("dans jump");
 	}
 	
 	public void gravityForce() {
+		/*
+		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
+		for(Block b : currentLevel.getBlocks()) {
+			if(b.getPosition().getY() > player.getPosition().getY() + player.getPlayerSize().getY() && player.getPosition().getX())
+		}*/
+		
 		if (player.getPosition().getY() + player.getPlayerSize().getY() < Model.MIN_FLOOR_HEIGHT ){
 			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() +8)) ;
 
@@ -242,8 +247,9 @@ public class Model {
 
 		}
 
+		this.currentLevel = lvl;
 		return lvl;
-
+		
 
 	}
 
@@ -255,12 +261,12 @@ public class Model {
 	}
 
 
-	public int getCurrentLevel() {
+	public Level getCurrentLevel() {
 		return currentLevel;
 	}
 
 
-	public void setCurrentLevel(int currentLevel) {
+	public void setCurrentLevel(Level currentLevel) {
 		this.currentLevel = currentLevel;
 	}
 

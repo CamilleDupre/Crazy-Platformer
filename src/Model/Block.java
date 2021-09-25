@@ -15,9 +15,6 @@ public class Block {
 		this.setHeight(height);
 	}
 	
-	public boolean isPlayerTouchingBlock(Point2D posPlayer) {
-		return false;
-	}
 
 	public Point2D getPosition() {
 		return position;

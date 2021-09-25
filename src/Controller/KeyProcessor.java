@@ -39,12 +39,10 @@ public class KeyProcessor extends Thread {
 				if (this.control.isQPressed()) {
 					
 					this.control.getModel().move(Control.LEFT);
-					//this.control.getModel().setDirection(Model.FACE_LEFT);
 					
 				} else if (this.control.isDPressed()) {
 					
 					this.control.getModel().move(Control.RIGHT);
-					//this.control.getModel().setDirection(Model.FACE_RIGHT);
 					
 				}
 			//}

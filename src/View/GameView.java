@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import Controller.Control;
 import Controller.KeyControl;
 import Model.Block;
+import Model.Model;
 import Sound.Sound;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -141,12 +143,16 @@ public class GameView {
 		context.setFill(Color.TRANSPARENT);
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context = canvas.getGraphicsContext2D();
-		//context.drawImage(new Image("other/player.png",control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY(), false, true), control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY());
+		//context.drawImage(new Image(control.getModel().getImgPlayer(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY(), false, true), control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY());
 		context.setFill(Color.YELLOW);
 		context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),
 				control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
+		//coins
+		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
+		//enemies
+		paintOtherComponent(control.getModel().getCurrentLevel().getEnnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT,Color.RED);
 	}
 	
 	
@@ -155,6 +161,13 @@ public class GameView {
 		context.setFill(Color.SADDLEBROWN);
 		for(Block b : blockList) {
 			context.fillRect(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
+		}
+	}
+	
+	public void paintOtherComponent(Point2D[] positions, int componentWidth, int componentHeight, Color color) {
+		context.setFill(color);
+		for(int i=0; i < positions.length; i++) {
+			context.fillRect(positions[i].getX(), positions[i].getY(), componentWidth, componentHeight);
 		}
 	}
 	

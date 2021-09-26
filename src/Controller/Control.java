@@ -159,9 +159,11 @@ public class Control {
 			switch(e.getCode()) {
 				case Q:
 					this.qPressed = true;
+				
 					break;
 				case D:
 					this.dPressed = true;
+					
 					break;
 				case SPACE:
 					this.getModel().makePlayerJump();

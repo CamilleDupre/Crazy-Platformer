@@ -13,7 +13,7 @@ import View.MenuView;
 import javafx.geometry.Point2D;
 
 public class Model {
-	
+
 	/**
 	 * Player facing left
 	 */
@@ -27,29 +27,34 @@ public class Model {
 	private GameView gameView;
 	private int cssStyle;
 	private ArrayList<String> backgroundList;
-	
+
+
 	
 	private Level currentLevel;
 	private boolean gameOver;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
+	public static final int GRAVITY_FORCE = 8;
+	public static final int COINS_SIZE = 40;
+	public static final int ENEMIES_HEIGHT = 70;
+	public static final int ENEMIES_WIDTH = 35;
 	private Player player;
 	private int direction;
-	private ImageIcon imgPlayer;
-	
+	private String imgPlayer="";
+
 	private double time = 30000;
-	
+
 	private Timer timer;
-	
+
 	private boolean gamePaused;
-	
+
 	private Sound sound;
-	
+
 	public Level LVL_1 = initLevel(1);
 	public Level LVL_2;
 	public Level LVL_3;
 	public Level LVL_4;	
-		
-	
+
+
 	public Model(MenuView menu, GameView game,Sound sound) {
 		this.menuView = menu;
 		this.gameView = game;
@@ -60,17 +65,17 @@ public class Model {
 		this.gamePaused = false;
 		this.sound = sound;
 		timer = new Timer(this,sound);
-		
+
 	}
-	
-	
+
+
 	public void initBackgroundRessources() {
 		backgroundList = new ArrayList<String>();
 		backgroundList.add("/other/background_clair.png");
 		backgroundList.add("/other/background_fonce.png");
 		backgroundList.add("/other/background_neon.png");
 	}
-	
+
 	public void changeCSS(int cssId) {
 		cssStyle = cssId;
 		switch(cssStyle) {
@@ -78,50 +83,44 @@ public class Model {
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
 			break;
-		
+
 		case 1 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
 			break;
-		
+
 		case 2 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
 			break;
-			
+
 		default :
 			break;
 		}
 		menuView.getPrimaryStage().show();
 
 	}
-	
-	
-	
+
+
+
 	/**
-	 * Method used to get the current ship's image
-	 * Depends of the current ship's direction
-	 * @return Ship's image, facing either left, right, or front.
+	 * Method used to get the current player's image
+	 * Depends of the current player's direction
+	 * @return player image, facing either left, right.
 	 */
-	public Image getImgPlayer() {
-		
+	public String getImgPlayer() {
+
 		if (this.direction == Model.FACE_LEFT) {
-			try {
-				this.imgPlayer = new ImageIcon(ImageIO.read(Model.class.getClassLoader().getResourceAsStream("img/.png")));
-			} catch (Exception e) {
-				System.out.println("Player image could not be loaded !");
-			}
+				this.imgPlayer = "/other/player_left.png";
+
 		} else if (this.direction == Model.FACE_RIGHT) {
-			try {
-				this.imgPlayer = new ImageIcon(ImageIO.read(Model.class.getClassLoader().getResourceAsStream("img/.png")));
-			} catch (Exception e) {
-				System.out.println("Player image could not be loaded !");
-			}
+				this.imgPlayer = "/other/player_right.png";
+			
 		} 
-		return imgPlayer.getImage();
+		return imgPlayer;
 	}
-	
-	
+
+
 	public void move(int direction) {
 		if(direction == Control.LEFT) {
 			//check if player isn't out of the level in the left side
@@ -135,35 +134,42 @@ public class Model {
 			}
 		}
 	}
-	
-	
+
+
 	public void makePlayerJump() {
 		if(!player.isJumping()) {
 			player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
 			player.setJumping(true);
-			gameView.repaint(); 
+			//gameView.repaint(); 
 		}
 	}
-	
+
 	public void gravityForce() {
-		/*
+
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		for(Block b : currentLevel.getBlocks()) {
-			if(b.getPosition().getY() > player.getPosition().getY() + player.getPlayerSize().getY() && player.getPosition().getX())
-		}*/
+			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
+				if((int) b.getPosition().getY() < highiestBlock ) {
+					highiestBlock = (int) b.getPosition().getY();
+					System.out.println(highiestBlock);
+				}
+			}
+		}
 		
-		if (player.getPosition().getY() + player.getPlayerSize().getY() < Model.MIN_FLOOR_HEIGHT ){
-			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() +8)) ;
+		if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock ){
+			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE)) ;
 
-		}else if(player.getPosition().getY() + player.getPlayerSize().getY() != Model.MIN_FLOOR_HEIGHT){
-			player.setPosition( new Point2D(player.getPosition().getX(), Model.MIN_FLOOR_HEIGHT - player.getPlayerSize().getY()));
+		}else if(player.getPosition().getY() + player.getPlayerSize().getY() > highiestBlock){
+			player.setPosition( new Point2D(player.getPosition().getX(), highiestBlock - player.getPlayerSize().getY()));
+			player.setJumping(false);
+		}else {
 			player.setJumping(false);
 		}
 		gameView.repaint(); 
+
 	}
-	
-	
-	
+
+
 	public Level initLevel(int lvlId) {
 
 		Level lvl;
@@ -207,12 +213,12 @@ public class Model {
 			blocks.add(block5);
 
 
-			ennemies = new Point2D[]{new Point2D(2500,GameView.CANVAS_HEIGHT -300)};
-			coins = new Point2D[]{new Point2D(300,GameView.CANVAS_HEIGHT - 400), new Point2D(600,GameView.CANVAS_HEIGHT -300), new Point2D(900,GameView.CANVAS_HEIGHT -200), new Point2D(1200,GameView.CANVAS_HEIGHT -700), new Point2D(1800,GameView.CANVAS_HEIGHT -300)};
+			ennemies = new Point2D[]{new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT)};
+			coins = new Point2D[]{new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150), new Point2D(550,Model.MIN_FLOOR_HEIGHT -200), new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50), new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600), new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200)};
 			powers = new Point2D[]{};
-			traps = new Point2D[]{new Point2D(600,GameView.CANVAS_HEIGHT -200)};
+			traps = new Point2D[]{new Point2D(600,Model.MIN_FLOOR_HEIGHT -200)};
 
-			lvl = new Level(1500,blocks,ennemies,coins,powers,traps);
+			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
 
 			break;
 
@@ -241,7 +247,7 @@ public class Model {
 			powers = new Point2D[]{};
 			traps = new Point2D[]{new Point2D(600,GameView.CANVAS_HEIGHT -200)};
 
-			lvl = new Level(1500,blocks,ennemies,coins,powers,traps);
+			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
 
 			break;
 
@@ -249,13 +255,13 @@ public class Model {
 
 		this.currentLevel = lvl;
 		return lvl;
-		
+
 
 	}
 
-	
-	
-	
+
+
+
 	public ArrayList<String> getBackgroundList(){
 		return backgroundList;
 	}
@@ -289,7 +295,7 @@ public class Model {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-	
+
 	/**
 	 * Changes the direction of the ship
 	 * @param d Direction of the ship.
@@ -318,13 +324,12 @@ public class Model {
 	public void setTime(double time) {
 		this.time = time;
 	}
-	
+
 	public void addTime(double add) {
 		this.time += add;
 	}
 
 
-	
 }
 
 

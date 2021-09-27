@@ -29,7 +29,7 @@ public class Model {
 	private ArrayList<String> backgroundList;
 
 
-	
+
 	private Level currentLevel;
 	private boolean gameOver;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
@@ -111,11 +111,11 @@ public class Model {
 	public String getImgPlayer() {
 
 		if (this.direction == Model.FACE_LEFT) {
-				this.imgPlayer = "/other/player_left.png";
+			this.imgPlayer = "/other/player_left.png";
 
 		} else if (this.direction == Model.FACE_RIGHT) {
-				this.imgPlayer = "/other/player_right.png";
-			
+			this.imgPlayer = "/other/player_right.png";
+
 		} 
 		return imgPlayer;
 	}
@@ -126,11 +126,13 @@ public class Model {
 			//check if player isn't out of the level in the left side
 			if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
 				player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
+				checkCoins();
 			}
 		}else if(direction == Control.RIGHT) {
 			//check if player isn't out of the level in the right side
 			if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
 				player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
+				checkCoins();
 			}
 		}
 	}
@@ -155,7 +157,7 @@ public class Model {
 				}
 			}
 		}
-		
+
 		if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock ){
 			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE)) ;
 
@@ -169,6 +171,19 @@ public class Model {
 
 	}
 
+	public void checkCoins() {
+		for(int i=0; i < currentLevel.getCoins().length; i++) {
+		//collision player coins
+			if( (currentLevel.getCoins()[i].getX() + COINS_SIZE > player.getPosition().getX() &&
+					currentLevel.getCoins()[i].getX() < player.getPosition().getX() + player.getPlayerSize().getX() &&
+					currentLevel.getCoins()[i].getY() + COINS_SIZE > player.getPosition().getY() &&
+					currentLevel.getCoins()[i].getY() < player.getPosition().getY() + player.getPlayerSize().getY())){
+					currentLevel.removeCoin(i);
+				System.out.println("1 coin collected !");
+			}
+			
+		}
+	}
 
 	public Level initLevel(int lvlId) {
 

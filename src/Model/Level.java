@@ -43,6 +43,10 @@ public class Level {
 	public void setCoins(Point2D[] coins) {
 		this.coins = coins;
 	}
+	public void removeCoin(int c) {
+		//this.coins.remove(coins);
+		//coins.remove(c);
+	}
 
 	public ArrayList<Block> getBlocks() {
 		return blocks;

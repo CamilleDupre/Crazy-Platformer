@@ -64,9 +64,12 @@ public class Model {
 		this.direction = FACE_RIGHT;
 		this.gamePaused = false;
 		this.sound = sound;
+		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";
 		timer = new Timer(this,sound);
 
 	}
+
+
 
 
 	public void initBackgroundRessources() {
@@ -111,10 +114,10 @@ public class Model {
 	public String getImgPlayer() {
 
 		if (this.direction == Model.FACE_LEFT) {
-			this.imgPlayer = "/other/player_left.png";
+			this.imgPlayer = "../Crazy-Platformer/img/other/player_left.png";
 
 		} else if (this.direction == Model.FACE_RIGHT) {
-			this.imgPlayer = "/other/player_right.png";
+			this.imgPlayer = "../Crazy-Platformer/img/other/player_right.png";
 
 		} 
 		return imgPlayer;
@@ -389,6 +392,10 @@ public class Model {
 		this.direction = d;
 	}
 
+
+	public int getDirection() {
+		return direction;
+	}
 
 	public boolean isGamePaused() {
 		return gamePaused;

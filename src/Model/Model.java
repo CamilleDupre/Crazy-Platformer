@@ -210,10 +210,11 @@ public class Model {
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {
 		//collision player coins
-			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){
-					
-				//currentLevel.getCoins().remove(coin);
+			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
+				currentLevel.getCoins().remove(coin);
 				System.out.println("1 coin collected !");
+				//System.out.println(currentLevel.getCoins());
+				break;
 			}
 			
 		}

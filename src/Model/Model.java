@@ -122,19 +122,53 @@ public class Model {
 
 
 	public void move(int direction) {
-		if(direction == Control.LEFT) {
-			//check if player isn't out of the level in the left side
-			if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
-				player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
-				checkCoins();
-			}
-		}else if(direction == Control.RIGHT) {
-			//check if player isn't out of the level in the right side
-			if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
-				player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
-				checkCoins();
+		int moveConstraint = 0;
+		for(Block block : this.currentLevel.getBlocks()) {
+			if(moveConstraint==0) {
+				moveConstraint = player.isPlayerTouchingBlock(block);
 			}
 		}
+		switch(moveConstraint) {
+		case 0:
+			if(direction == Control.LEFT) {
+				//check if player isn't out of the level in the left side
+				if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
+					player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
+					checkCoins();
+				}
+			}else if(direction == Control.RIGHT) {
+				//check if player isn't out of the level in the right side
+				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
+					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
+					checkCoins();
+				}
+			}
+			break;
+			
+		case 1:
+			//check if player isn't touching block on left side and allow moving only to right
+			if(direction == Control.RIGHT) {
+				//check if player isn't out of the level in the right side
+				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
+					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
+					checkCoins();
+				}
+			}
+			break;
+			
+		case 2:
+			//check if player isn't touching block on right side and allow moving only to left
+			if(direction == Control.LEFT) {	
+				//check if player isn't out of the level in the left side
+				if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
+					player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
+					checkCoins();
+				}
+			}
+		
+		}
+		
+		
 	}
 
 
@@ -142,7 +176,6 @@ public class Model {
 		if(!player.isJumping()) {
 			player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
 			player.setJumping(true);
-			//gameView.repaint(); 
 		}
 	}
 
@@ -153,7 +186,7 @@ public class Model {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
 					highiestBlock = (int) b.getPosition().getY();
-					System.out.println(highiestBlock);
+					
 				}
 			}
 		}
@@ -172,13 +205,11 @@ public class Model {
 	}
 
 	public void checkCoins() {
-		for(int i=0; i < currentLevel.getCoins().length; i++) {
+		for(Point2D coin : currentLevel.getCoins()) {
 		//collision player coins
-			if( (currentLevel.getCoins()[i].getX() + COINS_SIZE > player.getPosition().getX() &&
-					currentLevel.getCoins()[i].getX() < player.getPosition().getX() + player.getPlayerSize().getX() &&
-					currentLevel.getCoins()[i].getY() + COINS_SIZE > player.getPosition().getY() &&
-					currentLevel.getCoins()[i].getY() < player.getPosition().getY() + player.getPlayerSize().getY())){
-					currentLevel.removeCoin(i);
+			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){
+					
+				//currentLevel.getCoins().remove(coin);
 				System.out.println("1 coin collected !");
 			}
 			
@@ -200,10 +231,10 @@ public class Model {
 		Block block4;
 		Block block5;
 
-		Point2D[] ennemies;
-		Point2D[] coins;
-		Point2D[] powers;
-		Point2D[] traps;
+		ArrayList<Point2D> ennemies;
+		ArrayList<Point2D> coins;
+		ArrayList<Point2D> powers;
+		ArrayList<Point2D> traps;
 
 
 		switch(lvlId) {
@@ -228,10 +259,29 @@ public class Model {
 			blocks.add(block5);
 
 
-			ennemies = new Point2D[]{new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT)};
-			coins = new Point2D[]{new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150), new Point2D(550,Model.MIN_FLOOR_HEIGHT -200), new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50), new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600), new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200)};
-			powers = new Point2D[]{};
-			traps = new Point2D[]{new Point2D(600,Model.MIN_FLOOR_HEIGHT -200)};
+			ennemies = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+				}
+			};
+			
+			coins = new ArrayList<Point2D>() {
+				{
+				add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
+				add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+				add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
+				add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
+				add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+				}
+			};
+			
+			powers = new ArrayList<Point2D>(){};
+			
+			traps = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
+				}
+			};
 
 			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
 
@@ -257,10 +307,29 @@ public class Model {
 			blocks.add(block5);
 
 
-			ennemies = new Point2D[]{new Point2D(2500,GameView.CANVAS_HEIGHT -300)};
-			coins = new Point2D[]{new Point2D(300,GameView.CANVAS_HEIGHT - 400), new Point2D(600,GameView.CANVAS_HEIGHT -300), new Point2D(900,GameView.CANVAS_HEIGHT -200), new Point2D(1200,GameView.CANVAS_HEIGHT -700), new Point2D(1800,GameView.CANVAS_HEIGHT -300)};
-			powers = new Point2D[]{};
-			traps = new Point2D[]{new Point2D(600,GameView.CANVAS_HEIGHT -200)};
+			ennemies = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+				}
+			};
+			
+			coins = new ArrayList<Point2D>() {
+				{
+				add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
+				add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+				add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
+				add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
+				add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+				}
+			};
+			
+			powers = new ArrayList<Point2D>(){};
+			
+			traps = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
+				}
+			};
 
 			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
 

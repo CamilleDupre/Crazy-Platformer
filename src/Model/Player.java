@@ -30,18 +30,37 @@ public class Player {
 		this.setJumping(true);
 	}
 	
-	public boolean isPlayerTouchingBlock(Block block) {	
-		return (block.getPosition().getX() + block.getWidth() > this.position.getX() &&
-				block.getPosition().getX() < this.position.getX() + this.playerSize.getX() &&
-				block.getPosition().getY() + block.getHeight() > this.position.getY() &&
-				block.getPosition().getY() < this.position.getY() + this.playerSize.getY());
+	//return 0 if not touching 1 if touching on leftside and 2 if touching rightside
+	public int isPlayerTouchingBlock(Block block) {	
+		
+		if(block.getPosition().getY() + block.getHeight() > this.position.getY() &&
+				block.getPosition().getY() < this.position.getY() + this.playerSize.getY()) 
+		{
+			if((block.getPosition().getX() + block.getWidth() > this.position.getX())){
+				if(block.getPosition().getX() < this.position.getX() + this.playerSize.getX()) {
+					return 2;
+				}else {
+					return 1;
+				}
+			}else {
+				if(block.getPosition().getX() < this.position.getX() + this.playerSize.getX()) {
+					return 2;
+				}else {
+					return 0;
+				}
+			}
+						
+		}
+		return 0;
 	}
 	
-	public boolean isPlayerTouchingObject(Block block) {	
-		return (block.getPosition().getX() + block.getWidth() > this.position.getX() &&
-				block.getPosition().getX() < this.position.getX() + this.playerSize.getX() &&
-				block.getPosition().getY() + block.getHeight() > this.position.getY() &&
-				block.getPosition().getY() < this.position.getY() + this.playerSize.getY());
+	
+	
+	public boolean isPlayerTouchingObject(Point2D objectPosition, int objectWidth, int objectHeight) {	
+		return (objectPosition.getX() + objectWidth > this.position.getX() &&
+				objectPosition.getX() < this.position.getX() + this.playerSize.getX() &&
+				objectPosition.getY() + objectHeight > this.position.getY() &&
+				objectPosition.getY() < this.position.getY() + this.playerSize.getY());
 	}
 
 	public Point2D getPosition() {

@@ -164,10 +164,10 @@ public class GameView {
 		}
 	}
 	
-	public void paintOtherComponent(Point2D[] positions, int componentWidth, int componentHeight, Color color) {
+	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Color color) {
 		context.setFill(color);
-		for(int i=0; i < positions.length; i++) {
-			context.fillRect(positions[i].getX(), positions[i].getY(), componentWidth, componentHeight);
+		for(Point2D obj : objPositions) {
+			context.fillRect(obj.getX(), obj.getY(), componentWidth, componentHeight);
 		}
 	}
 	

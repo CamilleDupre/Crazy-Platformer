@@ -61,7 +61,7 @@ public class Model {
 		this.gameOver = false;
 		initBackgroundRessources();
 		this.player = new Player();
-		this.direction = FACE_RIGHT;
+		this.direction = FACE_LEFT;
 		this.gamePaused = false;
 		this.sound = sound;
 		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";

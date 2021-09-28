@@ -36,17 +36,17 @@ public class Player {
 		if(block.getPosition().getY() + block.getHeight() > this.position.getY() &&
 				block.getPosition().getY() < this.position.getY() + this.playerSize.getY()) 
 		{
-			if((block.getPosition().getX() + block.getWidth() > this.position.getX())){
-				if(block.getPosition().getX() < this.position.getX() + this.playerSize.getX()) {
-					return 2;
-				}else {
+			if((block.getPosition().getX() + block.getWidth() < this.position.getX() + this.playerSize.getX())){
+				if(block.getPosition().getX() + block.getWidth() > this.position.getX()) {
 					return 1;
-				}
-			}else {
-				if(block.getPosition().getX() < this.position.getX() + this.playerSize.getX()) {
-					return 2;
 				}else {
 					return 0;
+				}
+			}else {
+				if(block.getPosition().getX() > this.position.getX() + this.playerSize.getX()) {
+					return 0;
+				}else {
+					return 2;
 				}
 			}
 						

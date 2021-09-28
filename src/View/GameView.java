@@ -62,6 +62,7 @@ public class GameView {
 
 	private Image imgRight=null;
 	private Image imgLeft=null;
+	private Image imgCoin= null;
 
 
 	public GameView(Control c) {
@@ -92,6 +93,7 @@ public class GameView {
 		try {
 			imgRight = new Image(new FileInputStream("img/other/player_right.png"));
 			imgLeft = new Image(new FileInputStream("img/other/player_left.png"));
+			imgCoin =new Image(new FileInputStream("img/other/coin.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -171,7 +173,8 @@ public class GameView {
 
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 		//coins
-		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
+		paintCoin(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE);
+		//paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
 		//enemies
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT,Color.RED);
 	}
@@ -191,7 +194,11 @@ public class GameView {
 			context.fillRect(obj.getX(), obj.getY(), componentWidth, componentHeight);
 		}
 	}
-
+	public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
+		for(Point2D obj : objPositions) {
+			context.drawImage(imgCoin,obj.getX(), obj.getY(), componentWidth, componentHeight);
+		}
+	}
 
 
 	private void setUpPausePanel() {

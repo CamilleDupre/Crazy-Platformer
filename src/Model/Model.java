@@ -238,7 +238,7 @@ public class Model {
 	}
 
 	private void checkEnemieCollison() {
-		for(Point2D ennemie : currentLevel.getEnnemies()) {
+		for(Point2D ennemie : currentLevel.getEnemies()) {
 			//collision player coins
 			if(player.isPlayerTouchingObject(ennemie, ENEMIES_WIDTH, ENEMIES_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
 				this.player.setLife(this.player.getLife() -1);

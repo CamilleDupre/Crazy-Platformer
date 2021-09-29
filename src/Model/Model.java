@@ -87,16 +87,25 @@ public class Model {
 		case 0 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
+			
+			menuView.getGameScene().getStylesheets().remove(0);
+			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
 			break;
 
 		case 1 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
+			
+			menuView.getGameScene().getStylesheets().remove(0);
+			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
 			break;
 
 		case 2 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
+			
+			menuView.getGameScene().getStylesheets().remove(0);
+			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
 			break;
 
 		default :
@@ -105,6 +114,8 @@ public class Model {
 		menuView.getPrimaryStage().show();
 
 	}
+	
+	
 
 
 

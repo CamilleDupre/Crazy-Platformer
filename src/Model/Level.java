@@ -8,17 +8,17 @@ public class Level {
 
 	int maxSize;
 
-	private ArrayList<Point2D> ennemies;
+	private ArrayList<Point2D> enemies;
 	private ArrayList<Point2D> coins;
 	private ArrayList<Block> blocks;
 	private ArrayList<Point2D> powers;
 	private ArrayList<Point2D> trap;
 
 
-	public Level(int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> ennemies , ArrayList<Point2D> coins , ArrayList<Point2D> powers, ArrayList<Point2D> trap) {
+	public Level(int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> enemies , ArrayList<Point2D> coins , ArrayList<Point2D> powers, ArrayList<Point2D> trap) {
 
 		this.maxSize = maxSize;
-		this.setEnnemies(ennemies);
+		this.setEnemies(enemies);
 		this.setCoins(coins);
 		this.setBlocks(blocks);
 		this.setPowers(powers);
@@ -28,12 +28,12 @@ public class Level {
 
 
 
-	public ArrayList<Point2D> getEnnemies() {
-		return ennemies;
+	public ArrayList<Point2D> getEnemies() {
+		return enemies;
 	}
 
-	public void setEnnemies(ArrayList<Point2D> ennemies) {
-		this.ennemies = ennemies;
+	public void setEnemies(ArrayList<Point2D> enemies) {
+		this.enemies = enemies;
 	}
 
 	public ArrayList<Point2D> getCoins() {

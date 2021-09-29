@@ -62,9 +62,11 @@ public class GameView {
 	private Canvas canvas;
 
 
-	private Image imgRight=null;
-	private Image imgLeft=null;
-	private Image imgCoin= null;
+	private Image imgRight = null;
+	private Image imgLeft = null;
+	private Image imgCoin = null;
+	private Image imgEnemy = null;
+	private Image imgBlock = null;
 	
 	private int displayMargin;
 
@@ -98,6 +100,8 @@ public class GameView {
 			imgRight = new Image(new FileInputStream("img/other/player_right.png"));
 			imgLeft = new Image(new FileInputStream("img/other/player_left.png"));
 			imgCoin =new Image(new FileInputStream("img/other/coin.png"));
+			imgEnemy = new Image(new FileInputStream("img/other/enemy.png"));
+			imgBlock = new Image(new FileInputStream("img/other/block.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -178,10 +182,10 @@ public class GameView {
 
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 		//coins
-		paintCoin(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE);
+		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
 		//paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
 		//enemies
-		paintOtherComponent(control.getModel().getCurrentLevel().getEnnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT,Color.RED);
+		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
 		
 		//number of coins
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
@@ -191,24 +195,28 @@ public class GameView {
 
 
 	public void paintBlocks(ArrayList<Block> blockList) {
-
-		context.setFill(Color.SADDLEBROWN);
+		
+		int marginHeight = 30;
+		
 		for(Block b : blockList) {
-			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY(), b.getWidth(), b.getHeight());
+			context.setFill(Color.GREEN);
+			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY(), b.getWidth(), marginHeight);
+			context.setFill(Color.SADDLEBROWN);
+			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY()+marginHeight, b.getWidth(), b.getHeight() - marginHeight);
 		}
 	}
 
-	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Color color) {
-		context.setFill(color);
+	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Image img) {
 		for(Point2D obj : objPositions) {
-			context.fillRect(obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
+			context.drawImage(img, obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
 		}
 	}
-	public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
+	
+	/*public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
 		for(Point2D obj : objPositions) {
 			context.drawImage(imgCoin,obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
 		}
-	}
+	}*/
 
 
 	private void setUpPausePanel() {

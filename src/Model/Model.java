@@ -39,8 +39,8 @@ public class Model {
 	public static final int GRAVITY_FORCE = 8;
 	public static final int JUMP_FORCE = 12;
 	public static final int COINS_SIZE = 40;
-	public static final int ENEMIES_HEIGHT = 70;
-	public static final int ENEMIES_WIDTH = 35;
+	public static final int ENEMIES_HEIGHT = 80;
+	public static final int ENEMIES_WIDTH = 65;
 	private Player player;
 	private int direction;
 	private String imgPlayer="";
@@ -226,6 +226,7 @@ public class Model {
 			
 		}else if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock){
 			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE));
+			player.setInTheAir(true);
 
 		}else if(player.getPosition().getY() + player.getPlayerSize().getY() >= highiestBlock){
 			player.setPosition( new Point2D(player.getPosition().getX(), highiestBlock - player.getPlayerSize().getY()));
@@ -241,7 +242,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
 				setNbCoinsCollected(getNbCoinsCollected() +1);
-				sound.playCoinsSound();
+				//sound.playCoinsSound();
 				break;
 			}
 		}
@@ -262,7 +263,7 @@ public class Model {
 		Block block4;
 		Block block5;
 
-		ArrayList<Point2D> ennemies;
+		ArrayList<Point2D> enemies;
 		ArrayList<Point2D> coins;
 		ArrayList<Point2D> powers;
 		ArrayList<Point2D> traps;
@@ -278,9 +279,9 @@ public class Model {
 			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
 			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
 			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
-			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-250),200,50);
-			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-400),200,50);
-			block5 = new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-550),200,550);
+			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
+			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
+			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
 
 			blocks.add(floorBlock);
 			blocks.add(block1);
@@ -290,9 +291,9 @@ public class Model {
 			blocks.add(block5);
 
 
-			ennemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+					add(new Point2D(1900,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
 
@@ -301,8 +302,8 @@ public class Model {
 					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
 					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
 					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
-					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
+					add(new Point2D(1910,Model.MIN_FLOOR_HEIGHT -200));
 				}
 			};
 
@@ -314,7 +315,7 @@ public class Model {
 				}
 			};
 
-			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
+			lvl = new Level(size,blocks,enemies,coins,powers,traps);
 
 			break;
 
@@ -338,7 +339,7 @@ public class Model {
 			blocks.add(block5);
 
 
-			ennemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Point2D>(){
 				{
 					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
@@ -362,7 +363,7 @@ public class Model {
 				}
 			};
 
-			lvl = new Level(size,blocks,ennemies,coins,powers,traps);
+			lvl = new Level(size,blocks,enemies,coins,powers,traps);
 
 			break;
 

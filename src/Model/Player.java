@@ -16,7 +16,7 @@ public class Player {
 	private boolean invincibleAfterAttack;
 	private Point2D playerSize;
 	private int playerSpeed = 7;
-	private int playerJump = - 200;
+	private int playerJump = - 220;
 	
 	private boolean jumping;
 	private boolean inTheAir;

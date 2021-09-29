@@ -55,6 +55,8 @@ public class Model {
 	public Level LVL_4;	
 	public int nbCoinsCollected = 0 ;
 
+	public double maxJumpHeight;
+
 	public Model(MenuView menu, GameView game,Sound sound) {
 		this.menuView = menu;
 		this.gameView = game;
@@ -147,7 +149,7 @@ public class Model {
 				}
 			}
 			break;
-			
+
 		case 1:
 			//check if player isn't touching block on left side and allow moving only to right
 			if(direction == Control.RIGHT) {
@@ -158,7 +160,7 @@ public class Model {
 				}
 			}
 			break;
-			
+
 		case 2:
 			//check if player isn't touching block on right side and allow moving only to left
 			if(direction == Control.LEFT) {	
@@ -168,16 +170,17 @@ public class Model {
 					checkCoins();
 				}
 			}
-		
+
 		}
-		
-		
+
+
 	}
 
 
 	public void makePlayerJump() {
 		if(!player.isJumping()) {
-			player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
+			maxJumpHeight= player.getPosition().getY() + player.getPlayerJump();
+			//player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
 			player.setJumping(true);
 		}
 	}
@@ -189,12 +192,21 @@ public class Model {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
 					highiestBlock = (int) b.getPosition().getY();
-					
+
 				}
 			}
 		}
 
-		if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock ){
+		if(player.isJumping()) {
+
+			if (player.getPosition().getY() <= maxJumpHeight) {
+				player.setJumping(false);
+			}
+			else {
+				player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() - GRAVITY_FORCE)) ;
+			}
+		}
+		else if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock ){
 			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE)) ;
 
 		}else if(player.getPosition().getY() + player.getPlayerSize().getY() > highiestBlock){
@@ -209,15 +221,13 @@ public class Model {
 
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {
-		//collision player coins
+			//collision player coins
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
 				//System.out.println("1 coin collected !");
 				setNbCoinsCollected(getNbCoinsCollected() +1);
-				//System.out.println(currentLevel.getCoins());
 				break;
 			}
-			
 		}
 	}
 
@@ -269,19 +279,19 @@ public class Model {
 					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
-			
+
 			coins = new ArrayList<Point2D>() {
 				{
-				add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
-				add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
-				add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-				add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
-				add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
+					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
+					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
 				}
 			};
-			
+
 			powers = new ArrayList<Point2D>(){};
-			
+
 			traps = new ArrayList<Point2D>(){
 				{
 					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
@@ -317,19 +327,19 @@ public class Model {
 					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
-			
+
 			coins = new ArrayList<Point2D>() {
 				{
-				add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
-				add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
-				add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-				add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
-				add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
+					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
+					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
 				}
 			};
-			
+
 			powers = new ArrayList<Point2D>(){};
-			
+
 			traps = new ArrayList<Point2D>(){
 				{
 					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
@@ -402,7 +412,7 @@ public class Model {
 	public boolean isGamePaused() {
 		return gamePaused;
 	}
-	
+
 	public int getNbCoinsCollected() {
 		return nbCoinsCollected;
 	}

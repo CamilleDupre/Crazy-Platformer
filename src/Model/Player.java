@@ -27,7 +27,7 @@ public class Player {
 		setPlayerSize(new Point2D(PLAYER_WIDTH, PLAYER_HEIGHT));
 		setJumping(false);
 		
-		this.setJumping(true);
+		//this.setJumping(true);
 	}
 	
 	//return 0 if not touching 1 if touching on leftside and 2 if touching rightside

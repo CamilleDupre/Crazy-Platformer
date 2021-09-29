@@ -208,20 +208,22 @@ public class Model {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		checkCoins();
 		for(Block b : currentLevel.getBlocks()) {
-			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
+			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
 					highiestBlock = (int) b.getPosition().getY();
-
+					
 				}
 			}
 		}
 
 		if(player.isJumping()) {
+			
 			if(player.getPosition().getY() > maxJumpHeight) {			
 				player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() - JUMP_FORCE));
 			}else {
 				player.setJumping(false);
 			}
+			
 		}else if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock){
 			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE));
 
@@ -239,7 +241,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
 				setNbCoinsCollected(getNbCoinsCollected() +1);
-				sound.playCoinsSound();
+				//sound.playCoinsSound();
 				break;
 			}
 		}

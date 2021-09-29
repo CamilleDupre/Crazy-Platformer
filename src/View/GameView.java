@@ -168,11 +168,6 @@ public class GameView {
 			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		}
 
-		//context.drawImage(img,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY(), false, true), control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY());
-		//context.setFill(Color.YELLOW);
-		//context.fillRect(control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),
-		//	control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 		//coins
 		paintCoin(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE);

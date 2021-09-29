@@ -19,6 +19,7 @@ public class Player {
 	private int playerJump = - 200;
 	
 	private boolean jumping;
+	private boolean inTheAir;
 	
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
@@ -26,6 +27,7 @@ public class Player {
 		this.invincibleAfterAttack = false;
 		setPlayerSize(new Point2D(PLAYER_WIDTH, PLAYER_HEIGHT));
 		setJumping(false);
+		setInTheAir(true);
 		
 		//this.setJumping(true);
 	}
@@ -118,5 +120,13 @@ public class Player {
 
 	public void setJumping(boolean jumping) {
 		this.jumping = jumping;
+	}
+
+	public boolean isInTheAir() {
+		return inTheAir;
+	}
+
+	public void setInTheAir(boolean inTheAir) {
+		this.inTheAir = inTheAir;
 	}
 }

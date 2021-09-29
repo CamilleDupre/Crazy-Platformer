@@ -34,6 +34,7 @@ public class Model {
 	private boolean gameOver;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
 	public static final int GRAVITY_FORCE = 8;
+	public static final int JUMP_FORCE = 12;
 	public static final int COINS_SIZE = 40;
 	public static final int ENEMIES_HEIGHT = 70;
 	public static final int ENEMIES_WIDTH = 35;
@@ -173,20 +174,19 @@ public class Model {
 
 		}
 
-
 	}
 
 
 	public void makePlayerJump() {
-		if(!player.isJumping()) {
-			maxJumpHeight= player.getPosition().getY() + player.getPlayerJump();
+		if(!player.isInTheAir()) {
+			maxJumpHeight = player.getPosition().getY() + player.getPlayerJump();
 			//player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
 			player.setJumping(true);
+			player.setInTheAir(true);
 		}
 	}
 
 	public void gravityForce() {
-
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		for(Block b : currentLevel.getBlocks()) {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
@@ -198,25 +198,21 @@ public class Model {
 		}
 
 		if(player.isJumping()) {
-
-			if (player.getPosition().getY() <= maxJumpHeight) {
+			if(player.getPosition().getY() > maxJumpHeight) {			
+				player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() - JUMP_FORCE));
+			}else {
 				player.setJumping(false);
 			}
-			else {
-				player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() - GRAVITY_FORCE)) ;
-			}
-		}
-		else if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock ){
-			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE)) ;
+		}else if (player.getPosition().getY() + player.getPlayerSize().getY() < highiestBlock){
+			player.setPosition( new Point2D(player.getPosition().getX(), player.getPosition().getY() + GRAVITY_FORCE));
 
-		}else if(player.getPosition().getY() + player.getPlayerSize().getY() > highiestBlock){
+		}else if(player.getPosition().getY() + player.getPlayerSize().getY() >= highiestBlock){
 			player.setPosition( new Point2D(player.getPosition().getX(), highiestBlock - player.getPlayerSize().getY()));
-			player.setJumping(false);
-		}else {
-			player.setJumping(false);
+			player.setInTheAir(false);
 		}
 		gameView.repaint(); 
 
+		System.out.println(player.isJumping());
 	}
 
 	public void checkCoins() {

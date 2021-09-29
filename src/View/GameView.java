@@ -42,11 +42,13 @@ public class GameView {
 	private Label time;
 	private Timeline timeline;
 
-	private BorderPane gamePane;
+	private BorderPane gamePane = new BorderPane();
 	private BorderPane winMenu;
 	private BorderPane looseMenu;
 	private BorderPane pauseMenu;
 
+	
+	CustomMenuButton resume;
 	private GraphicsContext context;
 
 	public static final int CANVAS_WIDTH = MenuView.WIDTH;
@@ -103,7 +105,7 @@ public class GameView {
 	private void setUpGamePanel() {
 		/////// GAME PANE ///////
 
-		gamePane = new BorderPane();
+		//gamePane = new BorderPane();
 
 		////TOP////
 		HBox gameHB = new HBox();
@@ -231,8 +233,8 @@ public class GameView {
 		mainPauseVB.setAlignment(Pos.CENTER);
 		mainPauseVB.setSpacing(40);
 
-		CustomMenuButton resume = new CustomMenuButton("RESUME");			
-		CustomMenuButton exitP = new CustomMenuButton("EXIT TO MAIN MENU");
+		resume = new CustomMenuButton("RESUME");			
+		CustomMenuButton exitP = new CustomMenuButton("EXIT");
 
 		HBox pauseHB = new HBox();
 		pauseHB.setAlignment(Pos.CENTER);
@@ -270,7 +272,11 @@ public class GameView {
 			}
 		});
 		CustomMenuButton neonP = new CustomMenuButton("NEON THEME");
-		neonP.setOnMouseClicked(e -> control.getModel().changeCSS(2));
+		neonP.setOnMouseClicked(e ->{
+			control.getModel().changeCSS(2);
+			System.out.println("neon");
+		}
+				);
 		neonP.setOnKeyPressed(e->{
 			if(e.getCode()==KeyCode.ENTER) {
 				control.getModel().changeCSS(2);
@@ -296,29 +302,17 @@ public class GameView {
 
 
 		///PAUSE///
-		resume.setOnAction(e -> timeline.play());
+		//resume.setOnAction(e -> timeline.play());
 		control.checkActions(resume, pauseMenu, gamePane);
-		//control.checkActions(exitP, pauseMenu, mainMenu);
-		exitP.setOnAction(e -> {
-			getTimeline().stop();
-			/*	try {
-					this.start(primaryStage);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-		});
-		exitP.setOnKeyPressed(e->{
-			getTimeline().stop();
+		//control.checkActions(exitP, pauseMenu, gamePane);
+		
+		exitP.setOnMouseClicked(e -> control.exitApp());
+		exitP.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-				/*		try {
-						this.start(primaryStage);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}*/
+				control.exitApp();
 			}
 		});
+		
 	}
 
 

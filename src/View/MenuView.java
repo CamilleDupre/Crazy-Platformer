@@ -52,9 +52,7 @@ public class MenuView extends Application{
 	private StackPane mainPane;
 	private BorderPane settingMenu;
 	private BorderPane rulesMenu;
-	private BorderPane levelPane;
-	private BorderPane grid;
-	
+	private BorderPane levelPane;	
 	
 	
 	CustomMenuButton backButtonR;
@@ -120,6 +118,8 @@ public class MenuView extends Application{
 
 		scene = new Scene(getMainPane(), WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
+		
+		
 		primaryStage.setTitle("Crazy Platformer");
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);

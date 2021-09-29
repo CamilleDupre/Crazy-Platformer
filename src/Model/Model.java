@@ -89,24 +89,31 @@ public class Model {
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
 			
-			menuView.getGameScene().getStylesheets().remove(0);
-			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
+			if(menuView.getGameScene()!=null) {
+				menuView.getGameScene().getStylesheets().remove(0);
+				menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
+			}
+			
 			break;
 
 		case 1 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
 			
-			menuView.getGameScene().getStylesheets().remove(0);
-			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
+			if(menuView.getGameScene()!=null) {
+				menuView.getGameScene().getStylesheets().remove(0);
+				menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("dark.css").toExternalForm());
+			}
 			break;
 
 		case 2 :
 			menuView.getScene().getStylesheets().remove(0);
 			menuView.getScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
 			
-			menuView.getGameScene().getStylesheets().remove(0);
-			menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
+			if(menuView.getGameScene()!=null) {
+				menuView.getGameScene().getStylesheets().remove(0);
+				menuView.getGameScene().getStylesheets().add(getClass().getClassLoader().getResource("neon.css").toExternalForm());
+			}
 			break;
 
 		default :
@@ -151,13 +158,12 @@ public class Model {
 				//check if player isn't out of the level in the left side
 				if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
 					player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
-					checkCoins();
+					
 				}
 			}else if(direction == Control.RIGHT) {
 				//check if player isn't out of the level in the right side
 				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
-					checkCoins();
 				}
 			}
 			break;
@@ -168,7 +174,6 @@ public class Model {
 				//check if player isn't out of the level in the right side
 				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
-					checkCoins();
 				}
 			}
 			break;
@@ -179,7 +184,6 @@ public class Model {
 				//check if player isn't out of the level in the left side
 				if(player.getPosition().getX() - player.getPlayerSpeed() > 30) {
 					player.setPosition( new Point2D(player.getPosition().getX() - player.getPlayerSpeed(), player.getPosition().getY()));
-					checkCoins();
 				}
 			}
 
@@ -199,6 +203,7 @@ public class Model {
 
 	public void gravityForce() {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
+		checkCoins();
 		for(Block b : currentLevel.getBlocks()) {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY() && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
@@ -223,7 +228,6 @@ public class Model {
 		}
 		gameView.repaint(); 
 
-		System.out.println(player.isJumping());
 	}
 
 	public void checkCoins() {
@@ -231,7 +235,6 @@ public class Model {
 			//collision player coins
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
-				//System.out.println("1 coin collected !");
 				setNbCoinsCollected(getNbCoinsCollected() +1);
 				break;
 			}

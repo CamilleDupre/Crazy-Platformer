@@ -165,7 +165,7 @@ public class Model {
 				}
 			}else if(direction == Control.RIGHT) {
 				//check if player isn't out of the level in the right side
-				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
+				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.maxSize - player.getPlayerSize().getX()) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
 				}
 			}
@@ -175,7 +175,7 @@ public class Model {
 			//check if player isn't touching block on left side and allow moving only to right
 			if(direction == Control.RIGHT) {
 				//check if player isn't out of the level in the right side
-				if(player.getPosition().getX() + player.getPlayerSpeed() < MenuView.WIDTH-30) {
+				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.maxSize - player.getPlayerSize().getX()) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
 				}
 			}
@@ -271,11 +271,11 @@ public class Model {
 		switch(lvlId) {
 
 		case 1:
-			size = 1500;
+			size = 2500;
 
 			blocks = new ArrayList<Block>();
 
-			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),GameView.CANVAS_WIDTH,50);
+			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
 			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
 			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
 			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-250),200,50);
@@ -319,11 +319,11 @@ public class Model {
 			break;
 
 		default : 
-			size = 1500;
+			size = 2500;
 
 			blocks = new ArrayList<Block>();
 
-			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),GameView.CANVAS_WIDTH,50);
+			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
 			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
 			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
 			block3 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-250),200,50);

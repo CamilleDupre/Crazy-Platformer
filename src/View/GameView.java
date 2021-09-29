@@ -180,7 +180,7 @@ public class GameView {
 		
 		//number of coins
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
-		
+		context.setStroke(Color.GOLD);
 		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
 	}
 

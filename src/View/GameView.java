@@ -65,6 +65,8 @@ public class GameView {
 	private Image imgRight=null;
 	private Image imgLeft=null;
 	private Image imgCoin= null;
+	
+	private int displayMargin;
 
 
 	public GameView(Control c) {
@@ -159,13 +161,19 @@ public class GameView {
 		context.setFill(Color.TRANSPARENT);
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context = canvas.getGraphicsContext2D();
+		
+		displayMargin = 0;
+		
+		if(control.getModel().getPlayer().getPosition().getX()+ control.getModel().getPlayer().getPlayerSize().getX() >= canvas.getWidth()/2) {
+			displayMargin = (int) (control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() - canvas.getWidth()/2);
+		}
 
 
 		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
-			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		}
 		else {
-			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX(), control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		}
 
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
@@ -186,19 +194,19 @@ public class GameView {
 
 		context.setFill(Color.SADDLEBROWN);
 		for(Block b : blockList) {
-			context.fillRect(b.getPosition().getX(), b.getPosition().getY(), b.getWidth(), b.getHeight());
+			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY(), b.getWidth(), b.getHeight());
 		}
 	}
 
 	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Color color) {
 		context.setFill(color);
 		for(Point2D obj : objPositions) {
-			context.fillRect(obj.getX(), obj.getY(), componentWidth, componentHeight);
+			context.fillRect(obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
 		}
 	}
 	public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
 		for(Point2D obj : objPositions) {
-			context.drawImage(imgCoin,obj.getX(), obj.getY(), componentWidth, componentHeight);
+			context.drawImage(imgCoin,obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
 		}
 	}
 

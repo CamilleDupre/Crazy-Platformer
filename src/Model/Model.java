@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -11,6 +12,8 @@ import Sound.Sound;
 import View.GameView;
 import View.MenuView;
 import javafx.geometry.Point2D;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Model {
 
@@ -236,6 +239,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
 				setNbCoinsCollected(getNbCoinsCollected() +1);
+				sound.playCoinsSound();
 				break;
 			}
 		}

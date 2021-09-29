@@ -1,10 +1,16 @@
 package Sound;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Sound class used for managing sound effects and musics
@@ -59,6 +65,12 @@ public class Sound {
 	 * InputStream of the game over sound effect
 	 */
 	private AudioInputStream gameOverSound;
+	//private Clip coinClip;
+	//private AudioInputStream coinSound;
+	
+	private String coin;
+	private Media coinsSound;
+	MediaPlayer mediaPlayer;
 	
 	
 	/**
@@ -66,7 +78,24 @@ public class Sound {
 	 * Tries to load each sound effect, and creates appropriate Clip handlers
 	 */
 	public Sound() {
-	/*	
+		
+		this.coin = "sounds/coins.mp3";     // For example
+		this.coinsSound = new Media(new File(coin).toURI().toString());
+		this.mediaPlayer = new MediaPlayer(coinsSound);
+		/*try {
+			
+			 URL url = getClass().getResource("sounds/coins.wav");
+		        AudioInputStream ais;
+		        ais = AudioSystem.getAudioInputStream(url);
+			this.coinClip = AudioSystem.getClip();
+			this.coinSound = AudioSystem.getAudioInputStream(url);
+			this.coinClip.open(coinSound);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to load sounds/Coin.mp3 !");
+		}*/
+		
+		/*	
 		try {
 			this.mainThemeClip = AudioSystem.getClip();
 			this.mainTheme = AudioSystem.getAudioInputStream(new BufferedInputStream(Sound.class.getClassLoader().getResourceAsStream("sounds/main.wav")));
@@ -152,6 +181,10 @@ public class Sound {
 		this.menuClip.start();
 	}
 	
+	
+	public void playCoinsSound() {
+		mediaPlayer.play();
+	}
 	/*
 	 * Plays the jump sound effect
 	 */

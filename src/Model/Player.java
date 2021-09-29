@@ -18,6 +18,8 @@ public class Player {
 	private int playerSpeed = 7;
 	private int playerJump = - 200;
 	
+	private int life;
+	
 	private boolean jumping;
 	private boolean inTheAir;
 	
@@ -28,6 +30,7 @@ public class Player {
 		setPlayerSize(new Point2D(PLAYER_WIDTH, PLAYER_HEIGHT));
 		setJumping(false);
 		setInTheAir(true);
+		this.setLife(3);
 		
 		//this.setJumping(true);
 	}
@@ -128,5 +131,13 @@ public class Player {
 
 	public void setInTheAir(boolean inTheAir) {
 		this.inTheAir = inTheAir;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
 	}
 }

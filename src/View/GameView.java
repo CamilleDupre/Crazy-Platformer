@@ -62,11 +62,14 @@ public class GameView {
 	private Canvas canvas;
 
 
+
 	private Image imgRight = null;
 	private Image imgLeft = null;
 	private Image imgCoin = null;
 	private Image imgEnemy = null;
-	private Image imgBlock = null;
+	private Image imgHeart=null;
+	private Image imgHeartLost=null;
+	
 	
 	private int displayMargin;
 
@@ -101,7 +104,8 @@ public class GameView {
 			imgLeft = new Image(new FileInputStream("img/other/player_left.png"));
 			imgCoin =new Image(new FileInputStream("img/other/coin.png"));
 			imgEnemy = new Image(new FileInputStream("img/other/enemy.png"));
-			imgBlock = new Image(new FileInputStream("img/other/block.png"));
+			imgHeart 	= new Image(new FileInputStream("img/other/Heart.png"));
+			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -186,6 +190,17 @@ public class GameView {
 		//paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
 		//enemies
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
+		
+		//number of life
+		//context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
+		//context.setStroke(Color.GOLD);
+		for (int i = 0 ; i < control.getModel().getPlayer().getLife() ; i++) {
+			context.drawImage(imgHeart,10 + i* Model.COINS_SIZE, 50, Model.COINS_SIZE, Model.COINS_SIZE);
+		}
+		for (int i = control.getModel().getPlayer().getLife() ; i < 3 ; i++) {
+			context.drawImage(imgHeartLost,10 + i* Model.COINS_SIZE, 50, Model.COINS_SIZE, Model.COINS_SIZE);
+		}
+		//context.strokeText(control.getModel().getPlayer().getLife()+" Lifes", 10 , 50 );
 		
 		//number of coins
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);

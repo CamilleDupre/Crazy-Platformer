@@ -207,6 +207,7 @@ public class Model {
 	public void gravityForce() {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		checkCoins();
+		checkEnemieCollison();
 		for(Block b : currentLevel.getBlocks()) {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
@@ -235,6 +236,25 @@ public class Model {
 		gameView.repaint(); 
 
 	}
+
+	private void checkEnemieCollison() {
+		for(Point2D ennemie : currentLevel.getEnnemies()) {
+			//collision player coins
+			if(player.isPlayerTouchingObject(ennemie, ENEMIES_WIDTH, ENEMIES_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
+				this.player.setLife(this.player.getLife() -1);
+				if(this.player.getLife() == 0) {
+					System.out.println("GAME OVER !!!");
+				}else {
+					this.player.setInvincibleAfterAttack(true);
+					//comment repasser a false TODO 
+				}
+				break;
+			}
+		}
+	}
+
+
+
 
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {

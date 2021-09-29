@@ -241,7 +241,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
 				setNbCoinsCollected(getNbCoinsCollected() +1);
-				//sound.playCoinsSound();
+				sound.playCoinsSound();
 				break;
 			}
 		}

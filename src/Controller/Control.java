@@ -76,6 +76,7 @@ public class Control {
 	}
 
 	public void exitApp() {
+		gravity.interrupt();
 		System.exit(0);
 	}
 

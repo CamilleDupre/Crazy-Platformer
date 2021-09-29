@@ -78,11 +78,11 @@ public class Sound {
 	 * Tries to load each sound effect, and creates appropriate Clip handlers
 	 */
 	public Sound() {
-		/*
-		this.coin = "sounds/coins.mp3";     // For example
+		
+		this.coin = "sounds/coins_test.mp3";     // sound cut 
 		this.coinsSound = new Media(new File(coin).toURI().toString());
 		this.mediaPlayer = new MediaPlayer(coinsSound);
-		*/
+		
 		/*try {
 			
 			 URL url = getClass().getResource("sounds/coins.wav");

@@ -53,7 +53,7 @@ public class Model {
 	public Level LVL_2;
 	public Level LVL_3;
 	public Level LVL_4;	
-
+	public int nbCoinsCollected = 0 ;
 
 	public Model(MenuView menu, GameView game,Sound sound) {
 		this.menuView = menu;
@@ -212,7 +212,8 @@ public class Model {
 		//collision player coins
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
-				System.out.println("1 coin collected !");
+				//System.out.println("1 coin collected !");
+				setNbCoinsCollected(getNbCoinsCollected() +1);
 				//System.out.println(currentLevel.getCoins());
 				break;
 			}
@@ -400,6 +401,14 @@ public class Model {
 
 	public boolean isGamePaused() {
 		return gamePaused;
+	}
+	
+	public int getNbCoinsCollected() {
+		return nbCoinsCollected;
+	}
+
+	public void setNbCoinsCollected(int nbCoinsCollected) {
+		this.nbCoinsCollected = nbCoinsCollected;
 	}
 
 

@@ -69,6 +69,7 @@ public class GameView {
 	private Image imgEnemy = null;
 	private Image imgHeart=null;
 	private Image imgHeartLost=null;
+	private Image imgTreasure = null;
 	
 	
 	private int displayMargin;
@@ -106,6 +107,7 @@ public class GameView {
 			imgEnemy = new Image(new FileInputStream("img/other/enemy.png"));
 			imgHeart 	= new Image(new FileInputStream("img/other/Heart.png"));
 			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
+			imgTreasure = new Image(new FileInputStream("img/other/chest.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -206,6 +208,8 @@ public class GameView {
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
 		context.setStroke(Color.GOLD);
 		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
+		
+		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX(), control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
 	}
 
 

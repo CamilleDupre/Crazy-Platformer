@@ -41,6 +41,8 @@ public class Model {
 	public static final int COINS_SIZE = 40;
 	public static final int ENEMIES_HEIGHT = 80;
 	public static final int ENEMIES_WIDTH = 65;
+	public static final int TREASURE_HEIGHT = 100;
+	public static final int TREASURE_WIDTH = 150;
 	private Player player;
 	private int direction;
 	private String imgPlayer="";
@@ -287,6 +289,8 @@ public class Model {
 		ArrayList<Point2D> coins;
 		ArrayList<Point2D> powers;
 		ArrayList<Point2D> traps;
+		
+		Point2D treasure;
 
 
 		switch(lvlId) {
@@ -335,7 +339,9 @@ public class Model {
 				}
 			};
 
-			lvl = new Level(size,blocks,enemies,coins,powers,traps);
+			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
+			
+			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
 
 			break;
 
@@ -383,7 +389,9 @@ public class Model {
 				}
 			};
 
-			lvl = new Level(size,blocks,enemies,coins,powers,traps);
+			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
+			
+			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
 
 			break;
 

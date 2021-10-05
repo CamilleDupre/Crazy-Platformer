@@ -2,6 +2,7 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import Controller.Control;
 import Controller.Gravity;
@@ -226,27 +227,81 @@ public class MenuView extends Application{
 
 
 		rulesTxt.getStyleClass().add("rules");
-		HBox leftClick = new HBox();
-		leftClick.setSpacing(20);
-		leftClick.setAlignment(Pos.CENTER);
-	//	File leftFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/leftMouse.png/");
-	//	ImageView imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
-		Text leftTxt = new Text("LEFT CLICK or ENTER to discover whats under the box");
-	//	leftClick.getChildren().add(imgLeft);
-	//	leftClick.getChildren().add(leftTxt);
+		
+		
+		HBox coins = new HBox();
+		coins.setSpacing(20);
+		coins.setAlignment(Pos.CENTER);
+		File leftFile = new File("img/other/coin.png");
+		ImageView imgLeft= null;
+		try {
+			imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Text coinsText = new Text("Coins you have to collect");
+		coins.getChildren().add(imgLeft);
+		coins.getChildren().add(coinsText);
 
-		HBox rightClick = new HBox();
-		rightClick.setSpacing(20);
-		rightClick.setAlignment(Pos.CENTER);
-	//	File rightFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/rightMouse.png/");
-	//	ImageView imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
-		Text rightTxt = new Text("RIGHT CLICK, SPACE or DRAG AND DROP to place a flag on a box where you think there is a bomb");
-	//	rightClick.getChildren().add(imgRight);
-	//	rightClick.getChildren().add(rightTxt);
+		HBox chest = new HBox();
+		chest.setSpacing(20);
+		chest.setAlignment(Pos.CENTER);
+		File rightFile = new File("img/other/Chest.png");
+		ImageView imgRight = null;
+		try {
+			imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Text chestText = new Text("Drop the coins to finish the level");
+		chest.getChildren().add(imgRight);
+		chest.getChildren().add(chestText);
+		
+		
+		
+		HBox heart = new HBox();
+		heart.setSpacing(20);
+		heart.setAlignment(Pos.CENTER);
+		File heartFile = new File("img/other/Heart.png");
+		ImageView imgheart = null;
+		File heartFileLost = new File("img/other/Heart_lost.png");
+		ImageView imgheartLost = null;
+		try {
+			imgheart = new ImageView( new Image(heartFile.toURI().toURL().toString(),50,50,false,false));
+			imgheartLost = new ImageView( new Image(heartFileLost.toURI().toURL().toString(),50,50,false,false));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Text heartText = new Text("Lifes");
+		Text heartTextLost = new Text("Lifes lost");
+		heart.getChildren().add(imgheart);
+		heart.getChildren().add(heartText);
+		heart.getChildren().add(imgheartLost);
+		heart.getChildren().add(heartTextLost);
+		
+		HBox enemy = new HBox();
+		enemy.setSpacing(20);
+		enemy.setAlignment(Pos.CENTER);
+		File enemyFile = new File("img/other/enemy.png");
+		ImageView imgenemy = null;
+		try {
+			imgenemy = new ImageView( new Image(enemyFile.toURI().toURL().toString(),50,50,false,false));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Text enemyText = new Text("Enemy");
+		enemy.getChildren().add(imgenemy);
+		enemy.getChildren().add(enemyText);
 
 		rulesVB.getChildren().add(rulesTxt);
-		rulesVB.getChildren().add(leftClick);
-		rulesVB.getChildren().add(rightClick);
+		rulesVB.getChildren().add(coins);
+		rulesVB.getChildren().add(chest);
+		rulesVB.getChildren().add(heart);
+		rulesVB.getChildren().add(enemy);
 
 		rulesMenu.setCenter(rulesVB);
 

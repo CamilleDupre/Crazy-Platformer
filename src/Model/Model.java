@@ -249,6 +249,7 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
+					
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					// TODO -> false 
@@ -263,6 +264,7 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
+					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					// TODO -> false 
@@ -280,6 +282,7 @@ public class Model {
 				
 				System.out.println("Gagné !!");
 				//here add the victory screen ! 
+				menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			}
 			else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && currentLevel.getCoins().size() < currentLevel.getMaxCoins() ){	
 				

@@ -119,18 +119,6 @@ public class GameView {
 	private void setUpGamePanel() {
 		/////// GAME PANE ///////
 
-		//gamePane = new BorderPane();
-
-		////TOP////
-		HBox gameHB = new HBox();
-		gameHB.setAlignment(Pos.CENTER);
-		gameHB.setSpacing(40);
-		gameHB.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY,Insets.EMPTY)));
-
-		CustomMenuButton pauseButton = new CustomMenuButton("Pause");
-		pauseButton.setPrefHeight(MenuView.HEIGHT/20 );
-		pauseButton.setPrefWidth(MenuView.WIDTH/20);
-
 
 		//	File chronoFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/chrono.png/");
 		//ImageView imgChrono = new ImageView( new Image(chronoFile.toURI().toURL().toString(),40,40,false,false));
@@ -142,11 +130,6 @@ public class GameView {
 		pChrono.getChildren().add(time);
 
 
-		//gameHB.getChildren().add(pauseButton);
-		//gameHB.getChildren().add(imgChrono);
-		gameHB.getChildren().add(pChrono);
-
-		gamePane.setTop(gameHB);
 
 		////CENTER////
 		FlowPane center = new FlowPane();
@@ -164,9 +147,6 @@ public class GameView {
 
 		control.checkKeyPressed(gamePane);
 
-		pauseButton.setOnAction(e -> control.getGravity().setActive(true));//e-> timeline.pause());
-		pauseButton.setOnAction(e -> control.getGravity().isActive());
-		control.checkActions(pauseButton, gamePane, pauseMenu);
 	}
 
 	public void repaint() {

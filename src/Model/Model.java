@@ -36,13 +36,15 @@ public class Model {
 	private Level currentLevel;
 	private boolean gameOver;
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
-	public static final int GRAVITY_FORCE = 8;
-	public static final int JUMP_FORCE = 12;
+	public static final int GRAVITY_FORCE = 7;
+	public static final int JUMP_FORCE = 10;
 	public static final int COINS_SIZE = 40;
 	public static final int ENEMIES_HEIGHT = 80;
 	public static final int ENEMIES_WIDTH = 65;
 	public static final int TREASURE_HEIGHT = 100;
 	public static final int TREASURE_WIDTH = 150;
+	public static final int TRAP_WIDTH = 100;
+	public static final int TRAP_HEIGHT = 60;
 	private Player player;
 	private int direction;
 	private String imgPlayer="";
@@ -314,8 +316,8 @@ public class Model {
 			blocks = new ArrayList<Block>();
 
 			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
-			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
-			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
+			block1 = new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100);
+			block2 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100);
 			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
 			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
 			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
@@ -330,17 +332,17 @@ public class Model {
 
 			enemies = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(1900,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
 
 			coins = new ArrayList<Point2D>() {
 				{
-					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
-					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
+					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT -200)); 
 					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
 					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
-					add(new Point2D(1910,Model.MIN_FLOOR_HEIGHT -200));
+					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
 				}
 			};
 
@@ -348,7 +350,7 @@ public class Model {
 
 			traps = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
+					add(new Point2D(480-TRAP_WIDTH,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
 				}
 			};
 
@@ -364,11 +366,11 @@ public class Model {
 			blocks = new ArrayList<Block>();
 
 			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
-			block1 = new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),200,100);
-			block2 = new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-100),200,100);
-			block3 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-250),200,50);
-			block4 = new Block(new Point2D(950,Model.MIN_FLOOR_HEIGHT-400),200,50);
-			block5 = new Block(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-550),200,550);
+			block1 = new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100);
+			block2 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100);
+			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
+			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
+			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
 
 			blocks.add(floorBlock);
 			blocks.add(block1);
@@ -380,17 +382,17 @@ public class Model {
 
 			enemies = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
 
 			coins = new ArrayList<Point2D>() {
 				{
-					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT - 150));
-					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
+					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT -200)); 
 					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT - 600));
-					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT -200));
+					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
+					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
 				}
 			};
 
@@ -398,7 +400,7 @@ public class Model {
 
 			traps = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -200));	
+					add(new Point2D(480-TRAP_WIDTH,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
 				}
 			};
 

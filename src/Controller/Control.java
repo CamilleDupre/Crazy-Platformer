@@ -128,6 +128,7 @@ public class Control {
 			stg.setResizable(false);
 			stg.show();
 			menuView.setGameView(gameView);
+			model.setCurrentLevel(model.initLevel(levelId));
 		
 		});
 
@@ -144,6 +145,7 @@ public class Control {
 				stg.setResizable(false);
 				stg.show();
 				menuView.setGameView(gameView);
+				model.setCurrentLevel(model.initLevel(levelId));
 			}
 		});
 		

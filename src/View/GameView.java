@@ -159,17 +159,14 @@ public class GameView {
 		if(control.getModel().getPlayer().getPosition().getX()+ control.getModel().getPlayer().getPlayerSize().getX() >= canvas.getWidth()/2) {
 			displayMargin = (int) (control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() - canvas.getWidth()/2);
 		}
-
-
 		
-
+		//blocks	
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 		//coins
 		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
-		//paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
 		//enemies
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
-		
+		//traps
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
 
 		
@@ -177,15 +174,12 @@ public class GameView {
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayMargin, control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
 		
 		//number of life
-		//context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
-		//context.setStroke(Color.GOLD);
 		for (int i = 0 ; i < control.getModel().getPlayer().getLife() ; i++) {
-			context.drawImage(imgHeart,10 + i* Model.COINS_SIZE, 50, Model.COINS_SIZE, Model.COINS_SIZE);
+			context.drawImage(imgHeart,10 + i* Model.HEART_SIZE, 50, Model.HEART_SIZE, Model.HEART_SIZE);
 		}
 		for (int i = control.getModel().getPlayer().getLife() ; i < 3 ; i++) {
-			context.drawImage(imgHeartLost,10 + i* Model.COINS_SIZE, 50, Model.COINS_SIZE, Model.COINS_SIZE);
+			context.drawImage(imgHeartLost,10 + i* Model.HEART_SIZE, 50, Model.HEART_SIZE, Model.HEART_SIZE);
 		}
-		//context.strokeText(control.getModel().getPlayer().getLife()+" Lifes", 10 , 50 );
 		
 		//number of coins
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);

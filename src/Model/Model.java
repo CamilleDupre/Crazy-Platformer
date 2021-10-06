@@ -39,6 +39,7 @@ public class Model {
 	public static final int GRAVITY_FORCE = 7;
 	public static final int JUMP_FORCE = 10;
 	public static final int COINS_SIZE = 40;
+	public static final int HEART_SIZE = 40;
 	public static final int ENEMIES_HEIGHT = 80;
 	public static final int ENEMIES_WIDTH = 65;
 	public static final int TREASURE_HEIGHT = 100;
@@ -331,30 +332,24 @@ public class Model {
 		case 1:
 			size = 2500;
 
-			blocks = new ArrayList<Block>();
-
-			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
-			block1 = new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100);
-			block2 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100);
-			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
-			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
-			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
-			
-			Block climbBlock1 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20);
-			Block climbBlock2 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20);
-			Block climbBlock3 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20);
-
-			blocks.add(floorBlock);
-			blocks.add(block1);
-			blocks.add(block2);
-			blocks.add(block3);
-			blocks.add(block4);
-			blocks.add(block5);
-			
-			blocks.add(climbBlock1);
-			blocks.add(climbBlock2);
-			blocks.add(climbBlock3);
-
+			blocks = new ArrayList<Block>() {
+				{
+					//floor
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
+					
+					//blocks
+					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100));
+					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100));
+					add( new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50));
+					add( new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50));
+					add( new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550));
+					
+					//climb block
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20));
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20));
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20));
+				}
+			};
 
 			enemies = new ArrayList<Point2D>(){
 				{
@@ -385,6 +380,52 @@ public class Model {
 			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
 
 			break;
+			
+		case 2 :
+			
+			size = 2500;
+
+			blocks = new ArrayList<Block>() {
+				{
+					//Floor Block
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
+					
+					//blocks
+					add(new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),50,50));
+					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-200),50,50));
+					add(new Block(new Point2D(800,Model.MIN_FLOOR_HEIGHT-400),200,50));
+					add(new Block(new Point2D(1200,Model.MIN_FLOOR_HEIGHT-200),50,50));
+					add(new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-100),50,50));
+				}
+			};		
+
+			enemies = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+				}
+			};
+
+			coins = new ArrayList<Point2D>() {
+				{
+					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
+					add(new Point2D(560,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
+					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
+					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
+				}
+			};
+
+			powers = new ArrayList<Point2D>(){};
+
+			traps = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(320,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
+				}
+			};
+
+			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
+			
+			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
 
 		default : 
 			lvl = initLevel(1);

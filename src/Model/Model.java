@@ -338,10 +338,7 @@ public class Model {
 					//climb block
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20));
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20));
-					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20));
-					
-					
-					
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20));				
 				}
 			};
 
@@ -377,7 +374,7 @@ public class Model {
 			
 		case 2 :
 			
-			size = 2500;
+			size = 2600;
 
 			blocks = new ArrayList<Block>() {
 				{
@@ -413,11 +410,21 @@ public class Model {
 
 			coins = new ArrayList<Point2D>() {
 				{
-					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
-					add(new Point2D(560,Model.MIN_FLOOR_HEIGHT -200)); 
-					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
-					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
+					//coins chest
+					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT - 150 - Model.COINS_SIZE));
+					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT -200)); 
+					
+					
+					//jump
+					add(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)); 
+					add(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600 - Model.COINS_SIZE)); 
+					add(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-450 - Model.COINS_SIZE)); 
+					
+					//top
+					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
+					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
+					add(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
+		
 				}
 			};
 
@@ -425,11 +432,22 @@ public class Model {
 
 			traps = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(320,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
+					//trap chest
+					add(new Point2D(350,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(1050,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(1300,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					
+					
+					//trap enemie
+					add(new Point2D(1900 ,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					
+					//trap jump
+					add(new Point2D(1900 + 400,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 				}
 			};
 
-			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
+			treasure = new Point2D(820 ,Model.MIN_FLOOR_HEIGHT-340 - TREASURE_HEIGHT);
 			
 			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
 			

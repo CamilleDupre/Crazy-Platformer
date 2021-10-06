@@ -35,12 +35,10 @@ public class Control {
 	
 	/**
 	 * Boolean attribute telling if the Q key is currently pressed.
-	 * Used as a mutex in KeyProcessor thread.
 	 */
 	private boolean qPressed;
 	/**
 	 * Boolean attribute telling if the D key is currently pressed
-	 * Used as a mutex in KeyProcessor thread.
 	 */
 	private boolean dPressed;
 
@@ -115,11 +113,9 @@ public class Control {
 
 	}
 
-	public void loadLevel(int levelId, Stage stg) {
+	public void loadLevel(Stage stg) {
 		menuView.getValidatelevel().setOnMouseClicked(e ->{
-			gravity.setActive(true);
-			gravity.start();
-
+			model.setCurrentLevel(model.initLevel(menuView.getLevelId()));
 			gameView.getMainGameView().setVisible(true);
 			Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
 			scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
@@ -128,15 +124,17 @@ public class Control {
 			stg.setResizable(false);
 			stg.show();
 			menuView.setGameView(gameView);
-			model.setCurrentLevel(model.initLevel(levelId));
+				
+			gravity.setActive(true);
+			gravity.start();
 		
 		});
 
 		menuView.getValidatelevel().setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-				gravity.setActive(true);
-				gravity.start();
 
+				System.out.println(menuView.getLevelId()+1);
+				model.setCurrentLevel(model.initLevel(menuView.getLevelId()+1));
 				gameView.getMainGameView().setVisible(true);
 				Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
 				scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
@@ -144,8 +142,9 @@ public class Control {
 				stg.setScene(menuView.getGameScene());
 				stg.setResizable(false);
 				stg.show();
-				menuView.setGameView(gameView);
-				model.setCurrentLevel(model.initLevel(levelId));
+				
+				gravity.setActive(true);
+				gravity.start();
 			}
 		});
 		

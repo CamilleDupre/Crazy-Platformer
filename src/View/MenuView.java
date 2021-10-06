@@ -638,7 +638,7 @@ public class MenuView extends Application{
 			
 			levelPane.setBottom(validatelevelHB);
 			
-			control.loadLevel(levelId, primaryStage);
+			control.loadLevel(primaryStage);
 				
 	}
 	

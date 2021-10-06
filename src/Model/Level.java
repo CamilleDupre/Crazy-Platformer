@@ -82,4 +82,11 @@ public class Level {
 	public void setTreasure(Point2D treasure) {
 		this.treasure = treasure;
 	}
+
+
+
+	public int getMaxCoins() {
+		// TODO Auto-generated method stub
+		return 5;
+	}
 }

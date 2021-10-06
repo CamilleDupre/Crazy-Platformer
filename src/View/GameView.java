@@ -193,6 +193,9 @@ public class GameView {
 		//enemies
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
 		
+		//chest
+		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayMargin, control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
+		
 		//number of life
 		//context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
 		//context.setStroke(Color.GOLD);
@@ -209,7 +212,7 @@ public class GameView {
 		context.setStroke(Color.GOLD);
 		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
 		
-		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX(), control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
+		
 	}
 
 

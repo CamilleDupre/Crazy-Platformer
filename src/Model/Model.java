@@ -210,6 +210,7 @@ public class Model {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		checkCoins();
 		checkEnemieCollison();
+		checkTreasure();
 		for(Block b : currentLevel.getBlocks()) {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
 				if((int) b.getPosition().getY() < highiestBlock ) {
@@ -248,7 +249,7 @@ public class Model {
 					System.out.println("GAME OVER !!!");
 				}else {
 					this.player.setInvincibleAfterAttack(true);
-					//comment repasser a false TODO 
+					// TODO -> false 
 				}
 				break;
 			}
@@ -256,7 +257,19 @@ public class Model {
 	}
 
 
-
+	public void checkTreasure() {
+		Point2D treasure =  currentLevel.getTreasure() ;
+			//collision player coins
+			if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && getNbCoinsCollected() == currentLevel.getMaxCoins() ){	
+				
+				System.out.println("Gagné !!");
+				//here add the victory screen ! 
+			}
+			else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && currentLevel.getCoins().size() < currentLevel.getMaxCoins() ){	
+				
+				System.out.println("Get more coins");
+			}
+	}
 
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {

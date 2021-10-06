@@ -333,7 +333,8 @@ public class Model {
 			size = 2500;
 
 			blocks = new ArrayList<Block>() {
-				{
+				{ 
+					/* LVL 1
 					//floor
 					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
 					
@@ -348,6 +349,31 @@ public class Model {
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20));
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20));
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20));
+					*/
+					
+					//LVL2
+					//Floor Block
+					//add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
+					//blocks
+					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-150),50,50));
+					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-250),50,50));
+					add(new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-350),250,50));
+					add(new Block(new Point2D(1200,Model.MIN_FLOOR_HEIGHT-250),50,50));
+					add(new Block(new Point2D(1450,Model.MIN_FLOOR_HEIGHT-150),50,50));
+					
+					//jump block
+					add(new Block(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150),50,50));
+					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-300),50,50));
+					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-450),50,50));
+					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600),50,50));
+					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-750),50,50));
+					
+					//top block
+					add(new Block(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800),150,50));
+					add(new Block(new Point2D(1200+400,Model.MIN_FLOOR_HEIGHT-800),150,50));
+					add(new Block(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800),250,50));
+					
+					
 				}
 			};
 

@@ -14,9 +14,10 @@ public class Level {
 	private ArrayList<Point2D> powers;
 	private ArrayList<Point2D> trap;
 	private Point2D treasure;
+	private int id;
 
 
-	public Level(int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> enemies , ArrayList<Point2D> coins , ArrayList<Point2D> powers, ArrayList<Point2D> trap, Point2D treasure) {
+	public Level(int id,int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> enemies , ArrayList<Point2D> coins , ArrayList<Point2D> powers, ArrayList<Point2D> trap, Point2D treasure) {
 
 		this.maxSize = maxSize;
 		this.setEnemies(enemies);
@@ -25,6 +26,7 @@ public class Level {
 		this.setPowers(powers);
 		this.setTrap(trap);
 		this.treasure=treasure;
+		this.id = id;
 
 	}
 
@@ -88,5 +90,17 @@ public class Level {
 	public int getMaxCoins() {
 		// TODO Auto-generated method stub
 		return 5;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

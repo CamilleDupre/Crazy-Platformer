@@ -371,7 +371,7 @@ public class Model {
 
 			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
 			
-			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
 
 			break;
 			
@@ -431,7 +431,9 @@ public class Model {
 
 			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
 			
-			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
+			
+			break;
 
 		default : 
 			lvl = initLevel(1);

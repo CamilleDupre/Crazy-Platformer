@@ -181,12 +181,7 @@ public class GameView {
 		}
 
 
-		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
-			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-		}
-		else {
-			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-		}
+		
 
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
 		//coins
@@ -217,7 +212,12 @@ public class GameView {
 		context.setStroke(Color.GOLD);
 		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
 		
-		
+		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
+			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+		}
+		else {
+			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+		}
 	}
 
 

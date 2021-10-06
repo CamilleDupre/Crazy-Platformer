@@ -70,6 +70,7 @@ public class GameView {
 	private Image imgHeart=null;
 	private Image imgHeartLost=null;
 	private Image imgTreasure = null;
+	private Image imgSpikes = null;
 	
 	
 	private int displayMargin;
@@ -108,6 +109,7 @@ public class GameView {
 			imgHeart 	= new Image(new FileInputStream("img/other/Heart.png"));
 			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
 			imgTreasure = new Image(new FileInputStream("img/other/chest.png"));
+			imgSpikes = new Image(new FileInputStream("img/other/Spikes.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -192,6 +194,9 @@ public class GameView {
 		//paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE,Color.GOLD);
 		//enemies
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
+		
+		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
+
 		
 		//chest
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayMargin, control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
@@ -581,5 +586,13 @@ public class GameView {
 
 	public void setMainGameView(StackPane mainGameView) {
 		this.mainGameView = mainGameView;
+	}
+
+	public Image getImgSpikes() {
+		return imgSpikes;
+	}
+
+	public void setImgSpikes(Image imgSpikes) {
+		this.imgSpikes = imgSpikes;
 	}
 }

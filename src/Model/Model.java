@@ -42,7 +42,7 @@ public class Model {
 	public static final int ENEMIES_HEIGHT = 80;
 	public static final int ENEMIES_WIDTH = 65;
 	public static final int TREASURE_HEIGHT = 100;
-	public static final int TREASURE_WIDTH = 150;
+	public static final int TREASURE_WIDTH = 120;
 	public static final int TRAP_WIDTH = 100;
 	public static final int TRAP_HEIGHT = 60;
 	private Player player;
@@ -211,7 +211,7 @@ public class Model {
 	public void gravityForce() {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		checkCoins();
-		checkEnemieCollison();
+		checkDamageCollison();
 		checkTreasure();
 		for(Block b : currentLevel.getBlocks()) {
 			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
@@ -242,10 +242,24 @@ public class Model {
 
 	}
 
-	private void checkEnemieCollison() {
+	private void checkDamageCollison() {
 		for(Point2D ennemie : currentLevel.getEnemies()) {
 			//collision player coins
 			if(player.isPlayerTouchingObject(ennemie, ENEMIES_WIDTH, ENEMIES_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
+				this.player.setLife(this.player.getLife() -1);
+				if(this.player.getLife() == 0) {
+					System.out.println("GAME OVER !!!");
+				}else {
+					this.player.setInvincibleAfterAttack(true);
+					// TODO -> false 
+				}
+				break;
+			}
+		}
+		
+		for(Point2D trap : currentLevel.getTrap()) {
+			//collision player coins
+			if(player.isPlayerTouchingObject(trap, TRAP_WIDTH, TRAP_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
@@ -299,6 +313,7 @@ public class Model {
 		Block block3;
 		Block block4;
 		Block block5;
+		
 
 		ArrayList<Point2D> enemies;
 		ArrayList<Point2D> coins;
@@ -321,6 +336,10 @@ public class Model {
 			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
 			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
 			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
+			
+			Block climbBlock1 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20);
+			Block climbBlock2 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20);
+			Block climbBlock3 = new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20);
 
 			blocks.add(floorBlock);
 			blocks.add(block1);
@@ -328,6 +347,10 @@ public class Model {
 			blocks.add(block3);
 			blocks.add(block4);
 			blocks.add(block5);
+			
+			blocks.add(climbBlock1);
+			blocks.add(climbBlock2);
+			blocks.add(climbBlock3);
 
 
 			enemies = new ArrayList<Point2D>(){
@@ -339,7 +362,7 @@ public class Model {
 			coins = new ArrayList<Point2D>() {
 				{
 					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
-					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(560,Model.MIN_FLOOR_HEIGHT -200)); 
 					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
 					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
 					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
@@ -350,7 +373,7 @@ public class Model {
 
 			traps = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(480-TRAP_WIDTH,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
+					add(new Point2D(320,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
 				}
 			};
 
@@ -361,53 +384,7 @@ public class Model {
 			break;
 
 		default : 
-			size = 2500;
-
-			blocks = new ArrayList<Block>();
-
-			floorBlock = new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50);
-			block1 = new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100);
-			block2 = new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100);
-			block3 = new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50);
-			block4 = new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50);
-			block5 = new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550);
-
-			blocks.add(floorBlock);
-			blocks.add(block1);
-			blocks.add(block2);
-			blocks.add(block3);
-			blocks.add(block4);
-			blocks.add(block5);
-
-
-			enemies = new ArrayList<Point2D>(){
-				{
-					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
-				}
-			};
-
-			coins = new ArrayList<Point2D>() {
-				{
-					add(new Point2D(230,Model.MIN_FLOOR_HEIGHT - 150));
-					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT -200)); 
-					add(new Point2D(1200,Model.MIN_FLOOR_HEIGHT -50)); 
-					add(new Point2D(1700,Model.MIN_FLOOR_HEIGHT - 600));
-					add(new Point2D(1960,Model.MIN_FLOOR_HEIGHT -200));
-				}
-			};
-
-			powers = new ArrayList<Point2D>(){};
-
-			traps = new ArrayList<Point2D>(){
-				{
-					add(new Point2D(480-TRAP_WIDTH,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));	
-				}
-			};
-
-			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
-			
-			lvl = new Level(size,blocks,enemies,coins,powers,traps, treasure);
-
+			lvl = initLevel(1);
 			break;
 
 		}

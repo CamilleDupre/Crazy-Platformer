@@ -404,7 +404,7 @@ public class Model {
 
 			enemies = new ArrayList<Point2D>(){
 				{
-					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
 				}
 			};
 
@@ -412,7 +412,7 @@ public class Model {
 				{
 					//coins chest
 					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT - 150 - Model.COINS_SIZE));
-					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -200)); 
 					
 					
 					//jump

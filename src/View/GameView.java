@@ -52,7 +52,7 @@ public class GameView {
 	private GraphicsContext context;
 
 	public static final int CANVAS_WIDTH = MenuView.WIDTH;
-	public static final int CANVAS_HEIGHT = MenuView.HEIGHT-MenuView.HEIGHT/12;
+	public static final int CANVAS_HEIGHT = MenuView.HEIGHT;
 
 
 	private StackPane mainGameView;
@@ -73,7 +73,8 @@ public class GameView {
 	private Image imgSpikes = null;
 	
 	
-	private int displayMargin;
+	private int displayHorizontalMargin;
+	private int displayVerticalMargin;
 
 
 	public GameView(Control c) {
@@ -154,10 +155,15 @@ public class GameView {
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		context = canvas.getGraphicsContext2D();
 		
-		displayMargin = 0;
+		displayHorizontalMargin = 0;
+		displayVerticalMargin = 0;
 		
-		if(control.getModel().getPlayer().getPosition().getX()+ control.getModel().getPlayer().getPlayerSize().getX() >= canvas.getWidth()/2) {
-			displayMargin = (int) (control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() - canvas.getWidth()/2);
+		if(control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() >= canvas.getWidth()/2) {
+			displayHorizontalMargin = (int) (control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() - canvas.getWidth()/2);
+		}
+		
+		if(control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() <= canvas.getHeight()/3) {
+			displayVerticalMargin = (int) (control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() - canvas.getHeight()/3);
 		}
 		
 		//blocks	
@@ -171,7 +177,7 @@ public class GameView {
 
 		
 		//chest
-		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayMargin, control.getModel().getCurrentLevel().getTreasure().getY(), Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
+		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin, control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin, Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
 		
 		//number of life
 		for (int i = 0 ; i < control.getModel().getPlayer().getLife() ; i++) {
@@ -187,10 +193,10 @@ public class GameView {
 		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
 		
 		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
-			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayHorizontalMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		}
 		else {
-			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayMargin, control.getModel().getPlayer().getPosition().getY(),control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayHorizontalMargin, control.getModel().getPlayer().getPosition().getY()  - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
 		}
 	}
 
@@ -200,16 +206,21 @@ public class GameView {
 		int marginHeight = 30;
 		
 		for(Block b : blockList) {
-			context.setFill(Color.GREEN);
-			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY(), b.getWidth(), marginHeight);
-			context.setFill(Color.SADDLEBROWN);
-			context.fillRect(b.getPosition().getX() - displayMargin, b.getPosition().getY()+marginHeight, b.getWidth(), b.getHeight() - marginHeight);
+			if(!b.isInvisible()) {
+				context.setFill(Color.GREEN);
+				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
+				context.setFill(Color.SADDLEBROWN);
+				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
+			}else {
+				context.setFill(Color.BLANCHEDALMOND);
+				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
+			}
 		}
 	}
 
 	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Image img) {
 		for(Point2D obj : objPositions) {
-			context.drawImage(img, obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
+			context.drawImage(img, obj.getX() - displayHorizontalMargin, obj.getY()- displayVerticalMargin, componentWidth, componentHeight);
 		}
 	}
 	

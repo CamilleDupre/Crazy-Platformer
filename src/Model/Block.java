@@ -7,12 +7,14 @@ public class Block {
 	private Point2D position;
 	private int width;
 	private int height;
+	private boolean invisible;
 	
-	public Block(Point2D position, int width, int height) {
+	public Block(Point2D position, int width, int height,boolean invisible) {
 		
 		this.setPosition(position);
 		this.setWidth(width);
 		this.setHeight(height);
+		this.setInvisible(invisible);
 	}
 	
 
@@ -38,6 +40,16 @@ public class Block {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+
+	public boolean isInvisible() {
+		return invisible;
+	}
+
+
+	public void setInvisible(boolean invisible) {
+		this.invisible = invisible;
 	}
 	
 	

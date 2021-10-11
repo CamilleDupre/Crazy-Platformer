@@ -156,7 +156,7 @@ public class Model {
 	public void move(int direction) {
 		int moveConstraint = 0;
 		for(Block block : this.currentLevel.getBlocks()) {
-			if(moveConstraint==0) {
+			if(moveConstraint==0 && (!block.isInvisible() || !player.isInvisible())) {
 				moveConstraint = player.isPlayerTouchingBlock(block);
 			}
 		}
@@ -215,13 +215,16 @@ public class Model {
 		checkDamageCollison();
 		checkTreasure();
 		for(Block b : currentLevel.getBlocks()) {
-			if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
-				if((int) b.getPosition().getY() < highiestBlock ) {
-					highiestBlock = (int) b.getPosition().getY();
-					
+			if(!b.isInvisible() || !player.isInvisible()) {// check if it's a special block and the player is invisible to go through it
+				if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
+					if((int) b.getPosition().getY() < highiestBlock ) {
+						highiestBlock = (int) b.getPosition().getY();
+						
+					}
 				}
 			}
 		}
+		
 
 		if(player.isJumping()) {
 			
@@ -284,6 +287,7 @@ public class Model {
 				System.out.println("Gagné !!");
 				//here add the victory screen ! 
 				menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
+				//menuView.getControl().getGravity().interrupt();
 			}
 			else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && currentLevel.getCoins().size() < currentLevel.getMaxCoins() ){	
 				
@@ -326,19 +330,19 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{ 
 					//floor
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
 					
 					//blocks
-					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100));
-					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100));
-					add( new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50));
-					add( new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50));
-					add( new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550));
+					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100,false));
+					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100,false));
+					add( new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50,false));
+					add( new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50,false));
+					add( new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550,false));
 					
-					//climb block
-					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20));
-					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20));
-					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20));				
+					//climbing blocks
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20,false));
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-320),50,20,false));
+					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-470),50,20,false));				
 				}
 			};
 
@@ -379,25 +383,25 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{
 					//Floor Block
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50));
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
 					//blocks
-					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-150),50,50));
-					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-250),50,50));
-					add(new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-350),250,50));
-					add(new Block(new Point2D(1200,Model.MIN_FLOOR_HEIGHT-250),50,50));
-					add(new Block(new Point2D(1450,Model.MIN_FLOOR_HEIGHT-150),50,50));
+					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
+					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-250),50,50,false));
+					add(new Block(new Point2D(750,Model.MIN_FLOOR_HEIGHT-350),250,50,false));
+					add(new Block(new Point2D(1200,Model.MIN_FLOOR_HEIGHT-250),50,50,false));
+					add(new Block(new Point2D(1450,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
 					
 					//jump block
-					add(new Block(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150),50,50));
-					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-300),50,50));
-					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-450),50,50));
-					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600),50,50));
-					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-750),50,50));
+					add(new Block(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
+					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-300),50,50,false));
+					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-450),50,50,false));
+					add(new Block(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600),50,50,false));
+					add(new Block(new Point2D(1800+400,Model.MIN_FLOOR_HEIGHT-750),50,50,false));
 					
 					//top block
-					add(new Block(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800),150,50));
-					add(new Block(new Point2D(1200+400,Model.MIN_FLOOR_HEIGHT-800),150,50));
-					add(new Block(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800),250,50));
+					add(new Block(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800),150,50,false));
+					add(new Block(new Point2D(1200+400,Model.MIN_FLOOR_HEIGHT-800),150,50,false));
+					add(new Block(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800),250,50,false));
 					
 				}
 			};		

@@ -23,6 +23,8 @@ public class Player {
 	private boolean jumping;
 	private boolean inTheAir;
 	
+	private boolean invisible;
+	
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
@@ -31,6 +33,7 @@ public class Player {
 		setJumping(false);
 		setInTheAir(true);
 		this.setLife(3);
+		setInvisible(false);
 		
 		//this.setJumping(true);
 	}
@@ -139,5 +142,13 @@ public class Player {
 
 	public void setLife(int life) {
 		this.life = life;
+	}
+
+	public boolean isInvisible() {
+		return invisible;
+	}
+
+	public void setInvisible(boolean invisible) {
+		this.invisible = invisible;
 	}
 }

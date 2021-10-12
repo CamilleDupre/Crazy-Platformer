@@ -386,18 +386,19 @@ public class GameView {
 		winMenu.setBottom(botWinHB);
 
 		///WIN///
-		//	control.checkActions(playAgain, winMenu, difMenu);
+		//	
 		playAgain.setOnMouseClicked(e->{
-			getTimeline().stop();
+			//getTimeline().stop();
 			/*	try {
 					MenuView.start(primaryStage);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}*/
+			control.checkActions(playAgain, gamePane, control.getMenuView().getLevelPane()); //TO DO
 		});
 		playAgain.setOnKeyPressed(e->{
-			getTimeline().stop();
+			//getTimeline().stop();
 			if(e.getCode()==KeyCode.ENTER) {
 				/*	try {
 						this.start(primaryStage);

@@ -56,6 +56,8 @@ public class MenuView extends Application{
 	private BorderPane levelPane;	
 	
 	
+	
+
 	CustomMenuButton backButtonR;
 	CustomMenuButton backButtonS;
 	CustomMenuButton backButtonL;
@@ -712,6 +714,14 @@ public class MenuView extends Application{
 
 	public void setGameScene(Scene gameScene) {
 		this.gameScene = gameScene;
+	}
+	
+	public BorderPane getLevelPane() {
+		return levelPane;
+	}
+
+	public void setLevelPane(BorderPane levelPane) {
+		this.levelPane = levelPane;
 	}
 
 }

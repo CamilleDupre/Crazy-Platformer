@@ -306,14 +306,14 @@ public class Model {
 		//collision player coins
 		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && getNbCoinsCollected() == currentLevel.getMaxCoins() ){	
 
-			System.out.println("Gagné !!");
+			//System.out.println("Gagné !!");
 			//here add the victory screen ! 
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}
 		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && currentLevel.getCoins().size() < currentLevel.getMaxCoins() ){	
 
-			System.out.println("Get more coins");
+			//System.out.println("Get more coins");
 		}
 	}
 

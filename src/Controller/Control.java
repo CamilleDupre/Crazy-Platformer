@@ -25,6 +25,8 @@ public class Control {
 	private MenuView menuView;
 	
 
+	
+
 	private double cursorX=0;
 	private boolean joystickDrag;
 	private Timeline cursorTime= new Timeline();
@@ -278,6 +280,14 @@ public class Control {
 
 	public void setSound(Sound sound) {
 		this.sound = sound;
+	}
+	
+	public MenuView getMenuView() {
+		return menuView;
+	}
+
+	public void setMenuView(MenuView menuView) {
+		this.menuView = menuView;
 	}
 
 }

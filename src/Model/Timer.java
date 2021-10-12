@@ -7,7 +7,7 @@ public class Timer extends Thread {
 	/**
 	 * Amount of time in milliseconds to wait between two iterations
 	 */
-	public static int TIMEOUT = 10;
+	public static int TIMEOUT = 1000;
 
 	/**
 	 * Model attribute used to change gameOver value, and to access data from
@@ -23,9 +23,8 @@ public class Timer extends Thread {
 	 * @param m Model used to access and modify data from (time, gameOver, and gamePaused mainly)
 	 * @param s Sound attribute used to manage sound effects when game is lost
 	 */
-	public Timer(Model m, Sound s) {
+	public Timer(Model m) {
 		this.model = m;
-		this.sound = s;
 	}
 
 	/**
@@ -36,18 +35,9 @@ public class Timer extends Thread {
 	@Override
 	public void run() {
 		while (!this.model.isGameOver()) {
-			
-			if (!this.model.isGamePaused()) {
 				
-				if (this.model.getTime() <= 0) {
-					//this.model.endGame();
-					this.sound.pauseMainTheme();
-					this.sound.playGameOverSound();
-				} else {
-					this.model.addTime(-Timer.TIMEOUT*(1.0/1000.0));
-				}
-				
-			}
+			this.model.getPlayer().setInvincibleAfterAttack(false);	
+			System.out.println("timer");
 			
 			try {
 				Thread.sleep(Timer.TIMEOUT);

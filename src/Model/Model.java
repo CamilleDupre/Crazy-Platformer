@@ -14,6 +14,12 @@ import View.MenuView;
 import javafx.geometry.Point2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 
 public class Model {
 
@@ -52,7 +58,7 @@ public class Model {
 
 	private double time = 30000;
 
-	private Timer timer;
+	//private Timer timer;
 
 	private boolean gamePaused;
 
@@ -65,6 +71,10 @@ public class Model {
 	public int nbCoinsCollected = 0 ;
 
 	public double maxJumpHeight;
+	
+	private Timeline timeline;
+	private static final Integer STARTTIME = 0; 
+	private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
 	/**
 	 * Constructor of the model
@@ -82,7 +92,7 @@ public class Model {
 		this.gamePaused = false;
 		this.sound = sound;
 		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";
-		timer = new Timer(this,sound);
+		//timer = new Timer(this);
 	}
 
 
@@ -272,10 +282,23 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
+					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					// TODO -> false 
+					java.util.Timer t = new java.util.Timer();
+					t.schedule( 
+					        new java.util.TimerTask() {
+					            @Override
+					            public void run() {
+					            	player.setInvincibleAfterAttack(false);
+					                // close the thread
+					                t.cancel();
+					            }	
+					        }, 
+					        1000 // invincible for 1s
+					);
 				}
 				break;
 			}
@@ -290,13 +313,32 @@ public class Model {
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 				}else {
 					this.player.setInvincibleAfterAttack(true);
-					// TODO -> false 
+					java.util.Timer t = new java.util.Timer();
+					t.schedule( 
+					        new java.util.TimerTask() {
+					            @Override
+					            public void run() {
+					            	player.setInvincibleAfterAttack(false);
+					                // close the thread
+					                t.cancel();
+					            }	
+					        }, 
+					        1000 // invincible for 1s
+					);
 				}
 				break;
 			}
 		}
 	}
 
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
 	/**
 	 * Check if player is on the treasure
 	 * if he as enougth coins, then display the win menu 

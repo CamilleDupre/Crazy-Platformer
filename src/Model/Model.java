@@ -66,6 +66,12 @@ public class Model {
 
 	public double maxJumpHeight;
 
+	/**
+	 * Constructor of the model
+	 * @param menu
+	 * @param game
+	 * @param sound
+	 */
 	public Model(MenuView menu, GameView game,Sound sound) {
 		this.menuView = menu;
 		this.gameView = game;
@@ -77,12 +83,12 @@ public class Model {
 		this.sound = sound;
 		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";
 		timer = new Timer(this,sound);
-
 	}
 
 
-
-
+	/**
+	 * Initialization of the background
+	 */
 	public void initBackgroundRessources() {
 		backgroundList = new ArrayList<String>();
 		backgroundList.add("/other/background_clair.png");
@@ -90,6 +96,10 @@ public class Model {
 		backgroundList.add("/other/background_neon.png");
 	}
 
+	/**
+	 * Change the Css of the application
+	 * @param cssId
+	 */
 	public void changeCSS(int cssId) {
 		cssStyle = cssId;
 		switch(cssStyle) {
@@ -128,12 +138,7 @@ public class Model {
 			break;
 		}
 		menuView.getPrimaryStage().show();
-
 	}
-
-
-
-
 
 	/**
 	 * Method used to get the current player's image
@@ -152,7 +157,10 @@ public class Model {
 		return imgPlayer;
 	}
 
-
+	/**
+	 * Move the player in the direction
+	 * @param direction
+	 */
 	public void move(int direction) {
 		int moveConstraint = 0;
 		for(Block block : this.currentLevel.getBlocks()) {
@@ -200,6 +208,9 @@ public class Model {
 	}
 
 
+	/**
+	 * Method to make the palyer jump
+	 */
 	public void makePlayerJump() {
 		if(!player.isInTheAir()) {
 			maxJumpHeight = player.getPosition().getY() + player.getPlayerJump();
@@ -209,6 +220,10 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Gravity force, make the palyers go down until hit the floor or a block
+	 * Check for collision with coins, enemies, traps, treasure 
+	 */
 	public void gravityForce() {
 		int highiestBlock = Model.MIN_FLOOR_HEIGHT;
 		checkCoins();
@@ -246,6 +261,10 @@ public class Model {
 
 	}
 
+	/**
+	 * Check for collision with enemies and traps
+	 * If taking damage, the player is invisible for ?? s
+	 */
 	private void checkDamageCollison() {
 		for(Point2D ennemie : currentLevel.getEnemies()) {
 			//collision player coins
@@ -278,7 +297,10 @@ public class Model {
 		}
 	}
 
-
+	/**
+	 * Check if player is on the treasure
+	 * if he as enougth coins, then display the win menu 
+	 */
 	public void checkTreasure() {
 		Point2D treasure =  currentLevel.getTreasure() ;
 		//collision player coins
@@ -295,6 +317,9 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Check if the user pick a coin
+	 */
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {
 			//collision player coins
@@ -307,20 +332,22 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Initialization of the level
+	 * @param lvlId
+	 * @return lvl
+	 */
 	public Level initLevel(int lvlId) {
 
 		Level lvl;
 		int size;
 
 		ArrayList<Block> blocks;
-
 		ArrayList<Point2D> enemies;
 		ArrayList<Point2D> coins;
 		ArrayList<Point2D> powers;
 		ArrayList<Point2D> traps;
-
 		Point2D treasure;
-
 
 		switch(lvlId) {
 
@@ -422,7 +449,6 @@ public class Model {
 					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT - 150 - Model.COINS_SIZE));
 					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -200)); 
 
-
 					//jump
 					add(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)); 
 					add(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600 - Model.COINS_SIZE)); 
@@ -432,7 +458,6 @@ public class Model {
 					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
 					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
 					add(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
-
 				}
 			};
 
@@ -445,7 +470,6 @@ public class Model {
 					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(1050,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(1300,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-
 
 					//trap enemie
 					add(new Point2D(1900 ,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
@@ -470,21 +494,16 @@ public class Model {
 					//Floor Block
 					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
 					//blocks
-				
 
 					//jump block
 					add(new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-200),100,25,false));
-					
 					add(new Block(new Point2D(400,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
-					
 					add(new Block(new Point2D(675,Model.MIN_FLOOR_HEIGHT-750),10,400,false));
-					
 					add(new Block(new Point2D(650,Model.MIN_FLOOR_HEIGHT-200),100,25,false));
-					
 					add(new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
-					
+
 					//add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-450),200,50,false));
-					
+
 				}
 			};		
 
@@ -496,7 +515,7 @@ public class Model {
 
 			coins = new ArrayList<Point2D>() {
 				{
-		
+
 				}
 			};
 
@@ -526,43 +545,60 @@ public class Model {
 
 		this.currentLevel = lvl;
 		return lvl;
-
-
 	}
 
-
-
-
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getBackgroundList(){
 		return backgroundList;
 	}
 
-
+	/**
+	 * Getter of the currentLevel
+	 * @return currentLevel
+	 */
 	public Level getCurrentLevel() {
 		return currentLevel;
 	}
 
-
+	/**
+	 * Setter of the currentLevel
+	 * @param currentLevel
+	 */
 	public void setCurrentLevel(Level currentLevel) {
 		this.currentLevel = currentLevel;
 	}
 
-
+	/**
+	 * Getter of the player
+	 * @return player
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
-
+	/**
+	 * Setter for the player
+	 * @param player
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
-
+	/**
+	 * Getter for gameOver
+	 * @return
+	 */
 	public boolean isGameOver() {
 		return gameOver;
 	}
 
-
+	/**
+	 * Setter for gameOver
+	 * @param gameOver
+	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
@@ -576,38 +612,66 @@ public class Model {
 		this.direction = d;
 	}
 
-
+	/**
+	 * Getter for direction
+	 * @return
+	 */
 	public int getDirection() {
 		return direction;
 	}
 
+	/**
+	 * Getter for gamePaused
+	 * @return
+	 */
 	public boolean isGamePaused() {
 		return gamePaused;
 	}
 
+	/**
+	 * Setter for gamePaused
+	 * @param gamePaused
+	 */
+	public void setGamePaused(boolean gamePaused) {
+		this.gamePaused = gamePaused;
+	}
+	
+	/**
+	 * Getter for nbCoinsCollected
+	 * @return
+	 */
 	public int getNbCoinsCollected() {
 		return nbCoinsCollected;
 	}
 
+	/**
+	 * Setter for nbCoinsCollected
+	 * @param nbCoinsCollected
+	 */
 	public void setNbCoinsCollected(int nbCoinsCollected) {
 		this.nbCoinsCollected = nbCoinsCollected;
 	}
 
-
-	public void setGamePaused(boolean gamePaused) {
-		this.gamePaused = gamePaused;
-	}
-
-
+	/**
+	 * Getter for Time
+	 * @return time
+	 */
 	public double getTime() {
 		return time;
 	}
 
-
+	/**
+	 * Setter for time
+	 * @param time
+	 */
 	public void setTime(double time) {
 		this.time = time;
 	}
 
+	/**
+	 * Modification of time
+	 * @param add
+	 */
 	public void addTime(double add) {
 		this.time += add;
 	}

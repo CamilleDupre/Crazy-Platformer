@@ -71,6 +71,9 @@ public class GameView {
 	private Image imgHeartLost=null;
 	private Image imgTreasure = null;
 	private Image imgSpikes = null;
+
+	private Image cloudPower = null;
+	
 	
 	
 	private int displayHorizontalMargin;
@@ -111,6 +114,9 @@ public class GameView {
 			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
 			imgTreasure = new Image(new FileInputStream("img/other/chest.png"));
 			imgSpikes = new Image(new FileInputStream("img/other/Spikes.png"));
+			
+			cloudPower = new Image(new FileInputStream("img/other/Cloudpng.png"));
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -174,6 +180,9 @@ public class GameView {
 		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
 		//traps
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
+		
+		//Power
+		paintOtherComponent(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE, cloudPower);
 
 		
 		//chest

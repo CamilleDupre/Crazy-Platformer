@@ -239,6 +239,7 @@ public class Model {
 		checkCoins();
 		checkDamageCollison();
 		checkTreasure();
+		checkPower();
 		for(Block b : currentLevel.getBlocks()) {
 			if(!b.isInvisible() || !player.isInvisible()) {// check if it's a special block and the player is invisible to go through it
 				if(b.getPosition().getY() >= player.getPosition().getY() + player.getPlayerSize().getY()-10 && (player.getPosition().getX() + player.getPlayerSize().getX() >= b.getPosition().getX() && player.getPosition().getX() <= b.getPosition().getX()+b.getWidth())){
@@ -373,6 +374,33 @@ public class Model {
 			}
 		}
 	}
+	
+	
+	public void checkPower() {
+		for(Point2D power : currentLevel.getPowers()) {
+			//collision player coins
+			if(player.isPlayerTouchingObject(power, COINS_SIZE, COINS_SIZE)){	
+				currentLevel.getPowers().remove(power);
+				this.player.setInvisible(true);
+				java.util.Timer t = new java.util.Timer();
+				t.schedule( 
+				        new java.util.TimerTask() {
+				            @Override
+				            public void run() {
+				            	System.out.println("Power off");
+				            	player.setInvisible(false);
+				                // close the thread
+				                t.cancel();
+				            }	
+				        }, 
+				        10000 // invincible for 1s
+				);
+				
+				break;
+			}
+		}
+	}
+
 
 	/**
 	 * Initialization of the level
@@ -492,18 +520,23 @@ public class Model {
 					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -200)); 
 
 					//jump
-					add(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)); 
-					add(new Point2D(2000 +400,Model.MIN_FLOOR_HEIGHT-600 - Model.COINS_SIZE)); 
-					add(new Point2D(1800 +400,Model.MIN_FLOOR_HEIGHT-450 - Model.COINS_SIZE)); 
+					add(new Point2D(2400,Model.MIN_FLOOR_HEIGHT-300 - Model.COINS_SIZE)); 
+					add(new Point2D(2400,Model.MIN_FLOOR_HEIGHT-600 - Model.COINS_SIZE)); 
+					add(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-450 - Model.COINS_SIZE)); 
 
 					//top
-					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
-					add(new Point2D(700+400,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
-					add(new Point2D(1550+400,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
+					add(new Point2D(1100,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
+					add(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
+					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
 				}
 			};
 
-			powers = new ArrayList<Point2D>(){};
+			powers = new ArrayList<Point2D>(){
+				{
+					add(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)); 
+				}
+				
+			};
 
 			traps = new ArrayList<Point2D>(){
 				{

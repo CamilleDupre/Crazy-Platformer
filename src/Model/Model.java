@@ -596,7 +596,7 @@ public class Model {
 
 		case 3 :
 
-			size = Canvas.WIDTH;
+			size = GameView.CANVAS_WIDTH;
 
 			blocks = new ArrayList<Block>() {
 				{
@@ -604,15 +604,25 @@ public class Model {
 					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
 					//blocks
 
-					//jump block
-					add(new Block(new Point2D(400,Model.MIN_FLOOR_HEIGHT-450),450,25,false));
-					add(new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-1000),500,25,false));
-					add(new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1700),500,25,false));
+					//vertical block
+					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-450),50,450,false));
+					add(new Block(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-1350),50,1000,false));
+					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900),50,500,false));
 
 
-					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),100,25,false));
-					add(new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
-					add(new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
+					//Horizontal block
+					//jump
+					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),100,50,false));
+					add(new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-900),100,50,false));
+					add(new Block(new Point2D(1100,Model.MIN_FLOOR_HEIGHT-1350),100,50,false));
+					
+					//plateform
+					add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-1500),300,50,false));
+					add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-2200),300,50,false));
+					
+					//treasure
+					add(new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-2000),300,50,false));
+					
 
 					//add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-450),200,50,false));
 
@@ -633,21 +643,27 @@ public class Model {
 
 			powers = new ArrayList<Power>(){
 				{
-					add(new Power(1 , 10000, new Point2D(200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
+					add(new Power(1 , 1500, new Point2D(200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
+					add(new Power(1 , 9000, new Point2D(1000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
+					add(new Power(1 , 1500, new Point2D(650,Model.MIN_FLOOR_HEIGHT-1500 - Model.COINS_SIZE))); 	
 				}
 			};
 
 			traps = new ArrayList<Point2D>(){
 				{
 					//trap chest
-					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(650,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(700,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(800,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-					add(new Point2D(950,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					
 				}
 			};
 
-			treasure = new Point2D(820 ,Model.MIN_FLOOR_HEIGHT-340 - TREASURE_HEIGHT);
+			treasure = new Point2D(1100 ,Model.MIN_FLOOR_HEIGHT-2000 - TREASURE_HEIGHT);
 
 			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
 

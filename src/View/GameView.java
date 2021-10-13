@@ -44,14 +44,13 @@ public class GameView {
 	private Timeline timeline;
 
 	private BorderPane gamePane = new BorderPane();
+	private BorderPane pauseMenu;
 	private BorderPane winMenu = new BorderPane();
 	private BorderPane looseMenu = new BorderPane();
-	private BorderPane pauseMenu;
 
 	
 	CustomMenuButton resume;
 	CustomMenuButton exitP;
-	private CustomMenuButton tryAgain;
 
 	private GraphicsContext context;
 
@@ -79,7 +78,7 @@ public class GameView {
 	private Image cloudPower = null;
 	private Image jumpPower = null;
 	
-	
+	private CustomMenuButton tryAgain;
 	
 	private int displayHorizontalMargin;
 	private int displayVerticalMargin;
@@ -101,11 +100,14 @@ public class GameView {
 		mainGameView.getChildren().add(pauseMenu);
 		mainGameView.getChildren().add(looseMenu);
 		mainGameView.getChildren().add(winMenu);
+		
+		
 
 		gamePane.setVisible(true);
 		pauseMenu.setVisible(false);
 		looseMenu.setVisible(false);	
 		winMenu.setVisible(false);
+		
 		
 
 		gamePane.toFront();
@@ -363,9 +365,7 @@ public class GameView {
 		});
 		
 	}
-
-
-
+ 	
 	public void setUpVictoryPanel() {
 		////////WIN MENU/////////
 
@@ -421,8 +421,9 @@ public class GameView {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}*/
-			control.checkActions(playAgain, gamePane, control.getMenuView().getLevelPane()); //TO DO
+			 //TO DO
 		});
+		control.checkActions(playAgain, gamePane, control.getMenuView().getLevelPane());
 		playAgain.setOnKeyPressed(e->{
 			//getTimeline().stop();
 			if(e.getCode()==KeyCode.ENTER) {
@@ -443,7 +444,6 @@ public class GameView {
 		
 
 	}
-
 
 
 
@@ -494,7 +494,14 @@ public class GameView {
 		looseMenu.setBottom(botlooseHB);
 
 		///LOOSE///
-				
+		tryAgain.setOnMouseClicked(e -> control.tryAgainLevel());
+		tryAgain.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.ENTER) {
+				control.tryAgainLevel();
+			}
+		});		
+		
+		
 		exitGame2.setOnMouseClicked(e -> control.exitApp());
 		exitGame2.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
@@ -505,6 +512,7 @@ public class GameView {
 		
 	
 	}
+
 
 
 	public BorderPane getGamePane() {
@@ -533,19 +541,6 @@ public class GameView {
 		this.timeline = timeline;
 	}
 
-	public BorderPane getWinMenu() {
-		return winMenu;
-	}
-
-
-	public void setWinMenu(BorderPane winMenu) {
-		this.winMenu = winMenu;
-	}
-
-
-	public BorderPane getLooseMenu() {
-		return looseMenu;
-	}
 
 	public IntegerProperty getTimeSeconds() {
 		return timeSeconds;
@@ -564,10 +559,6 @@ public class GameView {
 		this.timeSeconds = timeSeconds;
 	}
 
-
-	public void setLooseMenu(BorderPane looseMenu) {
-		this.looseMenu = looseMenu;
-	}
 
 	public Canvas getCanvas() {
 		return canvas;
@@ -593,12 +584,20 @@ public class GameView {
 		this.imgSpikes = imgSpikes;
 	}
 	
-	public CustomMenuButton getTryAgain() {
-		return tryAgain;
+	public BorderPane getWinMenu() {
+		return winMenu;
 	}
 
-	public void setTryAgain(CustomMenuButton tryAgain) {
-		this.tryAgain = tryAgain;
+	public void setWinMenu(BorderPane winMenu) {
+		this.winMenu = winMenu;
+	}
+
+	public BorderPane getLooseMenu() {
+		return looseMenu;
+	}
+
+	public void setLooseMenu(BorderPane looseMenu) {
+		this.looseMenu = looseMenu;
 	}
 
 }

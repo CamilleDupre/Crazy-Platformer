@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 
 import Controller.Control;
 import Sound.Sound;
+import View.CustomMenuButton;
 import View.GameView;
 import View.MenuView;
 import javafx.geometry.Point2D;
@@ -284,9 +285,10 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
-					
+					moveToFirstScene();
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
-					menuView.getControl().tryAgainLevel();
+					//menuView.getControl().tryAgainLevel();
+
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					// TODO -> false 
@@ -312,11 +314,13 @@ public class Model {
 			if(player.isPlayerTouchingObject(trap, TRAP_WIDTH, TRAP_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
+					
 					System.out.println("GAME OVER !!!");
 					
-
+					moveToFirstScene();
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
-					menuView.getControl().tryAgainLevel();
+					//menuView.getControl().tryAgainLevel();
+					
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					java.util.Timer t = new java.util.Timer();
@@ -347,7 +351,7 @@ public class Model {
 	}
 	/**
 	 * Check if player is on the treasure
-	 * if he as enougth coins, then display the win menu 
+	 * if he as enough coins, then display the win menu 
 	 */
 	public void checkTreasure() {
 		Point2D treasure =  currentLevel.getTreasure() ;
@@ -432,6 +436,14 @@ public class Model {
 		}
 	}
 
+	
+	public void moveToFirstScene() {
+		gameView.getMainGameView().setVisible(false);
+		menuView.getPrimaryStage().setScene(menuView.getScene());
+		menuView.getPrimaryStage().setResizable(false);
+		menuView.getPrimaryStage().show();
+	}
+	
 
 	/**
 	 * Initialization of the level

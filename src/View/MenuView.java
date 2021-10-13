@@ -57,10 +57,12 @@ public class MenuView extends Application{
 	
 	
 	
+	
 
 	CustomMenuButton backButtonR;
 	CustomMenuButton backButtonS;
 	CustomMenuButton backButtonL;
+	
 	
 	private Scene gameScene;
 	
@@ -101,12 +103,14 @@ public class MenuView extends Application{
 		setUpSettingPanel();
 		setUpLevelSelectorPanel();
 		setUpMainMenuPanel();   
+
 	
 		
 		mainPane.getChildren().add(mainMenu);
 		mainPane.getChildren().add(settingMenu);
 		mainPane.getChildren().add(rulesMenu);		
 		mainPane.getChildren().add(levelPane);
+		
 		
 		
 		//Action back to main menu
@@ -118,6 +122,7 @@ public class MenuView extends Application{
 		settingMenu.setVisible(false);
 		rulesMenu.setVisible(false);
 		levelPane.setVisible(false);
+		
 
 		scene = new Scene(getMainPane(), WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
@@ -645,6 +650,8 @@ public class MenuView extends Application{
 	}
 	
 	
+	
+	
 	public GameView getGameView() {
 		return gameView;
 	}
@@ -723,6 +730,8 @@ public class MenuView extends Application{
 	public void setLevelPane(BorderPane levelPane) {
 		this.levelPane = levelPane;
 	}
+	
+
 
 }
 

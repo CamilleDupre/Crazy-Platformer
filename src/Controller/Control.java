@@ -116,12 +116,21 @@ public class Control {
 	}
 
 	public void tryAgainLevel() {
-		gameView.getTryAgain().setOnMouseClicked(e -> loadLevel(menuView.getPrimaryStage()));
-		gameView.getTryAgain().setOnKeyPressed(e ->{
-			if(e.getCode()==KeyCode.ENTER) {
-				loadLevel(menuView.getPrimaryStage());
-			}
-		});
+		
+		model.initLevel(menuView.getLevelId()+1);
+		gameView = new GameView(this);
+		gameView.getMainGameView().setVisible(true);
+		Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
+		scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
+		menuView.setGameScene((scn));
+		menuView.getPrimaryStage().setScene(scn);
+		menuView.getPrimaryStage().setResizable(false);
+		menuView.getPrimaryStage().show();
+		menuView.setGameView(gameView);
+		
+		gravity.setActive(true);
+		
+		
 	}
 	
 	public void loadLevel(Stage stg) {

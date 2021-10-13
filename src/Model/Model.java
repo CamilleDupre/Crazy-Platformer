@@ -283,6 +283,7 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
+					gameView.setUpLosingPanel();
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 
 				}else {
@@ -311,7 +312,10 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
+					
+
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
+					menuView.getControl().tryAgainLevel();
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					java.util.Timer t = new java.util.Timer();
@@ -351,6 +355,7 @@ public class Model {
 
 			//System.out.println("Gagné !!");
 			//here add the victory screen ! 
+			gameView.setUpVictoryPanel();
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}

@@ -44,8 +44,8 @@ public class GameView {
 	private Timeline timeline;
 
 	private BorderPane gamePane = new BorderPane();
-	private BorderPane winMenu;
-	private BorderPane looseMenu;
+	private BorderPane winMenu = new BorderPane();
+	private BorderPane looseMenu = new BorderPane();
 	private BorderPane pauseMenu;
 
 	
@@ -92,9 +92,9 @@ public class GameView {
 		mainGameView.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT);
 
 		setUpPausePanel();
+		setUpGamePanel();
 		setUpVictoryPanel();
 		setUpLosingPanel();
-		setUpGamePanel();
 
 		mainGameView.getChildren().add(gamePane);
 		mainGameView.getChildren().add(pauseMenu);
@@ -102,9 +102,10 @@ public class GameView {
 		mainGameView.getChildren().add(winMenu);
 
 		gamePane.setVisible(true);
-		winMenu.setVisible(false);
-		looseMenu.setVisible(false);		
 		pauseMenu.setVisible(false);
+		looseMenu.setVisible(false);	
+		winMenu.setVisible(false);
+		
 
 		gamePane.toFront();
 
@@ -358,7 +359,7 @@ public class GameView {
 
 
 
-	private void setUpVictoryPanel() {
+	public void setUpVictoryPanel() {
 		////////WIN MENU/////////
 
 		winMenu = new BorderPane();
@@ -432,16 +433,18 @@ public class GameView {
 				control.exitApp();
 			}
 		});
+		
+
 	}
 
 
 
 
 
-	private void setUpLosingPanel() {
+	public void setUpLosingPanel() {
 		////////LOOSE MENU/////////
 
-		looseMenu = new BorderPane();
+		
 		looseMenu.setId("looseMenu");
 
 		////TOP////
@@ -484,7 +487,6 @@ public class GameView {
 		looseMenu.setBottom(botlooseHB);
 
 		///LOOSE///
-		control.tryAgainLevel();
 				
 		exitGame2.setOnMouseClicked(e -> control.exitApp());
 		exitGame2.setOnKeyPressed(e -> {
@@ -492,6 +494,9 @@ public class GameView {
 				control.exitApp();
 			}
 		});
+					
+		
+	
 	}
 
 

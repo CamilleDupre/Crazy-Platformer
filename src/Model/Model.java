@@ -621,14 +621,14 @@ public class Model {
 					//vertical block
 					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-450),50,450,false));
 					add(new Block(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-1350),50,1000,false));
-					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900),50,500,false));
+					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900),50,550,false));
 
 
 					//Horizontal block
 					//jump
 					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),100,50,false));
 					add(new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-900),100,50,false));
-					add(new Block(new Point2D(1100,Model.MIN_FLOOR_HEIGHT-1350),100,50,false));
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT-1350),1200,50,false));
 					
 					//plateform
 					add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-1500),300,50,false));
@@ -645,21 +645,33 @@ public class Model {
 
 			enemies = new ArrayList<Point2D>(){
 				{
-					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));	
+					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
+					add(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1500 - Model.ENEMIES_HEIGHT));
 				}
 			};
 
 			coins = new ArrayList<Point2D>() {
 				{
-
+					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT-500 - Model.COINS_SIZE));
+					
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-200 - Model.COINS_SIZE));
+					
+					add(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-1350 - Model.COINS_SIZE));
+					
+					add(new Point2D(1350,Model.MIN_FLOOR_HEIGHT-450 - Model.COINS_SIZE));
+					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT-900 - Model.COINS_SIZE));
+					
+					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900- Model.COINS_SIZE));
+					add(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-2000 - 300));
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT-2200- Model.COINS_SIZE));
 				}
 			};
 
 			powers = new ArrayList<Power>(){
 				{
-					add(new Power(1 , 1500, new Point2D(200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
-					add(new Power(1 , 9000, new Point2D(1000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
-					add(new Power(1 , 1500, new Point2D(650,Model.MIN_FLOOR_HEIGHT-1500 - Model.COINS_SIZE))); 	
+					add(new Power(1 , 1500, new Point2D(200,Model.MIN_FLOOR_HEIGHT - Model.COINS_SIZE))); 	
+					add(new Power(1 , 6500, new Point2D(1000,Model.MIN_FLOOR_HEIGHT - Model.COINS_SIZE))); 	
+					add(new Power(1 , 4000, new Point2D(650,Model.MIN_FLOOR_HEIGHT-1500 - Model.COINS_SIZE))); 	
 				}
 			};
 
@@ -673,6 +685,21 @@ public class Model {
 					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(800,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					
+					
+					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-TRAP_HEIGHT));
+					
+					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(350,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(400,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(450,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(550,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(650,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
+					add(new Point2D(800,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
 					
 				}
 			};

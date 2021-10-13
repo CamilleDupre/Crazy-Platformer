@@ -204,6 +204,10 @@ public class GameView {
 			}
 		
 		//chest
+			context.setStroke(Color.BLACK);
+			
+			context.strokeText( control.getModel().getNbCoinsCollected() + " / "+ control.getModel().getCurrentLevel().getMaxCoins() +" Coins ", 
+					control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin + 30 , control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin - 10);
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin, control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin, Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
 		
 		//number of life

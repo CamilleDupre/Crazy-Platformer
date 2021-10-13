@@ -77,6 +77,7 @@ public class GameView {
 	private Image imgSpikes = null;
 
 	private Image cloudPower = null;
+	private Image jumpPower = null;
 	
 	
 	
@@ -121,6 +122,7 @@ public class GameView {
 			imgSpikes = new Image(new FileInputStream("img/other/Spikes.png"));
 			
 			cloudPower = new Image(new FileInputStream("img/other/Cloudpng.png"));
+			jumpPower  = new Image(new FileInputStream("img/other/jump.png"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -187,7 +189,7 @@ public class GameView {
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
 		
 		//Power
-		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE, cloudPower);
+		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE);
 
 		
 		//chest
@@ -238,9 +240,14 @@ public class GameView {
 		}
 	}
 	
-	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight, Image img) {
+	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight) {
 		for(Power power : powers) {
-			context.drawImage(img, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
+			if (power.getType() == 0) {
+				context.drawImage(cloudPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
+			}
+			else if(power.getType() == 1) {
+				context.drawImage(jumpPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
+			}
 		}
 	}
 	/*public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {

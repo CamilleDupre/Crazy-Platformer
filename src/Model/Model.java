@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Canvas;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class Model {
 	public int nbCoinsCollected = 0 ;
 
 	public double maxJumpHeight;
-	
+
 	private Timeline timeline;
 	private static final Integer STARTTIME = 0; 
 	private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -291,16 +292,16 @@ public class Model {
 					// TODO -> false 
 					java.util.Timer t = new java.util.Timer();
 					t.schedule( 
-					        new java.util.TimerTask() {
-					            @Override
-					            public void run() {
-					            	player.setInvincibleAfterAttack(false);
-					                // close the thread
-					                t.cancel();
-					            }	
-					        }, 
-					        1000 // invincible for 1s
-					);
+							new java.util.TimerTask() {
+								@Override
+								public void run() {
+									player.setInvincibleAfterAttack(false);
+									// close the thread
+									t.cancel();
+								}	
+							}, 
+							1000 // invincible for 1s
+							);
 				}
 				break;
 			}
@@ -320,16 +321,16 @@ public class Model {
 					this.player.setInvincibleAfterAttack(true);
 					java.util.Timer t = new java.util.Timer();
 					t.schedule( 
-					        new java.util.TimerTask() {
-					            @Override
-					            public void run() {
-					            	player.setInvincibleAfterAttack(false);
-					                // close the thread
-					                t.cancel();
-					            }	
-					        }, 
-					        1000 // invincible for 1s
-					);
+							new java.util.TimerTask() {
+								@Override
+								public void run() {
+									player.setInvincibleAfterAttack(false);
+									// close the thread
+									t.cancel();
+								}	
+							}, 
+							1000 // invincible for 1s
+							);
 				}
 				break;
 			}
@@ -379,30 +380,55 @@ public class Model {
 			}
 		}
 	}
-	
-	
+
+
 	public void checkPower() {
 		for(Power power : currentLevel.getPowers()) {
 			//collision player coins
 			if(player.isPlayerTouchingObject(power.getPosition(), COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getPowers().remove(power);
-				this.player.setInvisible(true);
-				java.util.Timer t = new java.util.Timer();
-				t.schedule( 
-				        new java.util.TimerTask() {
-				            @Override
-				            public void run() {
-				            	System.out.println("Power off");
-				            	player.setInvisible(false);
-				            	currentLevel.getPowers().add(power);
-				                // close the thread
-				                t.cancel();
-				            }	
-				        }, 
-				        power.getDuration() // invincible for 1s
-				);
-				
-				break;
+
+				if (power.getType() == 0) {  // invisible power 
+
+					this.player.setInvisible(true);
+					java.util.Timer t = new java.util.Timer();
+					t.schedule( 
+							new java.util.TimerTask() {
+								@Override
+								public void run() {
+									System.out.println("Power off");
+									player.setInvisible(false);
+									currentLevel.getPowers().add(power);
+									// close the thread
+									t.cancel();
+								}	
+							}, 
+							power.getDuration() // invincible for 1s
+							);
+
+					break;
+				}
+				else if (power.getType() == 1) {  // jump power 
+
+					player.setPlayerJump(-500);
+					java.util.Timer t = new java.util.Timer();
+					t.schedule( 
+							new java.util.TimerTask() {
+								@Override
+								public void run() {
+									System.out.println("Power off");
+									player.setPlayerJump(-220);
+									currentLevel.getPowers().add(power);
+									// close the thread
+									t.cancel();
+								}	
+							}, 
+							power.getDuration() // powerjump duration
+							);
+
+					break;
+				}
+
 			}
 		}
 	}
@@ -534,7 +560,7 @@ public class Model {
 					add(new Point2D(1100,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
 					add(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
 					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
-					
+
 					//Special block
 					add(new Point2D(720,Model.MIN_FLOOR_HEIGHT-750 - 200  - Model.COINS_SIZE));
 				}
@@ -543,9 +569,9 @@ public class Model {
 			powers = new ArrayList<Power>(){
 				{
 					add(new Power(0 , 10000, new Point2D(2200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 
-					//add(new Power(0 , 1000, new Point2D(2000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 
+					//add(new Power(0 , 1000, new Point2D(2000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)));
 				}
-				
+
 			};
 
 			traps = new ArrayList<Point2D>(){
@@ -571,7 +597,7 @@ public class Model {
 
 		case 3 :
 
-			size = 2000;
+			size = Canvas.WIDTH;
 
 			blocks = new ArrayList<Block>() {
 				{
@@ -580,10 +606,13 @@ public class Model {
 					//blocks
 
 					//jump block
-					add(new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-200),100,25,false));
-					add(new Block(new Point2D(400,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
-					add(new Block(new Point2D(675,Model.MIN_FLOOR_HEIGHT-750),10,400,false));
-					add(new Block(new Point2D(650,Model.MIN_FLOOR_HEIGHT-200),100,25,false));
+					add(new Block(new Point2D(400,Model.MIN_FLOOR_HEIGHT-450),450,25,false));
+					add(new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-1000),500,25,false));
+					add(new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1700),500,25,false));
+
+
+					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),100,25,false));
+					add(new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
 					add(new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-300),100,25,false));
 
 					//add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-450),200,50,false));
@@ -603,7 +632,11 @@ public class Model {
 				}
 			};
 
-			powers = new ArrayList<Power>(){};
+			powers = new ArrayList<Power>(){
+				{
+					add(new Power(1 , 10000, new Point2D(200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 	
+				}
+			};
 
 			traps = new ArrayList<Point2D>(){
 				{
@@ -719,7 +752,7 @@ public class Model {
 	public void setGamePaused(boolean gamePaused) {
 		this.gamePaused = gamePaused;
 	}
-	
+
 	/**
 	 * Getter for nbCoinsCollected
 	 * @return

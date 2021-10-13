@@ -356,7 +356,6 @@ public class Model {
 
 			//System.out.println("Gagné !!");
 			//here add the victory screen ! 
-			gameView.setUpVictoryPanel();
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}

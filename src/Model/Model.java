@@ -284,9 +284,9 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
-					gameView.setUpLosingPanel();
+					
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
-
+					menuView.getControl().tryAgainLevel();
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					// TODO -> false 
@@ -394,7 +394,7 @@ public class Model {
 					java.util.Timer t = new java.util.Timer();
 					t.schedule( 
 							new java.util.TimerTask() {
-								@Override
+								@Override 
 								public void run() {
 									System.out.println("Power off");
 									player.setInvisible(false);

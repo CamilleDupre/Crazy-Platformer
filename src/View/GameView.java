@@ -77,6 +77,10 @@ public class GameView {
 
 	private Image cloudPower = null;
 	private Image jumpPower = null;
+	private Image block = null;
+	private Image block2 = null;
+	
+	private Image plateform = null;
 	
 	private CustomMenuButton tryAgain;
 	
@@ -125,6 +129,12 @@ public class GameView {
 			
 			cloudPower = new Image(new FileInputStream("img/other/Cloudpng.png"));
 			jumpPower  = new Image(new FileInputStream("img/other/jump.png"));
+			
+			block  = new Image(new FileInputStream("img/other/block2.png"));
+			block2  = new Image(new FileInputStream("img/other/block3.png"));
+			//plateform  = new Image(new FileInputStream("img/other/platform.png"));
+			
+			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -183,6 +193,13 @@ public class GameView {
 		
 		//blocks	
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
+		/*
+		for (int i = 0; i< this.canvas.getWidth(); i= i + 50) {
+			context.drawImage(block, i , control.getModel().MIN_FLOOR_HEIGHT, 50, 50);
+			context.drawImage(block2, i , control.getModel().MIN_FLOOR_HEIGHT + 50, 50, 50);
+			
+			context.drawImage(plateform, i , control.getModel().MIN_FLOOR_HEIGHT - 200, 50, 50);
+		}*/
 		//coins
 		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
 		//enemies

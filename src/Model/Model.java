@@ -43,7 +43,8 @@ public class Model {
 
 	private Level currentLevel;
 	private boolean gameOver;
-	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
+	//public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
+	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 100 ;
 	public static final int GRAVITY_FORCE = 7;
 	public static final int JUMP_FORCE = 10;
 	public static final int COINS_SIZE = 40;
@@ -472,7 +473,7 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{ 
 					//floor
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
+					//add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,GameView.CANVAS_HEIGHT,false));
 
 					//blocks
 					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100,false));
@@ -525,7 +526,7 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{
 					//Floor Block
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,GameView.CANVAS_HEIGHT,false));
 					//blocks
 					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
 					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-250),50,50,false));
@@ -615,7 +616,7 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{
 					//Floor Block
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,50,false));
+					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,GameView.CANVAS_HEIGHT,false));
 					//blocks
 
 					//vertical block

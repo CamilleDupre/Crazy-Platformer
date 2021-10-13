@@ -50,6 +50,9 @@ public class GameView {
 
 	
 	CustomMenuButton resume;
+	CustomMenuButton exitP;
+	private CustomMenuButton tryAgain;
+
 	private GraphicsContext context;
 
 	public static final int CANVAS_WIDTH = MenuView.WIDTH;
@@ -342,7 +345,7 @@ public class GameView {
 		///PAUSE///
 		//resume.setOnAction(e -> timeline.play());
 		control.checkActions(resume, pauseMenu, gamePane);
-		//control.checkActions(exitP, pauseMenu, gamePane);
+		control.checkActions(exitP, pauseMenu, gamePane);
 		
 		exitP.setOnMouseClicked(e -> control.exitApp());
 		exitP.setOnKeyPressed(e -> {
@@ -473,7 +476,7 @@ public class GameView {
 		botlooseHB.setPadding(new Insets(0,20,20,20));
 		botlooseHB.setSpacing(30);
 
-		CustomMenuButton tryAgain = new CustomMenuButton("TRY AGAIN");
+		tryAgain = new CustomMenuButton("TRY AGAIN");
 		CustomMenuButton exitGame2 = new CustomMenuButton("EXIT GAME");
 		botlooseHB.getChildren().add(tryAgain);
 		botlooseHB.getChildren().add(exitGame2);
@@ -481,27 +484,8 @@ public class GameView {
 		looseMenu.setBottom(botlooseHB);
 
 		///LOOSE///
-		//	control.checkActions(tryAgain, looseMenu, difMenu);
-		tryAgain.setOnMouseClicked(e->{
-			getTimeline().stop();
-			/*try {
-					this.start(primaryStage);
-				} catch (IOException e1) {
-					 TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-		});
-		tryAgain.setOnKeyPressed(e->{
-			getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				/*try {
-						this.start(primaryStage);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}*/
-			}
-		});
+		control.tryAgainLevel();
+				
 		exitGame2.setOnMouseClicked(e -> control.exitApp());
 		exitGame2.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
@@ -596,4 +580,13 @@ public class GameView {
 	public void setImgSpikes(Image imgSpikes) {
 		this.imgSpikes = imgSpikes;
 	}
+	
+	public CustomMenuButton getTryAgain() {
+		return tryAgain;
+	}
+
+	public void setTryAgain(CustomMenuButton tryAgain) {
+		this.tryAgain = tryAgain;
+	}
+
 }

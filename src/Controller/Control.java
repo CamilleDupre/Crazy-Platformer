@@ -115,6 +115,15 @@ public class Control {
 
 	}
 
+	public void tryAgainLevel() {
+		gameView.getTryAgain().setOnMouseClicked(e -> loadLevel(menuView.getPrimaryStage()));
+		gameView.getTryAgain().setOnKeyPressed(e ->{
+			if(e.getCode()==KeyCode.ENTER) {
+				loadLevel(menuView.getPrimaryStage());
+			}
+		});
+	}
+	
 	public void loadLevel(Stage stg) {
 		menuView.getValidatelevel().setOnMouseClicked(e ->{
 			model.initLevel(menuView.getLevelId()+1);

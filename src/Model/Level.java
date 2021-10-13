@@ -16,7 +16,7 @@ public class Level {
 	private ArrayList<Point2D> enemies;
 	private ArrayList<Point2D> coins;
 	private ArrayList<Block> blocks;
-	private ArrayList<Point2D> powers;
+	private ArrayList<Power> powers;
 	private ArrayList<Point2D> trap;
 	private Point2D treasure;
 
@@ -31,7 +31,7 @@ public class Level {
 	 * @param trap
 	 * @param treasure
 	 */
-	public Level(int id,int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> enemies , ArrayList<Point2D> coins , ArrayList<Point2D> powers, ArrayList<Point2D> trap, Point2D treasure) {
+	public Level(int id,int maxSize, ArrayList<Block> blocks, ArrayList<Point2D> enemies , ArrayList<Point2D> coins , ArrayList<Power> powers, ArrayList<Point2D> trap, Point2D treasure) {
 
 		this.maxSize = maxSize;
 		this.setEnemies(enemies);
@@ -99,7 +99,7 @@ public class Level {
 	 * Getter for powers
 	 * @return powers
 	 */
-	public ArrayList<Point2D> getPowers() {
+	public ArrayList<Power> getPowers() {
 		return powers;
 	}
 
@@ -107,7 +107,7 @@ public class Level {
 	 * Setter for power
 	 * @param powers
 	 */
-	public void setPowers(ArrayList<Point2D> powers) {
+	public void setPowers(ArrayList<Power> powers) {
 		this.powers = powers;
 	}
 

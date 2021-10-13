@@ -9,6 +9,7 @@ import Controller.Control;
 import Controller.KeyControl;
 import Model.Block;
 import Model.Model;
+import Model.Power;
 import Sound.Sound;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -182,7 +183,7 @@ public class GameView {
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
 		
 		//Power
-		paintOtherComponent(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE, cloudPower);
+		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE, cloudPower);
 
 		
 		//chest
@@ -233,6 +234,11 @@ public class GameView {
 		}
 	}
 	
+	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight, Image img) {
+		for(Power power : powers) {
+			context.drawImage(img, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
+		}
+	}
 	/*public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
 		for(Point2D obj : objPositions) {
 			context.drawImage(imgCoin,obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);

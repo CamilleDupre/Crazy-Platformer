@@ -1,20 +1,19 @@
 package Model;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 
 public class Power {
 
 	private int type;
 	private int duration; //time in milliseconds
-	private Pos position;
-	private boolean disable;
+	private Point2D position;
+
 	
-	public Power(int type, int duration, Pos position, boolean disable) {
+	public Power(int type, int duration, Point2D position) {
 		setType(type);
 		setDuration(duration);
 		setPosition(position);
-		setDisable(disable);
-		
 	}
 
 	public int getType() {
@@ -33,21 +32,13 @@ public class Power {
 		this.duration = duration;
 	}
 
-	public Pos getPosition() {
+	public Point2D getPosition() {
 		return position;
 	}
 
-	public void setPosition(Pos position) {
+	public void setPosition(Point2D position) {
 		this.position = position;
 	}
 
-	public boolean isDisable() {
-		return disable;
-	}
-
-	public void setDisable(boolean disable) {
-		this.disable = disable;
-	}
-	
 	
 }

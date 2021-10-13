@@ -50,8 +50,8 @@ public class Model {
 	public static final int ENEMIES_WIDTH = 65;
 	public static final int TREASURE_HEIGHT = 100;
 	public static final int TREASURE_WIDTH = 120;
-	public static final int TRAP_WIDTH = 100;
-	public static final int TRAP_HEIGHT = 60;
+	public static final int TRAP_WIDTH = 80;
+	public static final int TRAP_HEIGHT = 50;
 	private Player player;
 	private int direction;
 	private String imgPlayer="";
@@ -377,9 +377,9 @@ public class Model {
 	
 	
 	public void checkPower() {
-		for(Point2D power : currentLevel.getPowers()) {
+		for(Power power : currentLevel.getPowers()) {
 			//collision player coins
-			if(player.isPlayerTouchingObject(power, COINS_SIZE, COINS_SIZE)){	
+			if(player.isPlayerTouchingObject(power.getPosition(), COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getPowers().remove(power);
 				this.player.setInvisible(true);
 				java.util.Timer t = new java.util.Timer();
@@ -389,11 +389,12 @@ public class Model {
 				            public void run() {
 				            	System.out.println("Power off");
 				            	player.setInvisible(false);
+				            	currentLevel.getPowers().add(power);
 				                // close the thread
 				                t.cancel();
 				            }	
 				        }, 
-				        10000 // invincible for 1s
+				        power.getDuration() // invincible for 1s
 				);
 				
 				break;
@@ -415,7 +416,7 @@ public class Model {
 		ArrayList<Block> blocks;
 		ArrayList<Point2D> enemies;
 		ArrayList<Point2D> coins;
-		ArrayList<Point2D> powers;
+		ArrayList<Power> powers;
 		ArrayList<Point2D> traps;
 		Point2D treasure;
 
@@ -459,7 +460,7 @@ public class Model {
 				}
 			};
 
-			powers = new ArrayList<Point2D>(){};
+			powers = new ArrayList<Power>(){};
 
 			traps = new ArrayList<Point2D>(){
 				{
@@ -517,7 +518,7 @@ public class Model {
 				{
 					//coins chest
 					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT - 150 - Model.COINS_SIZE));
-					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -200)); 
+					add(new Point2D(860,Model.MIN_FLOOR_HEIGHT -200)); 
 
 					//jump
 					add(new Point2D(2400,Model.MIN_FLOOR_HEIGHT-300 - Model.COINS_SIZE)); 
@@ -528,12 +529,16 @@ public class Model {
 					add(new Point2D(1100,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
 					add(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-800 - 2 * Model.COINS_SIZE)); 
 					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT-800 - Model.COINS_SIZE)); 
+					
+					//Special block
+					add(new Point2D(720,Model.MIN_FLOOR_HEIGHT-750 - 200  - Model.COINS_SIZE));
 				}
 			};
 
-			powers = new ArrayList<Point2D>(){
+			powers = new ArrayList<Power>(){
 				{
-					add(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)); 
+					add(new Power(0 , 10000, new Point2D(2200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 
+					//add(new Power(0 , 1000, new Point2D(2000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE))); 
 				}
 				
 			};
@@ -541,10 +546,9 @@ public class Model {
 			traps = new ArrayList<Point2D>(){
 				{
 					//trap chest
-					add(new Point2D(350,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-					add(new Point2D(1050,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-					add(new Point2D(1300,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(610,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(840,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
+					add(new Point2D(1060,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 
 					//trap enemie
 					add(new Point2D(1900 ,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
@@ -554,7 +558,7 @@ public class Model {
 				}
 			};
 
-			treasure = new Point2D(820 ,Model.MIN_FLOOR_HEIGHT-340 - TREASURE_HEIGHT);
+			treasure = new Point2D(815 ,Model.MIN_FLOOR_HEIGHT-340 - TREASURE_HEIGHT);
 
 			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
 
@@ -594,7 +598,7 @@ public class Model {
 				}
 			};
 
-			powers = new ArrayList<Point2D>(){};
+			powers = new ArrayList<Power>(){};
 
 			traps = new ArrayList<Point2D>(){
 				{

@@ -192,7 +192,16 @@ public class GameView {
 		
 		//Power
 		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE);
-
+		
+		//Power actif
+		
+			if (control.getModel().getPlayer().isInvisible()) {
+				context.drawImage(cloudPower, 10 , 100, Model.HEART_SIZE, Model.HEART_SIZE);
+			}
+			
+			if (control.getModel().getPlayer().isSuperJump()) {
+				context.drawImage(jumpPower, 10 , 100 + Model.HEART_SIZE , Model.HEART_SIZE, Model.HEART_SIZE);
+			}
 		
 		//chest
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin, control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin, Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);

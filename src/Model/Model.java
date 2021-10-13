@@ -414,6 +414,7 @@ public class Model {
 				else if (power.getType() == 1) {  // jump power 
 
 					player.setPlayerJump(-500);
+					player.setSuperJump(true);
 					java.util.Timer t = new java.util.Timer();
 					t.schedule( 
 							new java.util.TimerTask() {
@@ -421,6 +422,7 @@ public class Model {
 								public void run() {
 									System.out.println("Power off");
 									player.setPlayerJump(-220);
+									player.setSuperJump(false);
 									currentLevel.getPowers().add(power);
 									// close the thread
 									t.cancel();

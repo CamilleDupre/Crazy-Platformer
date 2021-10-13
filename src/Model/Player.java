@@ -24,6 +24,7 @@ public class Player {
 	private boolean inTheAir;
 	
 	private boolean invisible;
+	private boolean superJump;
 	
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
@@ -34,6 +35,7 @@ public class Player {
 		setInTheAir(true);
 		this.setLife(3);
 		setInvisible(false);
+		this.setSuperJump(false) ;
 		
 		//this.setJumping(true);
 	}
@@ -150,5 +152,13 @@ public class Player {
 
 	public void setInvisible(boolean invisible) {
 		this.invisible = invisible;
+	}
+
+	public boolean isSuperJump() {
+		return superJump;
+	}
+
+	public void setSuperJump(boolean superJump) {
+		this.superJump = superJump;
 	}
 }

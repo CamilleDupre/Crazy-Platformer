@@ -275,9 +275,17 @@ public class GameView {
 	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight) {
 		for(Power power : powers) {
 			if (power.getType() == 0) {
+				if (control.getModel().getCurrentLevel().getId() == 2) {
+					context.setStroke(Color.BLACK);
+					context.strokeText( "Cloud POWER to go throught special block", power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin - 5);
+				}
 				context.drawImage(cloudPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
 			}
 			else if(power.getType() == 1) {
+				if (control.getModel().getCurrentLevel().getId() == 3) {
+					context.setStroke(Color.BLACK);
+					context.strokeText( "Jump higther with jump Power", power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin - 5);
+				}
 				context.drawImage(jumpPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
 			}
 		}

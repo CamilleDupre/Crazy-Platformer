@@ -191,7 +191,7 @@ public class Model {
 				}
 			}else if(direction == Control.RIGHT) {
 				//check if player isn't out of the level in the right side
-				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.maxSize - player.getPlayerSize().getX()) {
+				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.getMaxSize() - player.getPlayerSize().getX()) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
 				}
 			}
@@ -201,7 +201,7 @@ public class Model {
 			//check if player isn't touching block on left side and allow moving only to right
 			if(direction == Control.RIGHT) {
 				//check if player isn't out of the level in the right side
-				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.maxSize - player.getPlayerSize().getX()) {
+				if(player.getPosition().getX() + player.getPlayerSpeed() < currentLevel.getMaxSize() - player.getPlayerSize().getX()) {
 					player.setPosition( new Point2D(player.getPosition().getX() + player.getPlayerSpeed(), player.getPosition().getY()));
 				}
 			}
@@ -353,14 +353,12 @@ public class Model {
 		//collision player coins
 		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() == currentLevel.getMaxCoins() ){
 
-			//System.out.println("Gagn� !!");
 			//here add the victory screen !
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}
 		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() < currentLevel.getMaxCoins() ){
 
-			//System.out.println("Get more coins");
 		}
 	}
 
@@ -394,14 +392,13 @@ public class Model {
 							new java.util.TimerTask() {
 								@Override
 								public void run() {
-									System.out.println("Power off");
 									player.setInvisible(false);
 									currentLevel.getPowers().add(power);
 									// close the thread
 									t.cancel();
 								}
 							},
-							power.getDuration() // invincible for 1s
+							power.getDuration() // invincible for ?? seconds
 							);
 
 					break;

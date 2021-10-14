@@ -153,8 +153,7 @@ public class Control {
 		menuView.getValidatelevel().setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 
-				System.out.println(menuView.getLevelId()+1);
-				model.initLevel(menuView.getLevelId()+1);
+				model.initLevel(menuView.getLevelId());
 				gameView.getMainGameView().setVisible(true);
 				Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
 				scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));

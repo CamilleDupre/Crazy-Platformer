@@ -7,7 +7,7 @@ import javafx.geometry.Pos;
 
 public class Player {
 
-	public static final int PLAYER_WIDTH = 80;
+	public static final int PLAYER_WIDTH = 70;
 	public static final int PLAYER_HEIGHT = 100;
 
 	private Point2D position;

@@ -68,7 +68,7 @@ public class MenuView extends Application{
 	
 	private CustomMenuButton validatelevel;
 	
-	private int levelId=0;
+	private int levelId=1;
 	
 	public static int HEIGHT;
 	public static int WIDTH;
@@ -552,19 +552,19 @@ public class MenuView extends Application{
 				}
 				switch(current.getId()) {
 					case "0" :
-						levelId = 0;
-						break;
-					case "1" :
 						levelId = 1;
 						break;
-					case "2" :
+					case "1" :
 						levelId = 2;
 						break;
-					case "3" :
+					case "2" :
 						levelId = 3;
 						break;
+					case "3" :
+						levelId = 4;
+						break;
 				}
-				currentLevelTitle.setText("Level "+ (levelId+1));	
+				currentLevelTitle.setText("Level "+ (levelId));	
 				primaryStage.show();
 			});
 			
@@ -605,23 +605,23 @@ public class MenuView extends Application{
 				}
 				switch(current.getId()) {
 				case "0" :
-					levelId = 0;
-					break;
-				case "1" :
 					levelId = 1;
 					break;
-				case "2" :
+				case "1" :
 					levelId = 2;
 					break;
-				case "3" :
+				case "2" :
 					levelId = 3;
 					break;
+				case "3" :
+					levelId = 4;
+					break;
 				}
-				currentLevelTitle.setText("Level "+ (levelId+1));	
+				currentLevelTitle.setText("Level "+ (levelId));	
 				primaryStage.show();
 			});
 			
-			currentLevelTitle.setText("Level "+ (levelId+1));
+			currentLevelTitle.setText("Level "+ (levelId));
 			
 			primaryStage.show();
 			

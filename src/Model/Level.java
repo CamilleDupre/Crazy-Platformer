@@ -9,7 +9,7 @@ public class Level {
 	/**
 	 * Attribute 
 	 */
-	int maxSize;
+	private int maxSize;
 	private int id;
 	private int maxCoins;
 	
@@ -167,4 +167,15 @@ public class Level {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getMaxSize() {
+		return maxSize;
+	}
+
+
+	public void setMaxSize(int maxSize) {
+		this.maxSize = maxSize;
+	}
+
+
 }

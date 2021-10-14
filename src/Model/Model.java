@@ -315,13 +315,13 @@ public class Model {
 			if(player.isPlayerTouchingObject(trap, TRAP_WIDTH, TRAP_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
-					
+
 					System.out.println("GAME OVER !!!");
-					
+
 					moveToFirstScene();
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 					//menuView.getControl().tryAgainLevel();
-					
+
 				}else {
 					this.player.setInvincibleAfterAttack(true);
 					java.util.Timer t = new java.util.Timer();
@@ -439,14 +439,14 @@ public class Model {
 		}
 	}
 
-	
+
 	public void moveToFirstScene() {
 		gameView.getMainGameView().setVisible(false);
 		menuView.getPrimaryStage().setScene(menuView.getScene());
 		menuView.getPrimaryStage().setResizable(false);
 		menuView.getPrimaryStage().show();
 	}
-	
+
 
 	/**
 	 * Initialization of the level
@@ -473,10 +473,10 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{ 
 					//floor
-					
+
 					for (int i = 0 ; i< size ; i=i +50){
-					add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT),50,50,false));
-					add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT +50),50,50,false));
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT),50,50,false));
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT +50),50,50,false));
 					}
 
 					//blocks
@@ -484,28 +484,28 @@ public class Model {
 					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
 					add( new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
 					add( new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
-					
-						
+
+
 					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
 					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
 					add( new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
 					add( new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
-					
-					
+
+
 					for (int i = 1000 ; i< 1200 ; i=i +50){
 						add( new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-270),50,50,false));
-						}
-					
+					}
+
 					for (int i = 1250 ; i< 1450 ; i=i +50){
 						add( new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-430),50,50,false));
-						}
-					
+					}
+
 					for (int i = MIN_FLOOR_HEIGHT - 550 ; i< MIN_FLOOR_HEIGHT ; i=i +50){
 						add( new Block(new Point2D(1600,i),50,50,false));
 						add( new Block(new Point2D(1650,i),50,50,false));
 						add( new Block(new Point2D(1700,i),50,50,false));
 						add( new Block(new Point2D(1750,i),50,50,false));
-						}
+					}
 
 					//climbing blocks
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20,false));
@@ -554,16 +554,16 @@ public class Model {
 					for (int i = 0 ; i< size ; i=i +50){
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT),50,50,false));
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT +50),50,50,false));
-						}
+					}
 
 					//blocks
 					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
 					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-250),50,50,false));
-					
+
 					for (int i = 750 ; i< 1000 ; i=i +50){
-					add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-350),50,50,false));
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-350),50,50,false));
 					}
-					
+
 					add(new Block(new Point2D(1200,Model.MIN_FLOOR_HEIGHT-250),50,50,false));
 					add(new Block(new Point2D(1450,Model.MIN_FLOOR_HEIGHT-150),50,50,false));
 
@@ -577,19 +577,17 @@ public class Model {
 					//top block
 					for (int i = 1950 ; i< 1950 + 150 ; i=i +50){
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-800),50,50,false));
-						}
-					
+					}
+
 					for (int i = 1600 ; i< 1750 ; i=i +50){
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-800),50,50,false));
-						}
-					
+					}
+
 					for (int i = 1100 ; i< 1350 ; i=i +50){
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-800),50,50,false));
 
-						}
-					
-				
-					
+					}
+
 					//Special block
 					add(new Block(new Point2D(720,Model.MIN_FLOOR_HEIGHT-750),50,50,true));
 					add(new Block(new Point2D(1170,Model.MIN_FLOOR_HEIGHT-1100),50,300,true));
@@ -663,29 +661,46 @@ public class Model {
 					for (int i = 0 ; i< size ; i=i +50){
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT),50,50,false));
 						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT +50),50,50,false));
-						}
+					}
 
 					//blocks
 
 					//vertical block
-					add(new Block(new Point2D(500,Model.MIN_FLOOR_HEIGHT-450),50,450,false));
-					add(new Block(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-1350),50,1000,false));
-					add(new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900),50,550,false));
+					for (int i = Model.MIN_FLOOR_HEIGHT-450 ; i< Model.MIN_FLOOR_HEIGHT ; i=i +50){
+						add(new Block(new Point2D(500,i),50,50,false));
+					}
+					for (int i = Model.MIN_FLOOR_HEIGHT-1350 ; i< Model.MIN_FLOOR_HEIGHT-350 ; i=i +50){
+						add(new Block(new Point2D(1050,i),50,50,false));
+					}
+					for (int i = Model.MIN_FLOOR_HEIGHT-1900 ; i< Model.MIN_FLOOR_HEIGHT-1450 ; i=i +50){
+						add(new Block(new Point2D(250, i),50,50,false));
+					}
 
 
 					//Horizontal block
 					//jump
-					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),100,50,false));
-					add(new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-900),100,50,false));
-					add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT-1350),1200,50,false));
-					
+					add(new Block(new Point2D(1300,Model.MIN_FLOOR_HEIGHT-450),50,50,false));
+					add(new Block(new Point2D(1350,Model.MIN_FLOOR_HEIGHT-450),50,50,false));
+
+					add(new Block(new Point2D(1500,Model.MIN_FLOOR_HEIGHT-900),50,50,false));
+					add(new Block(new Point2D(1550,Model.MIN_FLOOR_HEIGHT-900),50,50,false));
+
+					for (int i = 0 ; i< 1200 ; i=i +50){
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-1350),50,50,false));
+					}
+
+
 					//plateform
-					add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-1500),300,50,false));
-					add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-2200),300,50,false));
-					
+					for (int i = 600 ; i< 900 ; i=i +50){
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-1500),50,50,false));
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-2200),50,50,false));
+					}
 					//treasure
-					add(new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-2000),300,50,false));
 					
+					for (int i = 1000 ; i< 1300 ; i=i +50){
+						add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-2000),50,50,false));
+					}
+
 
 					//add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-450),200,50,false));
 
@@ -702,14 +717,14 @@ public class Model {
 			coins = new ArrayList<Point2D>() {
 				{
 					add(new Point2D(500,Model.MIN_FLOOR_HEIGHT-500 - Model.COINS_SIZE));
-					
+
 					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-200 - Model.COINS_SIZE));
-					
+
 					add(new Point2D(1050,Model.MIN_FLOOR_HEIGHT-1350 - Model.COINS_SIZE));
-					
+
 					add(new Point2D(1350,Model.MIN_FLOOR_HEIGHT-450 - Model.COINS_SIZE));
 					add(new Point2D(1550,Model.MIN_FLOOR_HEIGHT-900 - Model.COINS_SIZE));
-					
+
 					add(new Point2D(250,Model.MIN_FLOOR_HEIGHT-1900- Model.COINS_SIZE));
 					add(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-2000 - 300));
 					add(new Point2D(600,Model.MIN_FLOOR_HEIGHT-2200- Model.COINS_SIZE));
@@ -734,10 +749,10 @@ public class Model {
 					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(800,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
 					add(new Point2D(850,Model.MIN_FLOOR_HEIGHT -TRAP_HEIGHT));
-					
-					
+
+
 					add(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-TRAP_HEIGHT));
-					
+
 					add(new Point2D(300,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
 					add(new Point2D(350,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
 					add(new Point2D(400,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
@@ -749,7 +764,7 @@ public class Model {
 					add(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
 					add(new Point2D(750,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
 					add(new Point2D(800,Model.MIN_FLOOR_HEIGHT-1350-TRAP_HEIGHT));
-					
+
 				}
 			};
 

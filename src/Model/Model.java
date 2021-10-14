@@ -473,14 +473,39 @@ public class Model {
 			blocks = new ArrayList<Block>() {
 				{ 
 					//floor
-					//add(new Block(new Point2D(0,Model.MIN_FLOOR_HEIGHT),size,GameView.CANVAS_HEIGHT,false));
+					
+					for (int i = 0 ; i< size ; i=i +50){
+					add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT),50,50,false));
+					add(new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT +50),50,50,false));
+					}
 
 					//blocks
-					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),100,100,false));
-					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),100,100,false));
-					add( new Block(new Point2D(1000,Model.MIN_FLOOR_HEIGHT-270),200,50,false));
-					add( new Block(new Point2D(1250,Model.MIN_FLOOR_HEIGHT-430),200,50,false));
-					add( new Block(new Point2D(1600,Model.MIN_FLOOR_HEIGHT-550),200,550,false));
+					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
+					add( new Block(new Point2D(200,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
+					add( new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
+					add( new Block(new Point2D(250,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
+					
+						
+					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
+					add( new Block(new Point2D(850,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
+					add( new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-100),50,50,false));
+					add( new Block(new Point2D(900,Model.MIN_FLOOR_HEIGHT-50),50,50,false));
+					
+					
+					for (int i = 1000 ; i< 1200 ; i=i +50){
+						add( new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-270),50,50,false));
+						}
+					
+					for (int i = 1250 ; i< 1450 ; i=i +50){
+						add( new Block(new Point2D(i,Model.MIN_FLOOR_HEIGHT-430),50,50,false));
+						}
+					
+					for (int i = MIN_FLOOR_HEIGHT - 550 ; i< MIN_FLOOR_HEIGHT ; i=i +50){
+						add( new Block(new Point2D(1600,i),50,50,false));
+						add( new Block(new Point2D(1650,i),50,50,false));
+						add( new Block(new Point2D(1700,i),50,50,false));
+						add( new Block(new Point2D(1750,i),50,50,false));
+						}
 
 					//climbing blocks
 					add( new Block(new Point2D(1800,Model.MIN_FLOOR_HEIGHT-170),50,20,false));

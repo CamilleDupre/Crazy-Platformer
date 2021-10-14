@@ -255,10 +255,18 @@ public class GameView {
 		
 		for(Block b : blockList) {
 			if(!b.isInvisible()) {
-				context.setFill(Color.GREEN);
-				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
-				context.setFill(Color.SADDLEBROWN);
-				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
+				if (b.getPosition().getY() == Model.MIN_FLOOR_HEIGHT) {
+					context.drawImage(block, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, 50, 50);
+				}
+				else if (b.getPosition().getY() > Model.MIN_FLOOR_HEIGHT) {
+					context.drawImage(block2, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, 50, 50);
+				}else {
+					context.drawImage(plateform, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
+				}
+				//context.setFill(Color.GREEN);
+				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
+				//context.setFill(Color.SADDLEBROWN);
+				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
 			}else {
 				context.setFill(Color.BLANCHEDALMOND);
 				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());

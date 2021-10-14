@@ -83,6 +83,11 @@ public class GameView {
 	private Image block2 = null;
 	
 	private Image plateform = null;
+	private Image specialBlock = null;
+	
+	
+	
+	private Image tree = null;
 	
 	private int displayHorizontalLeftMargin;
 	private int displayHorizontalRightMargin;
@@ -134,7 +139,9 @@ public class GameView {
 			
 			block  = new Image(new FileInputStream("img/other/block2.png"));
 			block2  = new Image(new FileInputStream("img/other/block3.png"));
-			//plateform  = new Image(new FileInputStream("img/other/platform.png"));
+			
+			tree  = new Image(new FileInputStream("img/other/tree2.png"));
+			specialBlock  = new Image(new FileInputStream("img/other/platform.png"));
 			
 			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			
@@ -196,6 +203,13 @@ public class GameView {
 		if(control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() <= canvas.getHeight()/3) {
 			displayVerticalMargin = (int) (control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() - canvas.getHeight()/3);
 		}
+		
+		
+		for ( int i= 200 ; i< control.getModel().getCurrentLevel().getMaxSize() - 500 ; i = i + 700) {
+			context.drawImage(tree, i + - displayHorizontalLeftMargin + displayHorizontalRightMargin, Model.MIN_FLOOR_HEIGHT - 380- displayVerticalMargin, 400, 400);
+		}
+		
+		
 		
 		//blocks	
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
@@ -274,8 +288,9 @@ public class GameView {
 				//context.setFill(Color.SADDLEBROWN);
 				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
 			}else {
-				context.setFill(Color.BLANCHEDALMOND);
-				context.fillRect(b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
+				//context.setFill(Color.BLANCHEDALMOND);
+				//context.fillRect(b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
+				context.drawImage(specialBlock, b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
 			}
 		}
 	}

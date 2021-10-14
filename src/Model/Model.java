@@ -575,7 +575,12 @@ public class Model {
 
 					//Special block
 					add(new Block(new Point2D(720,Model.MIN_FLOOR_HEIGHT-750),50,50,true));
-					add(new Block(new Point2D(1170,Model.MIN_FLOOR_HEIGHT-1100),50,300,true));
+					
+					for (int i = Model.MIN_FLOOR_HEIGHT-1100 ; i< Model.MIN_FLOOR_HEIGHT-800 ; i=i +50){
+						add(new Block(new Point2D(1170, i),50,50,true));
+
+					}
+					
 
 				}
 			};

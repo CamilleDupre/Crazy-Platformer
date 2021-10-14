@@ -24,6 +24,7 @@ public class Player {
 	private boolean inTheAir;
 	
 	private boolean invisible;
+	private int nbCoinsCollected;
 	
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
@@ -34,6 +35,7 @@ public class Player {
 		setInTheAir(true);
 		this.setLife(3);
 		setInvisible(false);
+		this.nbCoinsCollected = 0;
 		
 		//this.setJumping(true);
 	}
@@ -150,5 +152,21 @@ public class Player {
 
 	public void setInvisible(boolean invisible) {
 		this.invisible = invisible;
+	}
+	
+	/**
+	 * Getter for nbCoinsCollected
+	 * @return
+	 */
+	public int getNbCoinsCollected() {
+		return nbCoinsCollected;
+	}
+
+	/**
+	 * Setter for nbCoinsCollected
+	 * @param nbCoinsCollected
+	 */
+	public void setNbCoinsCollected(int nbCoinsCollected) {
+		this.nbCoinsCollected = nbCoinsCollected;
 	}
 }

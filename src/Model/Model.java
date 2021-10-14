@@ -70,7 +70,7 @@ public class Model {
 	public Level LVL_2;
 	public Level LVL_3;
 	public Level LVL_4;	
-	public int nbCoinsCollected = 0 ;
+	
 
 	public double maxJumpHeight;
 
@@ -285,9 +285,7 @@ public class Model {
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
-					moveToFirstScene();
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
-					//menuView.getControl().tryAgainLevel();
 
 				}else {
 					this.player.setInvincibleAfterAttack(true);
@@ -314,12 +312,8 @@ public class Model {
 			if(player.isPlayerTouchingObject(trap, TRAP_WIDTH, TRAP_HEIGHT) & !this.player.isInvincibleAfterAttack()){	
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
-					
-					System.out.println("GAME OVER !!!");
-					
-					moveToFirstScene();
+										
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
-					//menuView.getControl().tryAgainLevel();
 					
 				}else {
 					this.player.setInvincibleAfterAttack(true);
@@ -356,14 +350,14 @@ public class Model {
 	public void checkTreasure() {
 		Point2D treasure =  currentLevel.getTreasure() ;
 		//collision player coins
-		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && getNbCoinsCollected() == currentLevel.getMaxCoins() ){	
+		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() == currentLevel.getMaxCoins() ){	
 
 			//System.out.println("Gagné !!");
 			//here add the victory screen ! 
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}
-		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && currentLevel.getCoins().size() < currentLevel.getMaxCoins() ){	
+		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() < currentLevel.getMaxCoins() ){	
 
 			//System.out.println("Get more coins");
 		}
@@ -377,7 +371,7 @@ public class Model {
 			//collision player coins
 			if(player.isPlayerTouchingObject(coin, COINS_SIZE, COINS_SIZE)){	
 				currentLevel.getCoins().remove(coin);
-				setNbCoinsCollected(getNbCoinsCollected() +1);
+				player.setNbCoinsCollected(player.getNbCoinsCollected() +1);
 				//sound.playCoinsSound();
 				break;
 			}
@@ -434,14 +428,6 @@ public class Model {
 
 			}
 		}
-	}
-
-	
-	public void moveToFirstScene() {
-		gameView.getMainGameView().setVisible(false);
-		menuView.getPrimaryStage().setScene(menuView.getScene());
-		menuView.getPrimaryStage().setResizable(false);
-		menuView.getPrimaryStage().show();
 	}
 	
 
@@ -780,21 +766,6 @@ public class Model {
 		this.gamePaused = gamePaused;
 	}
 
-	/**
-	 * Getter for nbCoinsCollected
-	 * @return
-	 */
-	public int getNbCoinsCollected() {
-		return nbCoinsCollected;
-	}
-
-	/**
-	 * Setter for nbCoinsCollected
-	 * @param nbCoinsCollected
-	 */
-	public void setNbCoinsCollected(int nbCoinsCollected) {
-		this.nbCoinsCollected = nbCoinsCollected;
-	}
 
 	/**
 	 * Getter for Time

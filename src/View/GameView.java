@@ -208,7 +208,7 @@ public class GameView {
 		//number of coins
 		context.drawImage(imgCoin,1800, 50, Model.COINS_SIZE, Model.COINS_SIZE);
 		context.setStroke(Color.GOLD);
-		context.strokeText( control.getModel().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
+		context.strokeText( control.getModel().getPlayer().getNbCoinsCollected()+" Coins", 1800 + 1.5 *Model.COINS_SIZE, 75 );
 		
 		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
 			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayHorizontalMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
@@ -412,29 +412,9 @@ public class GameView {
 		winMenu.setBottom(botWinHB);
 
 		///WIN///
-		//	
-		playAgain.setOnMouseClicked(e->{
-			//getTimeline().stop();
-			/*	try {
-					MenuView.start(primaryStage);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-			 //TO DO
-		});
+		
 		control.checkActions(playAgain, gamePane, control.getMenuView().getLevelPane());
-		playAgain.setOnKeyPressed(e->{
-			//getTimeline().stop();
-			if(e.getCode()==KeyCode.ENTER) {
-				/*	try {
-						this.start(primaryStage);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}*/
-			}
-		});
+
 		exitGame.setOnMouseClicked(e -> control.exitApp());
 		exitGame.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
@@ -494,12 +474,7 @@ public class GameView {
 		looseMenu.setBottom(botlooseHB);
 
 		///LOOSE///
-		tryAgain.setOnMouseClicked(e -> control.tryAgainLevel());
-		tryAgain.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-				control.tryAgainLevel();
-			}
-		});		
+		control.tryAgainLevel(tryAgain, looseMenu, gamePane);	
 		
 		
 		exitGame2.setOnMouseClicked(e -> control.exitApp());

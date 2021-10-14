@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 
 import Model.Model;
+import Model.Player;
 import Sound.Sound;
 import View.CustomMenuButton;
 import View.MenuView;
@@ -115,22 +116,21 @@ public class Control {
 
 	}
 
-	public void tryAgainLevel() {
+	public void tryAgainLevel(CustomMenuButton b,BorderPane src, BorderPane target) {
 		
-		model.initLevel(menuView.getLevelId()+1);
-		gameView = new GameView(this);
-		gameView.getMainGameView().setVisible(true);
-		Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
-		scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
-		menuView.setGameScene((scn));
-		menuView.getPrimaryStage().setScene(scn);
-		menuView.getPrimaryStage().setResizable(false);
-		menuView.getPrimaryStage().show();
-		menuView.setGameView(gameView);
-		
-		gravity.setActive(true);
-		
-		
+		b.setOnMouseClicked(e -> {
+			displayMenu(src, target);
+			this.model.initLevel(menuView.getLevelId());
+			this.model.setPlayer(new Player());
+			
+		});
+		b.setOnKeyPressed(e ->{
+			if(e.getCode()==KeyCode.ENTER) {
+				displayMenu(src, target);
+				this.model.initLevel(menuView.getLevelId());
+				this.model.setPlayer(new Player());
+			}
+		});
 	}
 	
 	public void loadLevel(Stage stg) {

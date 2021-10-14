@@ -35,6 +35,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
@@ -217,98 +219,100 @@ public class MenuView extends Application{
 
 		VBox rulesVB = new VBox();
 		rulesVB.setSpacing(20);
-		rulesVB.setPadding(new Insets(0,5,0,0));
+		rulesVB.setPadding(new Insets(0,50,0,0));
 
-		Text rulesTxt = new Text(" Welcoom to Crazy Platformer !!\n"
-				+ "\n"
-				+ " In order to finish a level you have to collect the differents coins and bring them to the chess.\n"
-				+ "\n"
-				+ " You will be faccing obstacle, like fire, ennemie, platform jump.\n"
-				+ "\n"
-				+ " In order to move use: \n"
-				+ " -  Q to go left\n"
-				+ " -  D to go rigth\n"
-				+ " -  Space to go jump\n"
-				+ "\n"
-				+ " GOOD LUCK !");
-
-
-		rulesTxt.getStyleClass().add("rules");
-		
+			
 		
 		HBox coins = new HBox();
 		coins.setSpacing(20);
-		coins.setAlignment(Pos.CENTER);
+		coins.setAlignment(Pos.CENTER_LEFT);
 		File leftFile = new File("img/other/coin.png");
 		ImageView imgLeft= null;
-		try {
-			imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Text coinsText = new Text("Coins you have to collect");
-		coins.getChildren().add(imgLeft);
-		coins.getChildren().add(coinsText);
-
-		HBox chest = new HBox();
-		chest.setSpacing(20);
-		chest.setAlignment(Pos.CENTER);
 		File rightFile = new File("img/other/Chest.png");
 		ImageView imgRight = null;
 		try {
+			imgLeft = new ImageView( new Image(leftFile.toURI().toURL().toString(),50,50,false,false));
 			imgRight = new ImageView( new Image(rightFile.toURI().toURL().toString(),50,50,false,false));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Text chestText = new Text("Drop the coins to finish the level");
-		chest.getChildren().add(imgRight);
-		chest.getChildren().add(chestText);
-		
-		
-		
+		Text coinsText = new Text("Collect all the ");
+		Text coinsText2 = new Text(" and then go to the ");
+		coinsText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		coinsText2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		coins.getChildren().add(coinsText);
+		coins.getChildren().add(imgLeft);
+		coins.getChildren().add(coinsText2);
+		coins.getChildren().add(imgRight);
+
+			
 		HBox heart = new HBox();
-		heart.setSpacing(20);
-		heart.setAlignment(Pos.CENTER);
+		heart.setSpacing(10);
+		heart.setAlignment(Pos.CENTER_LEFT);
 		File heartFile = new File("img/other/Heart.png");
 		ImageView imgheart = null;
 		File heartFileLost = new File("img/other/Heart_lost.png");
 		ImageView imgheartLost = null;
-		try {
-			imgheart = new ImageView( new Image(heartFile.toURI().toURL().toString(),50,50,false,false));
-			imgheartLost = new ImageView( new Image(heartFileLost.toURI().toURL().toString(),50,50,false,false));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Text heartText = new Text("Lifes");
-		Text heartTextLost = new Text("Lifes lost");
-		heart.getChildren().add(imgheart);
-		heart.getChildren().add(heartText);
-		heart.getChildren().add(imgheartLost);
-		heart.getChildren().add(heartTextLost);
-		
-		HBox enemy = new HBox();
-		enemy.setSpacing(20);
-		enemy.setAlignment(Pos.CENTER);
 		File enemyFile = new File("img/other/enemy.png");
 		ImageView imgenemy = null;
+		File trapFile = new File("img/other/Spikes.png");
+		ImageView imgTrap = null;
 		try {
-			imgenemy = new ImageView( new Image(enemyFile.toURI().toURL().toString(),50,50,false,false));
+			
+		    imgenemy = new ImageView( new Image(enemyFile.toURI().toURL().toString(),50,50,false,false));
+			imgheart = new ImageView( new Image(heartFile.toURI().toURL().toString(),50,50,false,false));
+			imgheartLost = new ImageView( new Image(heartFileLost.toURI().toURL().toString(),50,50,false,false));
+			imgTrap = new ImageView( new Image(trapFile.toURI().toURL().toString(),50,50,false,false));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Text enemyText = new Text("Enemy");
-		enemy.getChildren().add(imgenemy);
-		enemy.getChildren().add(enemyText);
+		Text watch = new Text("Watch out for");
+		Text watch2 = new Text("and");
+		Text heartText = new Text(" or you will lost your");
+		
+		watch.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		watch2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		heartText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		
+		heart.getChildren().add(watch);
+		heart.getChildren().add(imgenemy);
+		heart.getChildren().add(watch2);
+		heart.getChildren().add(imgTrap);
+		
+		heart.getChildren().add(heartText);
+		heart.getChildren().add(imgheart);
+		
+		HBox left = new HBox();
+		left.setSpacing(10);
+		left.setAlignment(Pos.CENTER_LEFT);
+		Text moveLeft = new Text(" Use Q to move left");
+		moveLeft.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		left.getChildren().add(moveLeft);
+		
+		HBox right = new HBox();
+		right.setSpacing(10);
+		right.setAlignment(Pos.CENTER_LEFT);
+		Text moveRight = new Text(" Use D to move right");
+		moveRight.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		right.getChildren().add(moveRight);
+		
+		HBox jump = new HBox();
+		jump.setSpacing(10);
+		jump.setAlignment(Pos.CENTER_LEFT);
+		Text moveJump = new Text(" Use SPACE to jump");
+		moveJump.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		jump.getChildren().add(moveJump);
+		
 
-		rulesVB.getChildren().add(rulesTxt);
 		rulesVB.getChildren().add(coins);
-		rulesVB.getChildren().add(chest);
 		rulesVB.getChildren().add(heart);
-		rulesVB.getChildren().add(enemy);
+		
+		rulesVB.getChildren().add(left);
+		rulesVB.getChildren().add(right);
+		rulesVB.getChildren().add(jump);
+		
 
 		rulesMenu.setCenter(rulesVB);
 

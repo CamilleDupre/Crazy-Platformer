@@ -177,4 +177,12 @@ public class Player {
 		this.nbCoinsCollected = nbCoinsCollected;
 
 	}
+
+	public boolean isSuperJump() {
+		return superJump;
+	}
+
+	public void setSuperJump(boolean superJump) {
+		this.superJump = superJump;
+	}
 }

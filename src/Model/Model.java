@@ -823,6 +823,8 @@ public class Model {
 			enemies = new ArrayList<Point2D>(){
 				{
 					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
+					add(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT));
+					add(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-1400 - ENEMIES_HEIGHT));
 				}
 			};
 

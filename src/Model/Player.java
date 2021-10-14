@@ -6,26 +6,29 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 
 public class Player {
-	
+
 	public static final int PLAYER_WIDTH = 80;
 	public static final int PLAYER_HEIGHT = 100;
-	
+
 	private Point2D position;
 	private ArrayList<Power> powerList;
-	
+
 	private boolean invincibleAfterAttack;
 	private Point2D playerSize;
 	private int playerSpeed = 7;
 	private int playerJump = - 220;
-	
+
 	private int life;
-	
+
 	private boolean jumping;
 	private boolean inTheAir;
-	
+
 	private boolean invisible;
+
 	private int nbCoinsCollected;
-	
+	private boolean superJump;
+
+
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
@@ -35,16 +38,19 @@ public class Player {
 		setInTheAir(true);
 		this.setLife(3);
 		setInvisible(false);
+
 		this.nbCoinsCollected = 0;
-		
+		this.setSuperJump(false) ;
+
+
 		//this.setJumping(true);
 	}
-	
+
 	//return 0 if not touching 1 if touching on leftside and 2 if touching rightside
-	public int isPlayerTouchingBlock(Block block) {	
-		
+	public int isPlayerTouchingBlock(Block block) {
+
 		if(block.getPosition().getY() + block.getHeight() > this.position.getY() &&
-				block.getPosition().getY() < this.position.getY() + this.playerSize.getY()) 
+				block.getPosition().getY() < this.position.getY() + this.playerSize.getY())
 		{
 			if((block.getPosition().getX() + block.getWidth() < this.position.getX() + this.playerSize.getX())){
 				if(block.getPosition().getX() + block.getWidth() > this.position.getX()) {
@@ -59,14 +65,14 @@ public class Player {
 					return 2;
 				}
 			}
-						
+
 		}
 		return 0;
 	}
-	
-	
-	
-	public boolean isPlayerTouchingObject(Point2D objectPosition, int objectWidth, int objectHeight) {	
+
+
+
+	public boolean isPlayerTouchingObject(Point2D objectPosition, int objectWidth, int objectHeight) {
 		return (objectPosition.getX() + objectWidth > this.position.getX() &&
 				objectPosition.getX() < this.position.getX() + this.playerSize.getX() &&
 				objectPosition.getY() + objectHeight > this.position.getY() &&
@@ -153,7 +159,8 @@ public class Player {
 	public void setInvisible(boolean invisible) {
 		this.invisible = invisible;
 	}
-	
+
+
 	/**
 	 * Getter for nbCoinsCollected
 	 * @return
@@ -168,5 +175,6 @@ public class Player {
 	 */
 	public void setNbCoinsCollected(int nbCoinsCollected) {
 		this.nbCoinsCollected = nbCoinsCollected;
+
 	}
 }

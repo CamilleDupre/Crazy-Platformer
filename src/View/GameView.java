@@ -77,6 +77,10 @@ public class GameView {
 
 	private Image cloudPower = null;
 	private Image jumpPower = null;
+	private Image block = null;
+	private Image block2 = null;
+	
+	private Image plateform = null;
 	
 	private CustomMenuButton tryAgain;
 	
@@ -125,6 +129,12 @@ public class GameView {
 			
 			cloudPower = new Image(new FileInputStream("img/other/Cloudpng.png"));
 			jumpPower  = new Image(new FileInputStream("img/other/jump.png"));
+			
+			block  = new Image(new FileInputStream("img/other/block2.png"));
+			block2  = new Image(new FileInputStream("img/other/block3.png"));
+			//plateform  = new Image(new FileInputStream("img/other/platform.png"));
+			
+			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -183,6 +193,13 @@ public class GameView {
 		
 		//blocks	
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
+		/*
+		for (int i = 0; i< this.canvas.getWidth(); i= i + 50) {
+			context.drawImage(block, i , control.getModel().MIN_FLOOR_HEIGHT, 50, 50);
+			context.drawImage(block2, i , control.getModel().MIN_FLOOR_HEIGHT + 50, 50, 50);
+			
+			context.drawImage(plateform, i , control.getModel().MIN_FLOOR_HEIGHT - 200, 50, 50);
+		}*/
 		//coins
 		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
 		//enemies
@@ -192,9 +209,22 @@ public class GameView {
 		
 		//Power
 		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE);
-
+		
+		//Power actif
+		
+			if (control.getModel().getPlayer().isInvisible()) {
+				context.drawImage(cloudPower, 10 , 100, Model.HEART_SIZE, Model.HEART_SIZE);
+			}
+			
+			if (control.getModel().getPlayer().isSuperJump()) {
+				context.drawImage(jumpPower, 10 , 100 + Model.HEART_SIZE , Model.HEART_SIZE, Model.HEART_SIZE);
+			}
 		
 		//chest
+			context.setStroke(Color.BLACK);
+			
+			context.strokeText( control.getModel().getNbCoinsCollected() + " / "+ control.getModel().getCurrentLevel().getMaxCoins() +" Coins ", 
+					control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin + 30 , control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin - 10);
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalMargin, control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin, Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
 		
 		//number of life
@@ -225,10 +255,18 @@ public class GameView {
 		
 		for(Block b : blockList) {
 			if(!b.isInvisible()) {
-				context.setFill(Color.GREEN);
-				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
-				context.setFill(Color.SADDLEBROWN);
-				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
+				if (b.getPosition().getY() == Model.MIN_FLOOR_HEIGHT) {
+					context.drawImage(block, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, 50, 50);
+				}
+				else if (b.getPosition().getY() > Model.MIN_FLOOR_HEIGHT) {
+					context.drawImage(block2, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, 50, 50);
+				}else {
+					context.drawImage(plateform, b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
+				}
+				//context.setFill(Color.GREEN);
+				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
+				//context.setFill(Color.SADDLEBROWN);
+				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
 			}else {
 				context.setFill(Color.BLANCHEDALMOND);
 				context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
@@ -245,9 +283,17 @@ public class GameView {
 	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight) {
 		for(Power power : powers) {
 			if (power.getType() == 0) {
+				if (control.getModel().getCurrentLevel().getId() == 2) {
+					context.setStroke(Color.BLACK);
+					context.strokeText( "Cloud POWER to go throught special block", power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin - 5);
+				}
 				context.drawImage(cloudPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
 			}
 			else if(power.getType() == 1) {
+				if (control.getModel().getCurrentLevel().getId() == 3) {
+					context.setStroke(Color.BLACK);
+					context.strokeText( "Jump higther with jump Power", power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin - 5);
+				}
 				context.drawImage(jumpPower, power.getPosition().getX() - displayHorizontalMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
 			}
 		}

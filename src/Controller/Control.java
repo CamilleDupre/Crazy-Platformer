@@ -119,6 +119,7 @@ public class Control {
 	public void tryAgainLevel(CustomMenuButton b,BorderPane src, BorderPane target) {
 		
 		b.setOnMouseClicked(e -> {
+			model.setGameOver(false);
 			qPressed = false;
 			dPressed = false;
 			displayMenu(src, target);
@@ -127,6 +128,7 @@ public class Control {
 			
 		});
 		b.setOnKeyPressed(e ->{
+			model.setGameOver(false);
 			qPressed = false;
 			dPressed = false;
 			if(e.getCode()==KeyCode.ENTER) {
@@ -139,7 +141,7 @@ public class Control {
 	
 	public void loadLevel(Stage stg) {
 		menuView.getValidatelevel().setOnMouseClicked(e ->{
-			model.initLevel(menuView.getLevelId()+1);
+			model.initLevel(menuView.getLevelId());
 			gameView.getMainGameView().setVisible(true);
 			Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
 			scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
@@ -165,7 +167,8 @@ public class Control {
 				stg.setScene(menuView.getGameScene());
 				stg.setResizable(false);
 				stg.show();
-				
+				menuView.setGameView(gameView);
+					
 				gravity.setActive(true);
 				gravity.start();
 			}

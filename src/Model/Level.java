@@ -19,6 +19,8 @@ public class Level {
 	private ArrayList<Power> powers;
 	private ArrayList<Point2D> trap;
 	private Point2D treasure;
+	private double timeLimit;
+	private double timeLeft;
 
 	/**
 	 * Constructor of the level
@@ -31,7 +33,7 @@ public class Level {
 	 * @param trap
 	 * @param treasure
 	 */
-	public Level(int id,int maxSize, ArrayList<Block> blocks, ArrayList<Enemy> enemies , ArrayList<Point2D> coins , ArrayList<Power> powers, ArrayList<Point2D> trap, Point2D treasure) {
+	public Level(int id,int maxSize, ArrayList<Block> blocks, ArrayList<Enemy> enemies , ArrayList<Point2D> coins , ArrayList<Power> powers, ArrayList<Point2D> trap, Point2D treasure, double timeLimit) {
 
 		this.maxSize = maxSize;
 		this.setEnemies(enemies);
@@ -42,6 +44,8 @@ public class Level {
 		this.treasure=treasure;
 		this.id = id;
 		this.maxCoins = coins.size();
+		this.timeLimit = timeLimit;
+		this.timeLeft = timeLimit;
 
 	}
 
@@ -175,6 +179,26 @@ public class Level {
 
 	public void setMaxSize(int maxSize) {
 		this.maxSize = maxSize;
+	}
+
+
+	public double getTimeLimit() {
+		return timeLimit;
+	}
+
+
+	public void setTimeLimit(double timeLimit) {
+		this.timeLimit = timeLimit;
+	}
+
+
+	public double getTimeLeft() {
+		return timeLeft;
+	}
+
+
+	public void setTimeLeft(double timeLeft) {
+		this.timeLeft = timeLeft;
 	}
 
 

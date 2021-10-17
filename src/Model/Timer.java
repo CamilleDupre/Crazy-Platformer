@@ -35,9 +35,6 @@ public class Timer extends Thread {
 	@Override
 	public void run() {
 		while (!this.model.isGameOver()) {
-				
-			this.model.getPlayer().setInvincibleAfterAttack(false);	
-			System.out.println("timer");
 			
 			try {
 				Thread.sleep(Timer.TIMEOUT);

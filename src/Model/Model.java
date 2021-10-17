@@ -59,7 +59,7 @@ public class Model {
 	private int direction;
 	private String imgPlayer="";
 
-	private double time = 30000;
+	private double time = 0;
 
 	//private Timer timer;
 
@@ -285,7 +285,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(ennemie.getPosition(), ENEMIES_WIDTH, ENEMIES_HEIGHT) && !this.player.isInvincibleAfterAttack() && !ennemie.isDead()){
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
-					System.out.println("GAME OVER !!!");
+					gameOver = true;
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 
 				}else {
@@ -313,7 +313,7 @@ public class Model {
 			if(player.isPlayerTouchingObject(trap, TRAP_WIDTH, TRAP_HEIGHT) & !this.player.isInvincibleAfterAttack()){
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
-
+					gameOver = true;
 					menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getLooseMenu());
 
 				}else {
@@ -353,12 +353,15 @@ public class Model {
 		//collision player coins
 		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() == currentLevel.getMaxCoins() ){
 
+			this.setGameOver(true);
 			//here add the victory screen !
+			gameView.score = String.valueOf(currentLevel.getTimeLeft());
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}
 		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() < currentLevel.getMaxCoins() ){
-
+			//do something if we find an interesting idea
+			
 		}
 	}
 
@@ -539,7 +542,7 @@ public class Model {
 
 			treasure = new Point2D(size - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT - TREASURE_HEIGHT);
 
-			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure,60);
 
 			break;
 
@@ -651,7 +654,7 @@ public class Model {
 
 			treasure = new Point2D(815 ,Model.MIN_FLOOR_HEIGHT-340 - TREASURE_HEIGHT);
 
-			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure,60);
 
 			break;
 
@@ -774,7 +777,7 @@ public class Model {
 
 			treasure = new Point2D(1100 ,Model.MIN_FLOOR_HEIGHT-2000 - TREASURE_HEIGHT);
 
-			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure,60);
 
 			break;
 
@@ -884,7 +887,7 @@ public class Model {
 
 			treasure = new Point2D(1490 - TREASURE_WIDTH ,Model.MIN_FLOOR_HEIGHT- 100 - TREASURE_HEIGHT);
 
-			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure);
+			lvl = new Level(lvlId,size,blocks,enemies,coins,powers,traps, treasure,60);
 
 			break;
 

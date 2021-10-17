@@ -3,6 +3,8 @@ package View;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Controller.Control;
@@ -70,7 +72,7 @@ public class GameView {
 
 	private Canvas canvas;
 
-
+	public String score = "";
 
 	private Image imgRight = null;
 	private Image imgLeft = null;
@@ -100,6 +102,7 @@ public class GameView {
 	private int displayHorizontalRightMargin;
 	private int displayVerticalMargin;
 	
+	DecimalFormat df;
 
 
 	public GameView(Control c) {
@@ -126,7 +129,8 @@ public class GameView {
 		looseMenu.setVisible(false);	
 		winMenu.setVisible(false);
 		
-		
+		df = new DecimalFormat("##.#");
+		df.setRoundingMode(RoundingMode.DOWN);
 
 		gamePane.toFront();
 
@@ -275,6 +279,8 @@ public class GameView {
 		context.drawImage(imgCoin,1750, 50, Model.COINS_SIZE, Model.COINS_SIZE);
 		context.setFill(Color.GOLD);
 		context.fillText( control.getModel().getPlayer().getNbCoinsCollected()+" / "+ control.getModel().getCurrentLevel().getMaxCoins() , 1750 + 1.25 *Model.COINS_SIZE, 75 );
+		
+		context.fillText("Time Left : " + df.format(control.getModel().getCurrentLevel().getTimeLeft()), 1650 ,35);
 		
 		if (control.getModel().getCurrentLevel().getId() == 1) {
 			context.setFill(Color.BLACK);
@@ -498,7 +504,8 @@ public class GameView {
 		HBox winHB = new HBox();
 		winHB.setAlignment(Pos.CENTER);
 		winHB.setSpacing(70);
-		Text winScore = new Text("YOUR SCORE : ");
+		Text winScore = new Text("YOUR SCORE : " + score);
+		//winScore = new Text("YOUR SCORE : " + control.getModel().getCurrentLevel().getTimeLeft());
 		winScore.getStyleClass().add("title");
 		winScore.setTextAlignment(TextAlignment.CENTER);
 		winHB.getChildren().add(winScore);

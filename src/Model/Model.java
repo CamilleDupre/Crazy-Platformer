@@ -371,7 +371,7 @@ public class Model {
 	public void checkAttack() {
 		for(Enemy enemy : currentLevel.getEnemies()) {
 			//collision player coins
-			if(player.isPlayerTouchingObject(enemy.getPosition(), ENEMIES_WIDTH+20, ENEMIES_HEIGHT+20)){
+			if(player.isPlayerTouchingObject(enemy.getPosition(), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
 				enemy.setDead(true);
 				//sound.playCoinsSound();
 				break;

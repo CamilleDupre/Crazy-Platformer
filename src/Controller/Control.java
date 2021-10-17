@@ -119,12 +119,16 @@ public class Control {
 	public void tryAgainLevel(CustomMenuButton b,BorderPane src, BorderPane target) {
 		
 		b.setOnMouseClicked(e -> {
+			qPressed = false;
+			dPressed = false;
 			displayMenu(src, target);
 			this.model.initLevel(menuView.getLevelId());
 			this.model.setPlayer(new Player());
 			
 		});
 		b.setOnKeyPressed(e ->{
+			qPressed = false;
+			dPressed = false;
 			if(e.getCode()==KeyCode.ENTER) {
 				displayMenu(src, target);
 				this.model.initLevel(menuView.getLevelId());
@@ -185,6 +189,10 @@ public class Control {
 				case D:
 					this.dPressed = true;
 					
+					break;
+				case A:
+					this.getModel().checkAttack();
+				
 					break;
 				case SPACE:
 					this.getModel().makePlayerJump();

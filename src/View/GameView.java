@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Controller.Control;
 import Controller.KeyControl;
 import Model.Block;
+import Model.Enemy;
 import Model.Model;
 import Model.Power;
 import Sound.Sound;
@@ -75,6 +76,7 @@ public class GameView {
 	private Image imgLeft = null;
 	private Image imgCoin = null;
 	private Image imgEnemy = null;
+	private Image imgEnemyDead = null;
 	private Image imgHeart=null;
 	private Image imgHeartLost=null;
 	private Image imgTreasure = null;
@@ -134,6 +136,7 @@ public class GameView {
 			imgLeft = new Image(new FileInputStream("img/other/player_left.png"));
 			imgCoin =new Image(new FileInputStream("img/other/coin.png"));
 			imgEnemy = new Image(new FileInputStream("img/other/enemy.png"));
+			setImgEnemyDead(new Image(new FileInputStream("img/other/enemy_dead.png")));
 			imgHeart 	= new Image(new FileInputStream("img/other/Heart.png"));
 			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
 			imgTreasure = new Image(new FileInputStream("img/other/chest.png"));
@@ -232,7 +235,7 @@ public class GameView {
 		//coins
 		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
 		//enemies
-		paintOtherComponent(control.getModel().getCurrentLevel().getEnemies(),Model.ENEMIES_WIDTH,Model.ENEMIES_HEIGHT, imgEnemy);
+		paintEnemies(control.getModel().getCurrentLevel().getEnemies());
 		//traps
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
 		
@@ -289,6 +292,17 @@ public class GameView {
 		}
 		else {
 			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY()  - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+		}
+	}
+	
+	public void paintEnemies(ArrayList<Enemy> enemyList) {
+		
+		for(Enemy enemy : enemyList) {
+			if(enemy.isDead()) {
+				context.drawImage(this.imgEnemyDead, enemy.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, enemy.getPosition().getY()- displayVerticalMargin, Model.ENEMIES_WIDTH, Model.ENEMIES_HEIGHT);
+			}else {
+				context.drawImage(this.imgEnemy, enemy.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, enemy.getPosition().getY()- displayVerticalMargin, Model.ENEMIES_WIDTH, Model.ENEMIES_HEIGHT);
+			}
 		}
 	}
 
@@ -666,6 +680,14 @@ public class GameView {
 
 	public void setLooseMenu(BorderPane looseMenu) {
 		this.looseMenu = looseMenu;
+	}
+
+	public Image getImgEnemyDead() {
+		return imgEnemyDead;
+	}
+
+	public void setImgEnemyDead(Image imgEnemyDead) {
+		this.imgEnemyDead = imgEnemyDead;
 	}
 
 }

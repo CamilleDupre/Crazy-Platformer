@@ -280,9 +280,9 @@ public class Model {
 	 * If taking damage, the player is invisible for ?? s
 	 */
 	private void checkDamageCollison() {
-		for(Point2D ennemie : currentLevel.getEnemies()) {
+		for(Enemy ennemie : currentLevel.getEnemies()) {
 			//collision player coins
-			if(player.isPlayerTouchingObject(ennemie, ENEMIES_WIDTH, ENEMIES_HEIGHT) & !this.player.isInvincibleAfterAttack()){
+			if(player.isPlayerTouchingObject(ennemie.getPosition(), ENEMIES_WIDTH, ENEMIES_HEIGHT) && !this.player.isInvincibleAfterAttack() && !ennemie.isDead()){
 				this.player.setLife(this.player.getLife() -1);
 				if(this.player.getLife() == 0) {
 					System.out.println("GAME OVER !!!");
@@ -365,6 +365,20 @@ public class Model {
 	/**
 	 * Check if the user pick a coin
 	 */
+	public void checkAttack() {
+		for(Enemy enemy : currentLevel.getEnemies()) {
+			//collision player coins
+			if(player.isPlayerTouchingObject(enemy.getPosition(), ENEMIES_WIDTH+20, ENEMIES_HEIGHT+20)){
+				enemy.setDead(true);
+				//sound.playCoinsSound();
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Check if the user pick a coin
+	 */
 	public void checkCoins() {
 		for(Point2D coin : currentLevel.getCoins()) {
 			//collision player coins
@@ -442,7 +456,7 @@ public class Model {
 		int size;
 
 		ArrayList<Block> blocks;
-		ArrayList<Point2D> enemies;
+		ArrayList<Enemy> enemies;
 		ArrayList<Point2D> coins;
 		ArrayList<Power> powers;
 		ArrayList<Point2D> traps;
@@ -497,9 +511,9 @@ public class Model {
 				}
 			};
 
-			enemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Enemy>(){
 				{
-					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
+					add(new Enemy(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT),false));
 				}
 			};
 
@@ -585,7 +599,7 @@ public class Model {
 				}
 			};
 
-			enemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Enemy>(){
 				{
 					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
 				}
@@ -697,10 +711,10 @@ public class Model {
 				}
 			};
 
-			enemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Enemy>(){
 				{
 					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
-					add(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1500 - Model.ENEMIES_HEIGHT));
+					add(new Enemy(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1500 - Model.ENEMIES_HEIGHT),false));
 				}
 			};
 
@@ -825,11 +839,11 @@ public class Model {
 				}
 			};
 
-			enemies = new ArrayList<Point2D>(){
+			enemies = new ArrayList<Enemy>(){
 				{
-					add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
-					add(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT));
-					add(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-1400 - ENEMIES_HEIGHT));
+					add(new Enemy(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT),false));
+					add(new Enemy(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT),false));
+					add(new Enemy(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-1400 - ENEMIES_HEIGHT),false));
 				}
 			};
 

@@ -568,7 +568,7 @@ public class MenuView extends Application{
 						levelId = 4;
 						break;
 				}
-				currentLevelTitle.setText("Level "+ (levelId));	
+				currentLevelTitle.setText("Level "+ levelId);	
 				primaryStage.show();
 			});
 			
@@ -621,11 +621,11 @@ public class MenuView extends Application{
 					levelId = 4;
 					break;
 				}
-				currentLevelTitle.setText("Level "+ (levelId));	
+				currentLevelTitle.setText("Level "+ levelId);	
 				primaryStage.show();
 			});
 			
-			currentLevelTitle.setText("Level "+ (levelId));
+			currentLevelTitle.setText("Level "+ levelId);
 			
 			primaryStage.show();
 			

@@ -56,65 +56,62 @@ public class MenuView extends Application{
 	private BorderPane settingMenu;
 	private BorderPane rulesMenu;
 	private BorderPane levelPane;	
-	
-	
-	
-	
+
 
 	CustomMenuButton backButtonR;
 	CustomMenuButton backButtonS;
 	CustomMenuButton backButtonL;
-	
-	
+
+
 	private Scene gameScene;
-	
+
 	private CustomMenuButton validatelevel;
-	
+
 	private int levelId=1;
-	
+
 	public static int HEIGHT;
 	public static int WIDTH;
 	private Sound sound;
 
 
 	public void start(Stage stg) throws IOException {
-		
+
 		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		HEIGHT = (int) screenBounds.getHeight();
 		WIDTH = (int) screenBounds.getWidth();
 
 		primaryStage=stg;
-		
+
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                control.getGravity().interrupt();
-                System.exit(0);
-            }
-        });
-		
+			@Override
+			public void handle(WindowEvent t) {
+				control.getGravity().interrupt();
+				System.exit(0);
+			}
+		});
+
 		this.sound = new Sound();
 		this.control = new Control(this, this.sound);
 
 		mainPane = new StackPane();
 		mainPane.setPrefSize(WIDTH, HEIGHT);
 
-		
+
 		setUpRulesPanel();
 		setUpLevelSelectorPanel();
 		setUpSettingPanel();
 		setUpLevelSelectorPanel();
 		setUpMainMenuPanel();   
 
-	
-		
+
+
 		mainPane.getChildren().add(mainMenu);
 		mainPane.getChildren().add(settingMenu);
 		mainPane.getChildren().add(rulesMenu);		
 		mainPane.getChildren().add(levelPane);
-		
-		
-		
+
+
+
 		//Action back to main menu
 		control.checkActions(backButtonR, rulesMenu, mainMenu);
 		control.checkActions(backButtonS,settingMenu, mainMenu);
@@ -124,12 +121,12 @@ public class MenuView extends Application{
 		settingMenu.setVisible(false);
 		rulesMenu.setVisible(false);
 		levelPane.setVisible(false);
-		
+
 
 		scene = new Scene(getMainPane(), WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("white.css").toExternalForm());
-		
-		
+
+
 		primaryStage.setTitle("Crazy Platformer");
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
@@ -138,9 +135,9 @@ public class MenuView extends Application{
 
 
 	}
-	
+
 	private void setUpMainMenuPanel() {
-	/////// MAIN MENU ///////
+		/////// MAIN MENU ///////
 
 		this.mainMenu = new BorderPane();
 		this.mainMenu.setId("mainMenu");
@@ -178,7 +175,7 @@ public class MenuView extends Application{
 		this.mainMenu.toFront();
 
 		///////////////////////
-		
+
 		///MAIN ACTION///
 
 		control.checkActions(pg, this.mainMenu, levelPane);
@@ -192,8 +189,8 @@ public class MenuView extends Application{
 			}
 		});
 	}
-	
-	
+
+
 
 	private void setUpRulesPanel() {	
 		/////// RULES ///////
@@ -219,10 +216,8 @@ public class MenuView extends Application{
 
 		VBox rulesVB = new VBox();
 		rulesVB.setSpacing(20);
-		rulesVB.setPadding(new Insets(0,50,0,0));
+		rulesVB.setPadding(new Insets(50,0,0,200));			
 
-			
-		
 		HBox coins = new HBox();
 		coins.setSpacing(20);
 		coins.setAlignment(Pos.CENTER_LEFT);
@@ -237,7 +232,7 @@ public class MenuView extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Text coinsText = new Text("Collect all the ");
+		Text coinsText = new Text("1. Collect all the ");
 		Text coinsText2 = new Text(" and then go to the ");
 		coinsText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		coinsText2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -246,7 +241,7 @@ public class MenuView extends Application{
 		coins.getChildren().add(coinsText2);
 		coins.getChildren().add(imgRight);
 
-			
+
 		HBox heart = new HBox();
 		heart.setSpacing(10);
 		heart.setAlignment(Pos.CENTER_LEFT);
@@ -259,8 +254,8 @@ public class MenuView extends Application{
 		File trapFile = new File("img/other/Spikes.png");
 		ImageView imgTrap = null;
 		try {
-			
-		    imgenemy = new ImageView( new Image(enemyFile.toURI().toURL().toString(),50,50,false,false));
+
+			imgenemy = new ImageView( new Image(enemyFile.toURI().toURL().toString(),50,50,false,false));
 			imgheart = new ImageView( new Image(heartFile.toURI().toURL().toString(),50,50,false,false));
 			imgheartLost = new ImageView( new Image(heartFileLost.toURI().toURL().toString(),50,50,false,false));
 			imgTrap = new ImageView( new Image(trapFile.toURI().toURL().toString(),50,50,false,false));
@@ -268,51 +263,77 @@ public class MenuView extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Text watch = new Text("Watch out for");
+		Text watch = new Text("2. Watch out for");
 		Text watch2 = new Text("and");
 		Text heartText = new Text(" or you will lost your");
-		
+
 		watch.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		watch2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		heartText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		
+
 		heart.getChildren().add(watch);
 		heart.getChildren().add(imgenemy);
 		heart.getChildren().add(watch2);
 		heart.getChildren().add(imgTrap);
-		
+
 		heart.getChildren().add(heartText);
 		heart.getChildren().add(imgheart);
-		
+
+		HBox kill = new HBox();
+		File killEnemy = new File("img/other/enemy_dead.png");
+		ImageView imgKill = null;
+		try {
+
+			imgKill = new ImageView( new Image(killEnemy.toURI().toURL().toString(),50,50,false,false));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		kill.setSpacing(10);
+		kill.setAlignment(Pos.CENTER_LEFT);
+		Text killText = new Text("3. Use A to attack and kill nearby enemies");
+		killText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		kill.getChildren().add(killText);
+		kill.getChildren().add(imgKill);
+
 		HBox left = new HBox();
 		left.setSpacing(10);
 		left.setAlignment(Pos.CENTER_LEFT);
-		Text moveLeft = new Text(" Use Q to move left");
+		Text moveLeft = new Text("4. Use Q to move left");
 		moveLeft.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		left.getChildren().add(moveLeft);
-		
+
 		HBox right = new HBox();
 		right.setSpacing(10);
 		right.setAlignment(Pos.CENTER_LEFT);
-		Text moveRight = new Text(" Use D to move right");
+		Text moveRight = new Text("5. Use D to move right");
 		moveRight.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		right.getChildren().add(moveRight);
-		
+
 		HBox jump = new HBox();
 		jump.setSpacing(10);
 		jump.setAlignment(Pos.CENTER_LEFT);
-		Text moveJump = new Text(" Use SPACE to jump");
+		Text moveJump = new Text("6. Use SPACE to jump");
 		moveJump.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		jump.getChildren().add(moveJump);
-		
+
+		HBox pause = new HBox();
+		jump.setSpacing(10);
+		jump.setAlignment(Pos.CENTER_LEFT);
+		Text pauseText = new Text("7. Use ESCAP to pause the game");
+		pauseText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		pause.getChildren().add(pauseText);
+
 
 		rulesVB.getChildren().add(coins);
 		rulesVB.getChildren().add(heart);
-		
+		rulesVB.getChildren().add(kill);
+
 		rulesVB.getChildren().add(left);
 		rulesVB.getChildren().add(right);
 		rulesVB.getChildren().add(jump);
-		
+		rulesVB.getChildren().add(pause);
+
 
 		rulesMenu.setCenter(rulesVB);
 
@@ -322,22 +343,22 @@ public class MenuView extends Application{
 		botRuleHB.setPadding(new Insets(0,30,30,30));
 		backButtonR = new CustomMenuButton("←");
 		backButtonR.setPrefWidth(WIDTH/8);
-		
+
 		botRuleHB.getChildren().add(backButtonR);
 		rulesMenu.setBottom(botRuleHB);
-		
-		
+
+
 		//Action//
 		//control.checkActions(backButtonR, rulesMenu, this.mainMenu);
 	}
-	
-	
-	
-	
+
+
+
+
 	private void setUpSettingPanel() {
-		
-		 ////// SETTINGS ///////
-		 
+
+		////// SETTINGS ///////
+
 
 		settingMenu = new BorderPane();
 		settingMenu.setId("settingMenu");
@@ -359,7 +380,7 @@ public class MenuView extends Application{
 		HBox settHB = new HBox();
 		settHB.setAlignment(Pos.CENTER);
 		settHB.setSpacing(70);
-/*
+		/*
 		File soundFile = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
 		ImageView imgSound = new ImageView( new Image(soundFile.toURI().toURL().toString(),50,50,false,false));
 		Button sound = new Button("",imgSound);
@@ -371,7 +392,7 @@ public class MenuView extends Application{
 		Button music = new Button("",imgMusic);
 		music.setPrefSize(WIDTH/5,WIDTH/5);
 		music.getStyleClass().add("setting-button");
-*/
+		 */
 
 		VBox settVB = new VBox();
 		settVB.setAlignment(Pos.CENTER_LEFT);
@@ -402,12 +423,12 @@ public class MenuView extends Application{
 		settVB.getChildren().add(dark);
 		settVB.getChildren().add(neon);
 
-	//	settHB.getChildren().add(sound);
-	//	settHB.getChildren().add(music);
+		//	settHB.getChildren().add(sound);
+		//	settHB.getChildren().add(music);
 		settHB.getChildren().add(settVB);
 
 		settingMenu.setCenter(settHB);
-		
+
 
 		////BOTTOM////
 		HBox botSetHB = new HBox();
@@ -418,244 +439,244 @@ public class MenuView extends Application{
 		backButtonS.setPrefWidth(WIDTH/8);
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
-		
+
 		control.checkActions(backButtonS,settingMenu, mainMenu);
-		
-	
+
+
 
 		///SETTINGS///
 		/*
 		music.setOnMouseClicked(e -> control.startStopMusic());
 		sound.setOnMouseClicked(e-> control.startStopSound());
 		 */
-		
-		
+
+
 	}
-		
+
 	private void setUpLevelSelectorPanel() {
 		/////// LEVEL PANE ///////
-		
-			levelPane = new BorderPane();
-	
-			levelPane.setPrefSize(WIDTH,HEIGHT);
-			
-			FlowPane levelFP = new FlowPane();
-			Text levelTitle = new Text("SWIPE TO CHOOSE THE LEVEL");
-			levelTitle.getStyleClass().add("title");
-			levelTitle.setTextAlignment(TextAlignment.CENTER);
-			levelFP.getChildren().add(levelTitle);
-			levelFP.setAlignment(Pos.CENTER);
-			levelFP.setPadding(new Insets(20,0,0,0));
-			levelFP.setPrefSize(WIDTH, HEIGHT/6);
-	
-			levelPane.setTop(levelFP);
-			 
-			//// CENTER ////
-			StackPane stacklevel = new StackPane();
-			stacklevel.setAlignment(Pos.CENTER);
-			
-	
-			ImageView current = new ImageView(control.getModel().getBackgroundList().get(0));
-			current.setId("0");
-			current.setPreserveRatio(true);
-			current.setFitHeight(WIDTH/5);
-			Button currentB = new Button("",current);
-			currentB.setDisable(true);
-			currentB.setOpacity(1);
-			Text currentLevelTitle = new Text("Level 1"); 
-			currentLevelTitle.getStyleClass().add("title");
-			
-			ImageView left = new ImageView(control.getModel().getBackgroundList().get(1));
-			left.setId("3");
-			left.setPreserveRatio(true);
-			left.setFitHeight(WIDTH/6);
-			Button leftB = new Button("",left);
-			leftB.setDisable(true);
-			
-			
-			ImageView right = new ImageView(control.getModel().getBackgroundList().get(2));
-			right.setId("1");
-			right.setPreserveRatio(true);
-			right.setFitHeight(WIDTH/6);
-			Button rightB = new Button("",right);
-			rightB.setDisable(true);
-		
-					
-			ImageView back = new ImageView(control.getModel().getBackgroundList().get(0));
-			back.setId("2");
-			back.setPreserveRatio(true);
-			back.setFitHeight(WIDTH/6);
-			Button backB = new Button("",back);
-			backB.setDisable(true);
-	
-			
-			
-			
-			VBox levelVBFront= new VBox();
-			levelVBFront.setAlignment(Pos.CENTER);
-			levelVBFront.getChildren().add(currentB);
-			levelVBFront.getChildren().add(currentLevelTitle);
-			
-			
-			VBox levelVBBack = new VBox();
-			levelVBBack.setSpacing(50);
-			levelVBBack.setAlignment(Pos.CENTER);
-			
-			HBox firstLine = new HBox();
-			firstLine.setAlignment(Pos.CENTER);
-			firstLine.getChildren().add(backB);
-			
-			HBox secondLine = new HBox();
-			secondLine.setAlignment(Pos.CENTER);
-			secondLine.setSpacing(300);
-			secondLine.getChildren().add(leftB);
-			secondLine.getChildren().add(rightB);
-			
-			levelVBBack.getChildren().add(firstLine);
-			levelVBBack.getChildren().add(secondLine);
-			
-			
-			levelPane.setOnMousePressed(e->{
-				control.swipeCheck(e, false);
-			});
-			
-			levelPane.setOnMouseReleased(e->{
-				Image temp;
-				String tempId;
-				if(control.swipeCheck(e, true)==1) {//left
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(right.getImage()); 
-					current.setId(right.getId());
-					
-					right.setImage(back.getImage());
-					right.setId(back.getId());
-					
-					back.setImage(left.getImage());
-					back.setId(left.getId());
-					
-					left.setImage(temp);
-					left.setId(tempId);
-					
-				}else if(control.swipeCheck(e, true)==2) {//right
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(left.getImage()); 
-					current.setId(left.getId());
-					
-					left.setImage(back.getImage());
-					left.setId(back.getId());
-					
-					back.setImage(right.getImage());
-					back.setId(right.getId());
-					
-					right.setImage(temp);
-					right.setId(tempId);
-				}
-				switch(current.getId()) {
-					case "0" :
-						levelId = 1;
-						break;
-					case "1" :
-						levelId = 2;
-						break;
-					case "2" :
-						levelId = 3;
-						break;
-					case "3" :
-						levelId = 4;
-						break;
-				}
-				currentLevelTitle.setText("Level "+ levelId);	
-				primaryStage.show();
-			});
-			
-			levelPane.setOnKeyPressed(e -> {
-				Image temp;
-				String tempId;
-				if(e.getCode()==KeyCode.D || e.getCode()==KeyCode.RIGHT ) {
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(right.getImage()); 
-					current.setId(right.getId());
-					
-					right.setImage(back.getImage());
-					right.setId(back.getId());
-					
-					back.setImage(left.getImage());
-					back.setId(left.getId());
-					
-					left.setImage(temp);
-					left.setId(tempId);
-				}
-				if(e.getCode()==KeyCode.Q || e.getCode()==KeyCode.LEFT) {
-					temp = current.getImage();
-					tempId = current.getId();
-					
-					current.setImage(left.getImage()); 
-					current.setId(left.getId());
-					
-					left.setImage(back.getImage());
-					left.setId(back.getId());
-					
-					back.setImage(right.getImage());
-					back.setId(right.getId());
-					
-					right.setImage(temp);
-					right.setId(tempId);
-				}
-				switch(current.getId()) {
-				case "0" :
-					levelId = 1;
-					break;
-				case "1" :
-					levelId = 2;
-					break;
-				case "2" :
-					levelId = 3;
-					break;
-				case "3" :
-					levelId = 4;
-					break;
-				}
-				currentLevelTitle.setText("Level "+ levelId);	
-				primaryStage.show();
-			});
-			
-			currentLevelTitle.setText("Level "+ levelId);
-			
+
+		levelPane = new BorderPane();
+
+		levelPane.setPrefSize(WIDTH,HEIGHT);
+
+		FlowPane levelFP = new FlowPane();
+		Text levelTitle = new Text("SWIPE TO CHOOSE THE LEVEL");
+		levelTitle.getStyleClass().add("title");
+		levelTitle.setTextAlignment(TextAlignment.CENTER);
+		levelFP.getChildren().add(levelTitle);
+		levelFP.setAlignment(Pos.CENTER);
+		levelFP.setPadding(new Insets(20,0,0,0));
+		levelFP.setPrefSize(WIDTH, HEIGHT/6);
+
+		levelPane.setTop(levelFP);
+
+		//// CENTER ////
+		StackPane stacklevel = new StackPane();
+		stacklevel.setAlignment(Pos.CENTER);
+
+
+		ImageView current = new ImageView(control.getModel().getBackgroundList().get(0));
+		current.setId("0");
+		current.setPreserveRatio(true);
+		current.setFitHeight(WIDTH/5);
+		Button currentB = new Button("",current);
+		currentB.setDisable(true);
+		currentB.setOpacity(1);
+		Text currentLevelTitle = new Text("Level 1"); 
+		currentLevelTitle.getStyleClass().add("title");
+
+		ImageView left = new ImageView(control.getModel().getBackgroundList().get(1));
+		left.setId("3");
+		left.setPreserveRatio(true);
+		left.setFitHeight(WIDTH/6);
+		Button leftB = new Button("",left);
+		leftB.setDisable(true);
+
+
+		ImageView right = new ImageView(control.getModel().getBackgroundList().get(2));
+		right.setId("1");
+		right.setPreserveRatio(true);
+		right.setFitHeight(WIDTH/6);
+		Button rightB = new Button("",right);
+		rightB.setDisable(true);
+
+
+		ImageView back = new ImageView(control.getModel().getBackgroundList().get(0));
+		back.setId("2");
+		back.setPreserveRatio(true);
+		back.setFitHeight(WIDTH/6);
+		Button backB = new Button("",back);
+		backB.setDisable(true);
+
+
+
+
+		VBox levelVBFront= new VBox();
+		levelVBFront.setAlignment(Pos.CENTER);
+		levelVBFront.getChildren().add(currentB);
+		levelVBFront.getChildren().add(currentLevelTitle);
+
+
+		VBox levelVBBack = new VBox();
+		levelVBBack.setSpacing(50);
+		levelVBBack.setAlignment(Pos.CENTER);
+
+		HBox firstLine = new HBox();
+		firstLine.setAlignment(Pos.CENTER);
+		firstLine.getChildren().add(backB);
+
+		HBox secondLine = new HBox();
+		secondLine.setAlignment(Pos.CENTER);
+		secondLine.setSpacing(300);
+		secondLine.getChildren().add(leftB);
+		secondLine.getChildren().add(rightB);
+
+		levelVBBack.getChildren().add(firstLine);
+		levelVBBack.getChildren().add(secondLine);
+
+
+		levelPane.setOnMousePressed(e->{
+			control.swipeCheck(e, false);
+		});
+
+		levelPane.setOnMouseReleased(e->{
+			Image temp;
+			String tempId;
+			if(control.swipeCheck(e, true)==1) {//left
+				temp = current.getImage();
+				tempId = current.getId();
+
+				current.setImage(right.getImage()); 
+				current.setId(right.getId());
+
+				right.setImage(back.getImage());
+				right.setId(back.getId());
+
+				back.setImage(left.getImage());
+				back.setId(left.getId());
+
+				left.setImage(temp);
+				left.setId(tempId);
+
+			}else if(control.swipeCheck(e, true)==2) {//right
+				temp = current.getImage();
+				tempId = current.getId();
+
+				current.setImage(left.getImage()); 
+				current.setId(left.getId());
+
+				left.setImage(back.getImage());
+				left.setId(back.getId());
+
+				back.setImage(right.getImage());
+				back.setId(right.getId());
+
+				right.setImage(temp);
+				right.setId(tempId);
+			}
+			switch(current.getId()) {
+			case "0" :
+				levelId = 1;
+				break;
+			case "1" :
+				levelId = 2;
+				break;
+			case "2" :
+				levelId = 3;
+				break;
+			case "3" :
+				levelId = 4;
+				break;
+			}
+			currentLevelTitle.setText("Level "+ levelId);	
 			primaryStage.show();
-			
-			stacklevel.getChildren().add(levelVBBack);
-			stacklevel.getChildren().add(levelVBFront);
-	
-			levelPane.setCenter(stacklevel);
-			
-			///Bottom///
-			HBox validatelevelHB = new HBox();
-			validatelevelHB.setPadding(new Insets(0,0,30,0));
-			validatelevel = new CustomMenuButton("TRY THIS LEVEL");
-			validatelevelHB.getChildren().add(validatelevel);
-			validatelevelHB.setAlignment(Pos.CENTER);
-			
-			backButtonL = new CustomMenuButton("←");
-			backButtonL.setPrefWidth(WIDTH/8);
-			validatelevelHB.setSpacing(100);
-			
-			validatelevelHB.getChildren().add(backButtonL);
-			
-			levelPane.setBottom(validatelevelHB);
-			
-			control.loadLevel(primaryStage);
-				
+		});
+
+		levelPane.setOnKeyPressed(e -> {
+			Image temp;
+			String tempId;
+			if(e.getCode()==KeyCode.D || e.getCode()==KeyCode.RIGHT ) {
+				temp = current.getImage();
+				tempId = current.getId();
+
+				current.setImage(right.getImage()); 
+				current.setId(right.getId());
+
+				right.setImage(back.getImage());
+				right.setId(back.getId());
+
+				back.setImage(left.getImage());
+				back.setId(left.getId());
+
+				left.setImage(temp);
+				left.setId(tempId);
+			}
+			if(e.getCode()==KeyCode.Q || e.getCode()==KeyCode.LEFT) {
+				temp = current.getImage();
+				tempId = current.getId();
+
+				current.setImage(left.getImage()); 
+				current.setId(left.getId());
+
+				left.setImage(back.getImage());
+				left.setId(back.getId());
+
+				back.setImage(right.getImage());
+				back.setId(right.getId());
+
+				right.setImage(temp);
+				right.setId(tempId);
+			}
+			switch(current.getId()) {
+			case "0" :
+				levelId = 1;
+				break;
+			case "1" :
+				levelId = 2;
+				break;
+			case "2" :
+				levelId = 3;
+				break;
+			case "3" :
+				levelId = 4;
+				break;
+			}
+			currentLevelTitle.setText("Level "+ levelId);	
+			primaryStage.show();
+		});
+
+		currentLevelTitle.setText("Level "+ levelId);
+
+		primaryStage.show();
+
+		stacklevel.getChildren().add(levelVBBack);
+		stacklevel.getChildren().add(levelVBFront);
+
+		levelPane.setCenter(stacklevel);
+
+		///Bottom///
+		HBox validatelevelHB = new HBox();
+		validatelevelHB.setPadding(new Insets(0,0,30,0));
+		validatelevel = new CustomMenuButton("TRY THIS LEVEL");
+		validatelevelHB.getChildren().add(validatelevel);
+		validatelevelHB.setAlignment(Pos.CENTER);
+
+		backButtonL = new CustomMenuButton("←");
+		backButtonL.setPrefWidth(WIDTH/8);
+		validatelevelHB.setSpacing(100);
+
+		validatelevelHB.getChildren().add(backButtonL);
+
+		levelPane.setBottom(validatelevelHB);
+
+		control.loadLevel(primaryStage);
+
 	}
-	
-	
-	
-	
+
+
+
+
 	public GameView getGameView() {
 		return gameView;
 	}
@@ -686,7 +707,7 @@ public class MenuView extends Application{
 		this.primaryStage = primaryStage;
 	}
 
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -701,7 +722,7 @@ public class MenuView extends Application{
 		this.scene = scene;
 	}
 
-	
+
 	public int getLevelId() {
 		return levelId;
 	}
@@ -726,7 +747,7 @@ public class MenuView extends Application{
 	public void setGameScene(Scene gameScene) {
 		this.gameScene = gameScene;
 	}
-	
+
 	public BorderPane getLevelPane() {
 		return levelPane;
 	}
@@ -734,7 +755,7 @@ public class MenuView extends Application{
 	public void setLevelPane(BorderPane levelPane) {
 		this.levelPane = levelPane;
 	}
-	
+
 
 
 }

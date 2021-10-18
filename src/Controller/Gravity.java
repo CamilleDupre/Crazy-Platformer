@@ -21,22 +21,26 @@ public class Gravity extends Thread{
 	public void run() {
 		timer_repeat=0;
 		while(active) {
-			ctrl.getModel().gravityForce() ;
-			try { Thread.sleep(20);
-				if(timer_repeat==4 && !ctrl.getModel().isGameOver()) {
-					timer_repeat = 0;
-					ctrl.getModel().getCurrentLevel().setTimeLeft(ctrl.getModel().getCurrentLevel().getTimeLeft()-0.1);
-					
-					if(ctrl.getModel().getCurrentLevel().getTimeLeft()<0) {
-						ctrl.getModel().setGameOver(true);
-						ctrl.displayMenu(ctrl.getGameView().getGamePane(), ctrl.getGameView().getLooseMenu());
+			System.out.println(ctrl.getModel().isGamePaused() + "  " + ctrl.getModel().isGameOver());
+			if(!ctrl.getModel().isGamePaused()) {
+				ctrl.getModel().gravityForce() ;
+				try { Thread.sleep(20);
+					if(timer_repeat==4 && !ctrl.getModel().isGameOver()) {
+						timer_repeat = 0;
+						ctrl.getModel().getCurrentLevel().setTimeLeft(ctrl.getModel().getCurrentLevel().getTimeLeft()-0.1);
+						
+						if(ctrl.getModel().getCurrentLevel().getTimeLeft()<0) {
+							ctrl.getModel().setGameOver(true);
+							ctrl.displayMenu(ctrl.getGameView().getGamePane(), ctrl.getGameView().getLooseMenu());
+						}
+					}else {
+						timer_repeat+=1;
 					}
-				}else {
-					timer_repeat+=1;
 				}
-			}
+					
+				catch (Exception e) { e.printStackTrace(); }
 				
-			catch (Exception e) { e.printStackTrace(); }
+			}
 		}
 	}
 

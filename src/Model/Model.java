@@ -95,6 +95,7 @@ public class Model {
 		this.gamePaused = false;
 		this.sound = sound;
 		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";
+		this.gamePaused = false;
 		//timer = new Timer(this);
 	}
 

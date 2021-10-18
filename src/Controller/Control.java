@@ -203,6 +203,7 @@ public class Control {
 					break;
 				case ESCAPE:
 					displayMenu(gamePane, gameView.getPauseMenu());
+					model.setGamePaused(true);
 					break;
 			default:
 				break;

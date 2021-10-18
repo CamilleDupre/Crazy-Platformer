@@ -486,7 +486,18 @@ public class GameView {
 
 		///PAUSE///
 		//resume.setOnAction(e -> timeline.play());
-		control.checkActions(resume, pauseMenu, gamePane);
+		//control.checkActions(resume, pauseMenu, gamePane);
+		
+		resume.setOnMouseClicked(e -> {
+			control.displayMenu(pauseMenu, gamePane);
+			control.getModel().setGamePaused(false);
+		});
+		resume.setOnKeyPressed(e ->{
+			if(e.getCode()==KeyCode.ENTER) {
+				control.displayMenu(pauseMenu, gamePane);
+				control.getModel().setGamePaused(false);
+			}
+		});
 		control.checkActions(exitP, pauseMenu, gamePane);
 		
 		exitP.setOnMouseClicked(e -> control.exitApp());

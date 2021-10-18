@@ -119,22 +119,23 @@ public class Control {
 	public void tryAgainLevel(CustomMenuButton b,BorderPane src, BorderPane target) {
 		
 		b.setOnMouseClicked(e -> {
-			model.setGameOver(false);
+			
 			qPressed = false;
 			dPressed = false;
 			displayMenu(src, target);
 			this.model.initLevel(menuView.getLevelId());
 			this.model.setPlayer(new Player());
+			model.setGameOver(false);
 			
 		});
 		b.setOnKeyPressed(e ->{
-			model.setGameOver(false);
-			qPressed = false;
-			dPressed = false;
 			if(e.getCode()==KeyCode.ENTER) {
+				qPressed = false;
+				dPressed = false;
 				displayMenu(src, target);
 				this.model.initLevel(menuView.getLevelId());
 				this.model.setPlayer(new Player());
+				model.setGameOver(false);
 			}
 		});
 	}

@@ -94,6 +94,7 @@ public class GameView {
 	
 	private Image lock = null;
 	private Image eclair = null;
+	private Image eclairLeft = null;
 	
 	
 	
@@ -159,7 +160,8 @@ public class GameView {
 			
 			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			lock  = new Image(new FileInputStream("img/other/lock.png"));
-			eclair = new Image(new FileInputStream("img/other/icon-eclair.png"));
+			eclair = new Image(new FileInputStream("img/other/eclair.png"));
+			eclairLeft = new Image(new FileInputStream("img/other/eclair2.png"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -298,15 +300,24 @@ public class GameView {
 		
 		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
 			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			
+			if (control.getModel().getPlayer().isAttacking()) {
+				context.drawImage(eclairLeft,control.getModel().getPlayer().getPosition().getX()- 40 - displayHorizontalLeftMargin + displayHorizontalRightMargin,
+						control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin + control.getModel().getPlayer().PLAYER_HEIGHT/2 - 10 ,40 , 30);
+			}
 		}
 		else {
 			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY()  - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+			
+			if (control.getModel().getPlayer().isAttacking()) {
+				context.drawImage(eclair,control.getModel().getPlayer().getPosition().getX()+ control.getModel().getPlayer().PLAYER_WIDTH- displayHorizontalLeftMargin + displayHorizontalRightMargin,
+						control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin + control.getModel().getPlayer().PLAYER_HEIGHT/2 - 10 ,40 , 30);
+			}
+		
+		
 		}
 		
-		if (control.getModel().getPlayer().isAttacking()) {
-			System.out.println("attack");
-			context.drawImage(eclair,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), 100);
-		}
+		
 	}
 	
 	public void paintEnemies(ArrayList<Enemy> enemyList) {

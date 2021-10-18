@@ -93,6 +93,8 @@ public class GameView {
 	private Image specialBlock = null;
 	
 	private Image lock = null;
+	private Image eclair = null;
+	
 	
 	
 	
@@ -157,6 +159,7 @@ public class GameView {
 			
 			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			lock  = new Image(new FileInputStream("img/other/lock.png"));
+			eclair = new Image(new FileInputStream("img/other/icon-eclair.png"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -298,6 +301,11 @@ public class GameView {
 		}
 		else {
 			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY()  - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
+		}
+		
+		if (control.getModel().getPlayer().isAttacking()) {
+			System.out.println("attack");
+			context.drawImage(eclair,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), 100);
 		}
 	}
 	

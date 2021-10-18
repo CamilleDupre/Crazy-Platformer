@@ -27,6 +27,7 @@ public class Player {
 
 	private int nbCoinsCollected;
 	private boolean superJump;
+	private boolean Attacking;
 
 
 	public Player(){
@@ -184,5 +185,13 @@ public class Player {
 
 	public void setSuperJump(boolean superJump) {
 		this.superJump = superJump;
+	}
+
+	public boolean isAttacking() {
+		return Attacking;
+	}
+
+	public void setAttacking(boolean attacking) {
+		Attacking = attacking;
 	}
 }

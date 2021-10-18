@@ -373,9 +373,23 @@ public class Model {
 			//collision player coins
 			if(player.isPlayerTouchingObject(enemy.getPosition(), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
 				enemy.setDead(true);
-				//sound.playCoinsSound();
-				break;
 			}
+				//sound.playCoinsSound();
+				player.setAttacking(true);
+				java.util.Timer t = new java.util.Timer();
+				t.schedule(
+						new java.util.TimerTask() {
+							@Override
+							public void run() {
+								player.setAttacking(false);
+								// close the thread
+								t.cancel();
+							}
+						},
+						1000 // invincible for 1s
+						);
+				break;
+			
 		}
 	}
 	

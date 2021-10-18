@@ -517,30 +517,17 @@ public class GameView {
 
 		////TOP////
 		FlowPane winFP = new FlowPane();
-		Text winTitle = new Text("YOU WIN !!!!!!");
+		Text winTitle = new Text("Congratulation you succed to finish this level !");
 		winTitle.getStyleClass().add("title");
 		winTitle.setTextAlignment(TextAlignment.CENTER);
 		winFP.getChildren().add(winTitle);
 		winFP.setAlignment(Pos.CENTER);
-		winFP.setPadding(new Insets(20,0,0,0));
+		winFP.setPadding(new Insets(100,0,0,0));
 		winFP.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT/6);
 
 
 		winMenu.setTop(winFP);
 
-		////CENTER////
-
-
-		HBox winHB = new HBox();
-		winHB.setAlignment(Pos.CENTER);
-		winHB.setSpacing(70);
-		Text winScore = new Text("YOUR SCORE : " + score);
-		//winScore = new Text("YOUR SCORE : " + control.getModel().getCurrentLevel().getTimeLeft());
-		winScore.getStyleClass().add("title");
-		winScore.setTextAlignment(TextAlignment.CENTER);
-		winHB.getChildren().add(winScore);
-
-		winMenu.setCenter(winHB);
 		////BOTTOM////
 
 		HBox botWinHB = new HBox();

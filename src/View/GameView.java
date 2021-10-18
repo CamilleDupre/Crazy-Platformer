@@ -59,6 +59,7 @@ public class GameView {
 	CustomMenuButton exitP;
 	private CustomMenuButton tryAgain;
 	private CustomMenuButton playAgain;
+	private CustomMenuButton levelSelection;
 
 	private GraphicsContext context;
 
@@ -537,7 +538,10 @@ public class GameView {
 
 		playAgain = new CustomMenuButton("PLAY AGAIN");
 		CustomMenuButton exitGame = new CustomMenuButton("EXIT GAME");
+		levelSelection = new CustomMenuButton("LEVEL SELECTION");
+		
 		botWinHB.getChildren().add(playAgain);
+		botWinHB.getChildren().add(levelSelection);
 		botWinHB.getChildren().add(exitGame);
 
 		winMenu.setBottom(botWinHB);
@@ -545,6 +549,8 @@ public class GameView {
 		///WIN///
 		
 		control.tryAgainLevel(playAgain, winMenu, gamePane);
+		
+		control.levelSelect(levelSelection, winMenu, gamePane);
 
 		exitGame.setOnMouseClicked(e -> control.exitApp());
 		exitGame.setOnKeyPressed(e -> {

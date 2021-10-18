@@ -320,4 +320,9 @@ public class Control {
 		this.menuView = menuView;
 	}
 
+	public void levelSelect(CustomMenuButton playAgain, BorderPane winMenu, BorderPane gamePane) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

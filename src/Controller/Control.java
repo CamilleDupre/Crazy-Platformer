@@ -12,7 +12,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -22,20 +21,37 @@ import javafx.util.Duration;
 import View.GameView;
 
 public class Control {
-	private Model model;
-	private MenuView menuView;
 	
+	/** 
+	 * attribute model
+	 */
+	private Model model;
+	
+	/**
+	 * attribute menuView
+	 */
+	private MenuView menuView;
 
+	/**
+	 * Boolean attribute telling if it is the first time that we load a level
+	 */
 	private boolean reload;
 
 	private double cursorX=0;
-	private boolean joystickDrag;
 	private Timeline cursorTime= new Timeline();
 	public static final double SWIPE_TIME=1; 
 	public static double SWIPE_DISTANCY = MenuView.WIDTH/7;
-	private Gravity gravity;
-	private GameView gameView;
 	
+	/**
+	 * attribute gravity 
+	 */
+	private Gravity gravity;
+	
+	/**
+	 * attribute gameView
+	 */
+	private GameView gameView;
+
 	/**
 	 * Boolean attribute telling if the Q key is currently pressed.
 	 */
@@ -45,36 +61,40 @@ public class Control {
 	 */
 	private boolean dPressed;
 
-	
+
 	/**
 	 * KeyListener implementation
 	 */
 	private KeyControl keyControl;
-	
+
 	/**
 	 * Left value for turning ship
 	 */
 	public static final int LEFT = 1;
-	
+
 	/**
 	 * Right value for turning ship
 	 */
 	public static final int RIGHT = 2;
-	
+
 	private Sound sound;
 
+	/**
+	 * Constructor of control
+	 * @param v
+	 * @param s
+	 */
 	public Control(MenuView v, Sound s){
 		this.menuView = v;
-		this.joystickDrag = false;
 
 		gravity = new Gravity(this);
 		gameView = new GameView(this);
-		
+
 		(new KeyProcessor(this)).start();
-	
+
 		this.setModel(new Model(v, gameView,s));
 		this.sound = s;
-		
+
 		this.reload = false;
 	}
 
@@ -84,7 +104,12 @@ public class Control {
 	}
 
 
-
+	/**
+	 * 
+	 * @param b
+	 * @param src
+	 * @param target
+	 */
 	public void checkActions(CustomMenuButton b,BorderPane src, BorderPane target) {
 		b.setOnMouseClicked(e -> displayMenu(src, target));
 		b.setOnKeyPressed(e ->{
@@ -94,12 +119,24 @@ public class Control {
 		});
 	}
 
+	/**
+	 * 
+	 * @param src
+	 * @param target
+	 */
 	public void displayMenu(BorderPane src, BorderPane target) {
 		src.setVisible(false);
 		target.setVisible(true);
 
 	}
 
+	/**
+	 * 
+	 * @param b
+	 * @param src
+	 * @param target
+	 * @throws IOException
+	 */
 	public void loadLevelSelector(CustomMenuButton b, BorderPane src, BorderPane target) throws IOException {
 
 		b.setOnMouseClicked(e ->{
@@ -117,18 +154,23 @@ public class Control {
 		});
 
 	}
-
+	/**
+	 * 
+	 * @param b
+	 * @param src
+	 * @param target
+	 */
 	public void tryAgainLevel(CustomMenuButton b,BorderPane src, BorderPane target) {
-		
+
 		b.setOnMouseClicked(e -> {
-			
+
 			qPressed = false;
 			dPressed = false;
 			displayMenu(src, target);
 			this.model.initLevel(menuView.getLevelId());
 			this.model.setPlayer(new Player());
 			model.setGameOver(false);
-			
+
 		});
 		b.setOnKeyPressed(e ->{
 			if(e.getCode()==KeyCode.ENTER) {
@@ -141,28 +183,32 @@ public class Control {
 			}
 		});
 	}
-	
+
+	/**
+	 * 
+	 * @param stg
+	 */
 	public void loadLevel(Stage stg) {
 		menuView.getValidatelevel().setOnMouseClicked(e ->{
 			if(reload) {
 				reloadLevel(stg);
 			}else {
-			menuView.setPrimaryStage(stg);
-			model.initLevel(menuView.getLevelId());
-			gameView.getMainGameView().setVisible(true);
-			Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
-			scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
-			menuView.setGameScene((scn));
-			stg.setScene(menuView.getGameScene());
-			stg.setResizable(false);
-			stg.show();
-			menuView.setGameView(gameView);
-				
-			gravity.setActive(true);
-			gravity.start();
-			reload = true;
+				menuView.setPrimaryStage(stg);
+				model.initLevel(menuView.getLevelId());
+				gameView.getMainGameView().setVisible(true);
+				Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
+				scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
+				menuView.setGameScene((scn));
+				stg.setScene(menuView.getGameScene());
+				stg.setResizable(false);
+				stg.show();
+				menuView.setGameView(gameView);
+
+				gravity.setActive(true);
+				gravity.start();
+				reload = true;
 			}
-		
+
 		});
 
 		menuView.getValidatelevel().setOnKeyPressed(e -> {
@@ -180,70 +226,75 @@ public class Control {
 					stg.setResizable(false);
 					stg.show();
 					menuView.setGameView(gameView);
-						
+
 					gravity.setActive(true);
 					gravity.start();
 					reload = true;
 				}
 			}
 		});
-		
+
 	}
 
+	/**
+	 * 
+	 * @param stg
+	 */
 	public void reloadLevel(Stage stg) {
-		
-			menuView.setPrimaryStage(stg);
-			model.initLevel(menuView.getLevelId());
-			gameView.getMainGameView().setVisible(true);
-			stg.setScene(menuView.getGameScene());
-			stg.setResizable(false);
-			stg.show();
-			menuView.setGameView(gameView);
-				
-			qPressed = false;
-			dPressed = false;
-			displayMenu(gameView.getLooseMenu(), gameView.getGamePane());
-			displayMenu(gameView.getWinMenu(), gameView.getGamePane());
-			this.model.initLevel(menuView.getLevelId());
-			this.model.setPlayer(new Player());
-			model.setGameOver(false);
-		
+
+		menuView.setPrimaryStage(stg);
+		model.initLevel(menuView.getLevelId());
+		gameView.getMainGameView().setVisible(true);
+		stg.setScene(menuView.getGameScene());
+		stg.setResizable(false);
+		stg.show();
+		menuView.setGameView(gameView);
+
+		qPressed = false;
+		dPressed = false;
+		displayMenu(gameView.getLooseMenu(), gameView.getGamePane());
+		displayMenu(gameView.getWinMenu(), gameView.getGamePane());
+		this.model.initLevel(menuView.getLevelId());
+		this.model.setPlayer(new Player());
+		model.setGameOver(false);
+
 	}
 
 
-	/*
-	 * this function is used to listen on keyPressed in the game panel and to run the actions corresponding to the key
+	/**
+	 * This function is used to listen on keyPressed in the game panel and to run the actions corresponding to the key
+	 * @param gamePane
 	 */
 	public void checkKeyPressed(BorderPane gamePane) {
 		gamePane.setOnKeyPressed(e -> {
-			
+
 			switch(e.getCode()) {
-				case Q:
-					this.qPressed = true;
-				
-					break;
-				case D:
-					this.dPressed = true;
-					
-					break;
-				case A:
-					this.getModel().checkAttack();
-				
-					break;
-				case SPACE:
-					this.getModel().makePlayerJump();
-					break;
-				case ESCAPE:
-					displayMenu(gamePane, gameView.getPauseMenu());
-					model.setGamePaused(true);
-					break;
+			case Q:
+				this.qPressed = true;
+
+				break;
+			case D:
+				this.dPressed = true;
+
+				break;
+			case A:
+				this.getModel().checkAttack();
+
+				break;
+			case SPACE:
+				this.getModel().makePlayerJump();
+				break;
+			case ESCAPE:
+				displayMenu(gamePane, gameView.getPauseMenu());
+				model.setGamePaused(true);
+				break;
 			default:
 				break;
 			}	
 		});	
-		
+
 		gamePane.setOnKeyReleased(e -> {
-			
+
 			switch(e.getCode()) {
 			case Q:
 				this.qPressed = false;
@@ -253,11 +304,17 @@ public class Control {
 				break;
 			default:
 				break;
-	
+
 			}
 		});	
 	}
 
+	/**
+	 * 
+	 * @param e
+	 * @param boo
+	 * @return
+	 */
 	public int swipeCheck(MouseEvent e,boolean boo) {
 		if(!boo) {
 			cursorX = e.getX();	
@@ -290,12 +347,12 @@ public class Control {
 	public void pauseGame() {
 		displayMenu(gameView.getGamePane(), gameView.getPauseMenu());
 	}
-	
+
 	public void resumeGame() {
 		displayMenu(gameView.getPauseMenu(), gameView.getGamePane());
 	}
 
-
+	/* Getter & setter */
 
 	public Model getModel() {
 		return model;
@@ -321,16 +378,16 @@ public class Control {
 	public void setKeyControl(KeyControl keyControl) {
 		this.keyControl = keyControl;
 	}
-	
+
 	public GameView getGameView() {
 		return this.gameView;
 	}
-	
+
 
 	public boolean isQPressed() {
 		return this.qPressed;
 	}
-	
+
 	public boolean isDPressed() {
 		return this.dPressed;
 	}
@@ -343,7 +400,7 @@ public class Control {
 	public void setSound(Sound sound) {
 		this.sound = sound;
 	}
-	
+
 	public MenuView getMenuView() {
 		return menuView;
 	}
@@ -352,13 +409,19 @@ public class Control {
 		this.menuView = menuView;
 	}
 
+	/**
+	 * 
+	 * @param playAgain
+	 * @param winMenu
+	 * @param gamePane
+	 */
 	public void levelSelect(CustomMenuButton playAgain, BorderPane winMenu, BorderPane gamePane) {
 		playAgain.setOnMouseClicked(e ->{
 			model.initLevel(menuView.getLevelId());			
 			menuView.getPrimaryStage().setScene(menuView.getScene());
 			menuView.getPrimaryStage().setResizable(false);
 			menuView.getPrimaryStage().show();
-		
+
 		});
 
 		playAgain.setOnKeyPressed(e -> {
@@ -368,10 +431,10 @@ public class Control {
 				menuView.getPrimaryStage().setScene(menuView.getScene());
 				menuView.getPrimaryStage().setResizable(false);
 				menuView.getPrimaryStage().show();
-					
+
 			}
 		});
-		
+
 	}
 
 }

@@ -519,7 +519,7 @@ public class GameView {
 
 		////TOP////
 		FlowPane winFP = new FlowPane();
-		Text winTitle = new Text("Congratulation you succed to finish this level !");
+		Text winTitle = new Text("Congratulation you succeed to finish this level !");
 		winTitle.getStyleClass().add("title");
 		winTitle.setTextAlignment(TextAlignment.CENTER);
 		winFP.getChildren().add(winTitle);
@@ -533,7 +533,7 @@ public class GameView {
 		////BOTTOM////
 
 		HBox botWinHB = new HBox();
-		botWinHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botWinHB.setAlignment(Pos.CENTER);
 		botWinHB.setSpacing(30);
 		botWinHB.setPadding(new Insets(0,20,20,20));
 
@@ -545,7 +545,7 @@ public class GameView {
 		botWinHB.getChildren().add(levelSelectionWin);
 		botWinHB.getChildren().add(exitGame);
 
-		winMenu.setBottom(botWinHB);
+		winMenu.setCenter(botWinHB);
 
 		///WIN///
 		
@@ -574,33 +574,22 @@ public class GameView {
 
 		////TOP////
 		FlowPane looseFP = new FlowPane();
-		Text looseTitle = new Text("OH NO...");
+		Text looseTitle = new Text(" GAME OVER !");
 		looseTitle.getStyleClass().add("title");
+		looseTitle.setStrokeWidth(50);
 		looseTitle.setTextAlignment(TextAlignment.CENTER);
 		looseFP.getChildren().add(looseTitle);
 		looseFP.setAlignment(Pos.CENTER);
-		looseFP.setPadding(new Insets(20,0,0,0));
+		looseFP.setPadding(new Insets(200,0,0,0));
 		looseFP.setPrefSize(MenuView.WIDTH, MenuView.HEIGHT/6);
 
 
 		looseMenu.setTop(looseFP);
 
-		////CENTER////
-
-
-		HBox looseHB = new HBox();
-		looseHB.setAlignment(Pos.CENTER);
-		looseHB.setSpacing(70);
-		Text looseScore = new Text("YOU LOOSE...\n MAYBE THE NEXT TIME");
-		looseScore.getStyleClass().add("title");
-		looseScore.setTextAlignment(TextAlignment.CENTER);
-		looseHB.getChildren().add(looseScore);
-
-		looseMenu.setCenter(looseHB);
 		////BOTTOM////
 
 		HBox botlooseHB = new HBox();
-		botlooseHB.setAlignment(Pos.BOTTOM_RIGHT);
+		botlooseHB.setAlignment(Pos.CENTER);
 		botlooseHB.setPadding(new Insets(0,20,20,20));
 		botlooseHB.setSpacing(30);
 
@@ -611,7 +600,7 @@ public class GameView {
 		botlooseHB.getChildren().add(levelSelectionLoose);
 		botlooseHB.getChildren().add(exitGame2);
 
-		looseMenu.setBottom(botlooseHB);
+		looseMenu.setCenter(botlooseHB);
 
 		///LOOSE///
 		control.tryAgainLevel(tryAgain, looseMenu, gamePane);	

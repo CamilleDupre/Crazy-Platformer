@@ -576,7 +576,6 @@ public class GameView {
 		FlowPane looseFP = new FlowPane();
 		Text looseTitle = new Text(" GAME OVER !");
 		looseTitle.getStyleClass().add("title");
-		looseTitle.setStrokeWidth(50);
 		looseTitle.setTextAlignment(TextAlignment.CENTER);
 		looseFP.getChildren().add(looseTitle);
 		looseFP.setAlignment(Pos.CENTER);

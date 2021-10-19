@@ -257,7 +257,7 @@ public class Control {
 		this.model.initLevel(menuView.getLevelId());
 		this.model.setPlayer(new Player());
 		model.setGameOver(false);
-
+		gravity.setTimer_repeat(0);
 	}
 
 

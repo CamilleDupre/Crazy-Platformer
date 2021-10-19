@@ -8,6 +8,14 @@ public class Gravity extends Thread{
 
 
 
+	public int getTimer_repeat() {
+		return timer_repeat;
+	}
+
+	public void setTimer_repeat(int timer_repeat) {
+		this.timer_repeat = timer_repeat;
+	}
+
 	/*Constructeur*/
 	public Gravity(Control myctrl) {
 		ctrl = myctrl;
@@ -25,9 +33,11 @@ public class Gravity extends Thread{
 			if(!ctrl.getModel().isGamePaused()) {
 				ctrl.getModel().gravityForce() ;
 				try { Thread.sleep(20);
-					if(timer_repeat==4 && !ctrl.getModel().isGameOver()) {
+				System.out.println(timer_repeat);
+					if(timer_repeat>=4 && !ctrl.getModel().isGameOver()) {
 						timer_repeat = 0;
 						ctrl.getModel().getCurrentLevel().setTimeLeft(ctrl.getModel().getCurrentLevel().getTimeLeft()-0.1);
+						System.out.println("test");
 						
 						if(ctrl.getModel().getCurrentLevel().getTimeLeft()<0) {
 							ctrl.getModel().setGameOver(true);

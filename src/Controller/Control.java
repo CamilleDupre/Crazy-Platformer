@@ -26,7 +26,7 @@ public class Control {
 	private MenuView menuView;
 	
 
-	
+	private boolean reload;
 
 	private double cursorX=0;
 	private boolean joystickDrag;
@@ -74,6 +74,8 @@ public class Control {
 	
 		this.setModel(new Model(v, gameView,s));
 		this.sound = s;
+		
+		this.reload = false;
 	}
 
 	public void exitApp() {
@@ -142,6 +144,10 @@ public class Control {
 	
 	public void loadLevel(Stage stg) {
 		menuView.getValidatelevel().setOnMouseClicked(e ->{
+			if(reload) {
+				reloadLevel(stg);
+			}else {
+			menuView.setPrimaryStage(stg);
 			model.initLevel(menuView.getLevelId());
 			gameView.getMainGameView().setVisible(true);
 			Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
@@ -154,29 +160,55 @@ public class Control {
 				
 			gravity.setActive(true);
 			gravity.start();
+			reload = true;
+			}
 		
 		});
 
 		menuView.getValidatelevel().setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
-
-				model.initLevel(menuView.getLevelId());
-				gameView.getMainGameView().setVisible(true);
-				Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
-				scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
-				menuView.setGameScene((scn));
-				stg.setScene(menuView.getGameScene());
-				stg.setResizable(false);
-				stg.show();
-				menuView.setGameView(gameView);
-					
-				gravity.setActive(true);
-				gravity.start();
+				if(reload) {
+					reloadLevel(stg);
+				}else {
+					menuView.setPrimaryStage(stg);
+					model.initLevel(menuView.getLevelId());
+					gameView.getMainGameView().setVisible(true);
+					Scene scn = new Scene(gameView.getMainGameView(),MenuView.WIDTH,MenuView.HEIGHT);
+					scn.getStylesheets().add(menuView.getScene().getStylesheets().get(0));
+					menuView.setGameScene((scn));
+					stg.setScene(menuView.getGameScene());
+					stg.setResizable(false);
+					stg.show();
+					menuView.setGameView(gameView);
+						
+					gravity.setActive(true);
+					gravity.start();
+					reload = true;
+				}
 			}
 		});
 		
 	}
 
+	public void reloadLevel(Stage stg) {
+		
+			menuView.setPrimaryStage(stg);
+			model.initLevel(menuView.getLevelId());
+			gameView.getMainGameView().setVisible(true);
+			stg.setScene(menuView.getGameScene());
+			stg.setResizable(false);
+			stg.show();
+			menuView.setGameView(gameView);
+				
+			qPressed = false;
+			dPressed = false;
+			displayMenu(gameView.getLooseMenu(), gameView.getGamePane());
+			displayMenu(gameView.getWinMenu(), gameView.getGamePane());
+			this.model.initLevel(menuView.getLevelId());
+			this.model.setPlayer(new Player());
+			model.setGameOver(false);
+		
+	}
 
 
 	/*
@@ -321,7 +353,24 @@ public class Control {
 	}
 
 	public void levelSelect(CustomMenuButton playAgain, BorderPane winMenu, BorderPane gamePane) {
-		// TODO Auto-generated method stub
+		playAgain.setOnMouseClicked(e ->{
+			model.initLevel(menuView.getLevelId());			
+			menuView.getPrimaryStage().setScene(menuView.getScene());
+			menuView.getPrimaryStage().setResizable(false);
+			menuView.getPrimaryStage().show();
+		
+		});
+
+		playAgain.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.ENTER) {
+
+				model.initLevel(menuView.getLevelId());			
+				menuView.getPrimaryStage().setScene(menuView.getScene());
+				menuView.getPrimaryStage().setResizable(false);
+				menuView.getPrimaryStage().show();
+					
+			}
+		});
 		
 	}
 

@@ -59,7 +59,8 @@ public class GameView {
 	CustomMenuButton exitP;
 	private CustomMenuButton tryAgain;
 	private CustomMenuButton playAgain;
-	private CustomMenuButton levelSelection;
+	private CustomMenuButton levelSelectionWin;
+	private CustomMenuButton levelSelectionLoose;
 
 	private GraphicsContext context;
 
@@ -538,10 +539,10 @@ public class GameView {
 
 		playAgain = new CustomMenuButton("PLAY AGAIN");
 		CustomMenuButton exitGame = new CustomMenuButton("EXIT GAME");
-		levelSelection = new CustomMenuButton("LEVEL SELECTION");
+		levelSelectionWin = new CustomMenuButton("LEVEL SELECTION");
 		
 		botWinHB.getChildren().add(playAgain);
-		botWinHB.getChildren().add(levelSelection);
+		botWinHB.getChildren().add(levelSelectionWin);
 		botWinHB.getChildren().add(exitGame);
 
 		winMenu.setBottom(botWinHB);
@@ -550,7 +551,7 @@ public class GameView {
 		
 		control.tryAgainLevel(playAgain, winMenu, gamePane);
 		
-		control.levelSelect(levelSelection, winMenu, gamePane);
+		control.levelSelect(levelSelectionWin, winMenu, gamePane);
 
 		exitGame.setOnMouseClicked(e -> control.exitApp());
 		exitGame.setOnKeyPressed(e -> {
@@ -604,14 +605,18 @@ public class GameView {
 		botlooseHB.setSpacing(30);
 
 		tryAgain = new CustomMenuButton("TRY AGAIN");
+		levelSelectionLoose = new CustomMenuButton("LEVEL SELECTION");
 		CustomMenuButton exitGame2 = new CustomMenuButton("EXIT GAME");
 		botlooseHB.getChildren().add(tryAgain);
+		botlooseHB.getChildren().add(levelSelectionLoose);
 		botlooseHB.getChildren().add(exitGame2);
 
 		looseMenu.setBottom(botlooseHB);
 
 		///LOOSE///
 		control.tryAgainLevel(tryAgain, looseMenu, gamePane);	
+		
+		control.levelSelect(levelSelectionLoose, looseMenu, gamePane);
 		
 		
 		exitGame2.setOnMouseClicked(e -> control.exitApp());

@@ -29,15 +29,15 @@ public class Gravity extends Thread{
 	public void run() {
 		timer_repeat=0;
 		while(active) {
-		//	System.out.println(ctrl.getModel().isGamePaused() + "  " + ctrl.getModel().isGameOver());
+			System.out.println(ctrl.getModel().isGamePaused() + "  " + ctrl.getModel().isGameOver());
 			if(!ctrl.getModel().isGamePaused()) {
 				ctrl.getModel().gravityForce() ;
 				try { Thread.sleep(20);
-			//	System.out.println(timer_repeat);
+			System.out.println(timer_repeat);
 					if(timer_repeat>=4 && !ctrl.getModel().isGameOver()) {
 						timer_repeat = 0;
 						ctrl.getModel().getCurrentLevel().setTimeLeft(ctrl.getModel().getCurrentLevel().getTimeLeft()-0.1);
-					//	System.out.println("test");
+					System.out.println("test");
 						
 						if(ctrl.getModel().getCurrentLevel().getTimeLeft()<0) {
 							ctrl.getModel().setGameOver(true);

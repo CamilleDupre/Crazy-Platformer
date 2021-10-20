@@ -362,7 +362,7 @@ public class Model {
 		}
 		else if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() < currentLevel.getMaxCoins() ){
 			//do something if we find an interesting idea
-			
+
 		}
 	}
 
@@ -372,28 +372,46 @@ public class Model {
 	public void checkAttack() {
 		for(Enemy enemy : currentLevel.getEnemies()) {
 			//collision player coins
-			if(player.isPlayerTouchingObject(new Point2D(enemy.getPosition().getX()-40, enemy.getPosition().getY()), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
+
+			/*	if(player.isPlayerTouchingObject(new Point2D(enemy.getPosition().getX()-40, enemy.getPosition().getY()), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
 				enemy.setDead(true);
+			}*/
+
+			if (getDirection() == Model.FACE_RIGHT) {
+				System.out.println(enemy.getPosition() + " R " + player.getPosition());
+				if(player.isPlayerAttackingEnemies(new Point2D(enemy.getPosition().getX(), enemy.getPosition().getY()), ENEMIES_WIDTH+40)){
+
+					enemy.setDead(true);
+					break;
+				}
 			}
-				//sound.playCoinsSound();
-				player.setAttacking(true);
-				java.util.Timer t = new java.util.Timer();
-				t.schedule(
-						new java.util.TimerTask() {
-							@Override
-							public void run() {
-								player.setAttacking(false);
-								// close the thread
-								t.cancel();
-							}
-						},
-						1000 // invincible for 1s
-						);
-				break;
-			
+			else {
+				System.out.println((enemy.getPosition().getX() - ENEMIES_WIDTH-40) + " L " + player.getPosition());
+				if(player.isPlayerAttackingEnemies(new Point2D(enemy.getPosition().getX()-ENEMIES_WIDTH, enemy.getPosition().getY()), ENEMIES_WIDTH+40)){
+
+					enemy.setDead(true);
+					break;
+				}
+			}
+			//sound.playCoinsSound();
+			player.setAttacking(true);
+			java.util.Timer t = new java.util.Timer();
+			t.schedule(
+					new java.util.TimerTask() {
+						@Override
+						public void run() {
+							player.setAttacking(false);
+							// close the thread
+							t.cancel();
+						}
+					},
+					1000 // invincible for 1s
+					);
+
+
 		}
 	}
-	
+
 	/**
 	 * Check if the user pick a coin
 	 */
@@ -607,12 +625,12 @@ public class Model {
 
 					//Special block
 					add(new Block(new Point2D(720,Model.MIN_FLOOR_HEIGHT-750),50,50,true));
-					
+
 					for (int i = Model.MIN_FLOOR_HEIGHT-1100 ; i< Model.MIN_FLOOR_HEIGHT-800 ; i=i +50){
 						add(new Block(new Point2D(1170, i),50,50,true));
 
 					}
-					
+
 
 				}
 			};
@@ -860,7 +878,7 @@ public class Model {
 			enemies = new ArrayList<Enemy>(){
 				{
 					add(new Enemy(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT),false));
-					//add(new Enemy(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT),false));
+					add(new Enemy(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT),false));
 					add(new Enemy(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-1400 - ENEMIES_HEIGHT),false));
 				}
 			};

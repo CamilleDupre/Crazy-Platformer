@@ -79,6 +79,14 @@ public class Player {
 				objectPosition.getY() + objectHeight > this.position.getY() &&
 				objectPosition.getY() < this.position.getY() + this.playerSize.getY());
 	}
+	
+
+
+	public boolean isPlayerAttackingEnemies(Point2D objectPosition, int objectWidth) {
+		return (objectPosition.getX() + objectWidth > this.position.getX() &&
+				objectPosition.getX() < this.position.getX() + this.playerSize.getX());
+	}
+
 
 	public Point2D getPosition() {
 		return position;

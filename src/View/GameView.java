@@ -296,7 +296,7 @@ public class GameView {
 			context.fillText("Press D to move right", 20 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 830 - displayVerticalMargin );
 			
 			context.fillText("Press SPACE to jump", 500 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 850 - displayVerticalMargin );
-			context.fillText("Press A to attaque", 2000 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 300 - displayVerticalMargin );
+			context.fillText("Press A to attack", 2000 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 300 - displayVerticalMargin );
 
 		}
 		
@@ -519,7 +519,7 @@ public class GameView {
 
 		////TOP////
 		FlowPane winFP = new FlowPane();
-		Text winTitle = new Text("Congratulation you finish this level !");
+		Text winTitle = new Text("Congratulations you finished this level !");
 		winTitle.getStyleClass().add("title");
 		winTitle.setTextAlignment(TextAlignment.CENTER);
 		winFP.getChildren().add(winTitle);

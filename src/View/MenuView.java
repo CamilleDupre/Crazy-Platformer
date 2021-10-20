@@ -320,7 +320,7 @@ public class MenuView extends Application{
 		HBox pause = new HBox();
 		jump.setSpacing(10);
 		jump.setAlignment(Pos.CENTER_LEFT);
-		Text pauseText = new Text("7. Use ESCAP to pause the game");
+		Text pauseText = new Text("7. Use ESCAPE to pause the game");
 		pauseText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		pause.getChildren().add(pauseText);
 

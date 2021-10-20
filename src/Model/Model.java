@@ -394,22 +394,21 @@ public class Model {
 				}
 			}
 			//sound.playCoinsSound();
-			player.setAttacking(true);
-			java.util.Timer t = new java.util.Timer();
-			t.schedule(
-					new java.util.TimerTask() {
-						@Override
-						public void run() {
-							player.setAttacking(false);
-							// close the thread
-							t.cancel();
-						}
-					},
-					1000 // invincible for 1s
-					);
-
 
 		}
+		player.setAttacking(true);
+		java.util.Timer t = new java.util.Timer();
+		t.schedule(
+				new java.util.TimerTask() {
+					@Override
+					public void run() {
+						player.setAttacking(false);
+						// close the thread
+						t.cancel();
+					}
+				},
+				1000 // invincible for 1s
+				);
 	}
 
 	/**

@@ -372,7 +372,7 @@ public class Model {
 	public void checkAttack() {
 		for(Enemy enemy : currentLevel.getEnemies()) {
 			//collision player coins
-			if(player.isPlayerTouchingObject(enemy.getPosition(), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
+			if(player.isPlayerTouchingObject(new Point2D(enemy.getPosition().getX()-40, enemy.getPosition().getY()), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
 				enemy.setDead(true);
 			}
 				//sound.playCoinsSound();
@@ -860,7 +860,7 @@ public class Model {
 			enemies = new ArrayList<Enemy>(){
 				{
 					add(new Enemy(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT),false));
-					add(new Enemy(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT),false));
+					//add(new Enemy(new Point2D(200,Model.MIN_FLOOR_HEIGHT-1400 -ENEMIES_HEIGHT),false));
 					add(new Enemy(new Point2D(2200,Model.MIN_FLOOR_HEIGHT-1400 - ENEMIES_HEIGHT),false));
 				}
 			};

@@ -519,7 +519,7 @@ public class GameView {
 
 		////TOP////
 		FlowPane winFP = new FlowPane();
-		Text winTitle = new Text("Congratulation you succeed to finish this level !");
+		Text winTitle = new Text("Congratulation you finish this level !");
 		winTitle.getStyleClass().add("title");
 		winTitle.setTextAlignment(TextAlignment.CENTER);
 		winFP.getChildren().add(winTitle);

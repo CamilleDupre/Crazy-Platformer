@@ -18,7 +18,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -34,50 +33,127 @@ public class Model {
 	 */
 	public static final int FACE_RIGHT = 1;
 
+	/**
+	 * Menu View reference
+	 */
 	private MenuView menuView;
+	
+	/**
+	 * Game View reference
+	 */
 	private GameView gameView;
+	
+	/**
+	 * use to store the current css in use
+	 */
 	private int cssStyle;
+	
+	/**
+	 * list of path of background 
+	 */
 	private ArrayList<String> backgroundList;
 
 
-
+	/**
+	 * current level selected
+	 */
 	private Level currentLevel;
+	
+	/**
+	 * true if the game is over else false
+	 */
 	private boolean gameOver;
-	//public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 200 ;
+	
+	/**
+	 * to set the min height of the player in the game
+	 */
 	public static final int MIN_FLOOR_HEIGHT = MenuView.HEIGHT - 100 ;
+	
+	/**
+	 * to set the intensity of down force 
+	 */
 	public static final int GRAVITY_FORCE = 7;
+	
+	/**
+	 * speed of UP move when player jump
+	 */
 	public static final int JUMP_FORCE = 10;
+	
+	/**
+	 * size of coin image (width and height)
+	 */
 	public static final int COINS_SIZE = 40;
+	
+	/**
+	 * size of heart image (width and height)
+	 */
 	public static final int HEART_SIZE = 40;
+	
+	/**
+	 * height of enemy image
+	 */
 	public static final int ENEMIES_HEIGHT = 80;
+	
+	/**
+	 * width of enemy image
+	 */
 	public static final int ENEMIES_WIDTH = 65;
+	
+	/**
+	 * height of treasure image
+	 */
 	public static final int TREASURE_HEIGHT = 100;
+	
+	/**
+	 * width of treasure image
+	 */
 	public static final int TREASURE_WIDTH = 120;
+	
+	/**
+	 * height of trap image
+	 */
 	public static final int TRAP_WIDTH = 80;
+	
+	/**
+	 * width of treasure image
+	 */
 	public static final int TRAP_HEIGHT = 50;
+	
+	/**
+	 * contains data about the player
+	 */
 	private Player player;
+	
+	/**
+	 * current player orientation
+	 */
 	private int direction;
+	
+	/**
+	 * path to player image
+	 */
 	private String imgPlayer="";
 
+	/**
+	 * time left to complete a level initiate to 0
+	 */
 	private double time = 0;
 
-	//private Timer timer;
-
+	/**
+	 * if game is paused so if pause menu is open
+	 */
 	private boolean gamePaused;
 
+	/**
+	 * reference to the functions to play the different sounds
+	 */
 	private Sound sound;
 
-	public Level LVL_1;
-	public Level LVL_2;
-	public Level LVL_3;
-	public Level LVL_4;
-
-
+	/**
+	 * size of a jump 
+	 */
 	public double maxJumpHeight;
 
-	private Timeline timeline;
-	private static final Integer STARTTIME = 0;
-	private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
 	/**
 	 * Constructor of the model
@@ -96,7 +172,6 @@ public class Model {
 		this.sound = sound;
 		this.imgPlayer="../Crazy-Platformer/img/other/player_right.png";
 		this.gamePaused = false;
-		//timer = new Timer(this);
 	}
 
 
@@ -228,7 +303,6 @@ public class Model {
 	public void makePlayerJump() {
 		if(!player.isInTheAir()) {
 			maxJumpHeight = player.getPosition().getY() + player.getPlayerJump();
-			//player.setPosition( new Point2D(player.getPosition().getX(),player.getPosition().getY() + player.getPlayerJump())) ;
 			player.setJumping(true);
 			player.setInTheAir(true);
 		}
@@ -337,14 +411,6 @@ public class Model {
 		}
 	}
 
-	public Timeline getTimeline() {
-		return timeline;
-	}
-
-
-	public void setTimeline(Timeline timeline) {
-		this.timeline = timeline;
-	}
 	/**
 	 * Check if player is on the treasure
 	 * if he as enough coins, then display the win menu
@@ -367,15 +433,12 @@ public class Model {
 	}
 
 	/**
-	 * Check if the user pick a coin
+	 * Check if an enemy is close enough to be kill by the player
 	 */
 	public void checkAttack() {
 		for(Enemy enemy : currentLevel.getEnemies()) {
 			//collision player coins
 
-			/*	if(player.isPlayerTouchingObject(new Point2D(enemy.getPosition().getX()-40, enemy.getPosition().getY()), ENEMIES_WIDTH+40, ENEMIES_HEIGHT+40)){
-				enemy.setDead(true);
-			}*/
 
 			if (getDirection() == Model.FACE_RIGHT) {
 				System.out.println(enemy.getPosition() + " R " + player.getPosition());
@@ -426,7 +489,9 @@ public class Model {
 		}
 	}
 
-
+	/**
+	 * Check if the user pick a power
+	 */
 	public void checkPower() {
 		for(Power power : currentLevel.getPowers()) {
 			//collision player coins
@@ -664,7 +729,6 @@ public class Model {
 			powers = new ArrayList<Power>(){
 				{
 					add(new Power(0 , 10000, new Point2D(2200,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)));
-					//add(new Power(0 , 1000, new Point2D(2000,Model.MIN_FLOOR_HEIGHT-150 - Model.COINS_SIZE)));
 				}
 
 			};
@@ -741,14 +805,11 @@ public class Model {
 					}
 
 
-					//add(new Block(new Point2D(600,Model.MIN_FLOOR_HEIGHT-450),200,50,false));
-
 				}
 			};
 
 			enemies = new ArrayList<Enemy>(){
 				{
-					//add(new Point2D(1950,Model.MIN_FLOOR_HEIGHT - ENEMIES_HEIGHT));
 					add(new Enemy(new Point2D(700,Model.MIN_FLOOR_HEIGHT-1500 - Model.ENEMIES_HEIGHT),false));
 				}
 			};

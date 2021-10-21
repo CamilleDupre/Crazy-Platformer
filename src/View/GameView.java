@@ -109,9 +109,12 @@ public class GameView {
 	
 	DecimalFormat df;
 
-
-	public GameView(Control c) {
-		control = c;
+	/**
+	 * Constructor of Game View
+	 * @param control
+	 */
+	public GameView(Control control) {
+		this.control = control;
 
 
 		mainGameView = new StackPane();
@@ -171,6 +174,9 @@ public class GameView {
 
 	}
 
+	/**
+	 * draw the initial Game Panel
+	 */
 	private void setUpGamePanel() {
 		/////// GAME PANE ///////
 
@@ -204,6 +210,9 @@ public class GameView {
 
 	}
 
+	/**
+	 * repaint all the stuff inside the game Pane
+	 */
 	public void repaint() {
 		//context.setFill(Color.TRANSPARENT);
 		context.setFill(null);
@@ -322,6 +331,10 @@ public class GameView {
 		
 	}
 	
+	/**
+	 * draw the enemies
+	 * @param enemyList
+	 */
 	public void paintEnemies(ArrayList<Enemy> enemyList) {
 		
 		for(Enemy enemy : enemyList) {
@@ -333,7 +346,10 @@ public class GameView {
 		}
 	}
 
-
+	/**
+	 * draw the blocks
+	 * @param blockList
+	 */
 	public void paintBlocks(ArrayList<Block> blockList) {
 		
 		//int marginHeight = 30;
@@ -360,6 +376,13 @@ public class GameView {
 		}
 	}
 
+	/**
+	 * draw some basic components
+	 * @param objPositions
+	 * @param componentWidth
+	 * @param componentHeight
+	 * @param img
+	 */
 	public void paintOtherComponent(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight, Image img) {
 		for(Point2D obj : objPositions) {
 			context.drawImage(img, obj.getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, obj.getY()- displayVerticalMargin, componentWidth, componentHeight);
@@ -392,7 +415,9 @@ public class GameView {
 		}
 	}*/
 
-
+	/**
+	 * draw the pause menu
+	 */
 	private void setUpPausePanel() {
 		/////// PAUSE MENU ////////
 
@@ -510,7 +535,10 @@ public class GameView {
 		});
 		
 	}
- 	
+	
+ 	/**
+ 	 * draw the Vitory Menu
+ 	 */
 	public void setUpVictoryPanel() {
 		////////WIN MENU/////////
 
@@ -565,7 +593,9 @@ public class GameView {
 
 
 
-
+	/**
+	 * draw the Loose Menu
+	 */
 	public void setUpLosingPanel() {
 		////////LOOSE MENU/////////
 

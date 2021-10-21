@@ -9,6 +9,10 @@ public class CustomMenuButton extends Button {
 
 	private Font buttonFont = new Font("Source Code Pro Bold",20);
 	
+	/**
+	 * Constructor of CustomMenuButton
+	 * @param buttonText
+	 */
 	public CustomMenuButton(String buttonText) {
 		
 		super(buttonText);

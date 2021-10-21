@@ -9,6 +9,13 @@ public class Block {
 	private int height;
 	private boolean invisible;
 	
+	/**
+	 * Constructor of Block
+	 * @param position
+	 * @param width
+	 * @param height
+	 * @param invisible
+	 */
 	public Block(Point2D position, int width, int height,boolean invisible) {
 		
 		this.setPosition(position);

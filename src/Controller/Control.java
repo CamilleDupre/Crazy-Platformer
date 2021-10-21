@@ -63,11 +63,6 @@ public class Control {
 
 
 	/**
-	 * KeyListener implementation
-	 */
-	private KeyControl keyControl;
-
-	/**
 	 * Left value for turning ship
 	 */
 	public static final int LEFT = 1;
@@ -408,13 +403,6 @@ public class Control {
 		this.gravity = gravity;
 	}
 
-	public KeyControl getKeyControl() {
-		return keyControl;
-	}
-
-	public void setKeyControl(KeyControl keyControl) {
-		this.keyControl = keyControl;
-	}
 
 	public GameView getGameView() {
 		return this.gameView;

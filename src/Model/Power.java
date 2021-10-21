@@ -10,6 +10,12 @@ public class Power {
 	private Point2D position;
 
 	
+	/**
+	 * Constructor of Power
+	 * @param type
+	 * @param duration
+	 * @param position
+	 */
 	public Power(int type, int duration, Point2D position) {
 		setType(type);
 		setDuration(duration);

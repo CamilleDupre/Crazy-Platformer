@@ -7,7 +7,10 @@ public class Gravity extends Thread{
 	private int timer_repeat;
 
 
-	/*Constructeur*/
+	/**
+	 * Contructor of Gravity
+	 * @param myctrl
+	 */
 	public Gravity(Control myctrl) {
 		ctrl = myctrl;
 		timer_repeat=0;

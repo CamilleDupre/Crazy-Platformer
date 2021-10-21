@@ -29,7 +29,9 @@ public class Player {
 	private boolean superJump;
 	private boolean Attacking;
 
-
+	/**
+	 * Constructor of the Enemy
+	 */
 	public Player(){
 		this.position = new Point2D(20,Model.MIN_FLOOR_HEIGHT);
 		this.powerList = new ArrayList<Power>();
@@ -42,14 +44,15 @@ public class Player {
 
 		this.nbCoinsCollected = 0;
 		this.setSuperJump(false) ;
-
-
-		//this.setJumping(true);
 	}
 
-	//return 0 if not touching 1 if touching on leftside and 2 if touching rightside
+	/**
+	 * Used to know if the player hits a block horizontally and on which side
+	 * @param block
+	 * @return
+	 */
 	public int isPlayerTouchingBlock(Block block) {
-
+		//return 0 if not touching 1 if touching on leftside and 2 if touching rightside
 		if(block.getPosition().getY() + block.getHeight() > this.position.getY() &&
 				block.getPosition().getY() < this.position.getY() + this.playerSize.getY())
 		{
@@ -72,7 +75,13 @@ public class Player {
 	}
 
 
-
+	/**
+	 * used to know if the player hits an object
+	 * @param objectPosition
+	 * @param objectWidth
+	 * @param objectHeight
+	 * @return
+	 */
 	public boolean isPlayerTouchingObject(Point2D objectPosition, int objectWidth, int objectHeight) {
 		return (objectPosition.getX() + objectWidth > this.position.getX() &&
 				objectPosition.getX() < this.position.getX() + this.playerSize.getX() &&
@@ -81,7 +90,12 @@ public class Player {
 	}
 	
 
-
+	/**
+	 * used to know if the player hits an enemy
+	 * @param objectPosition
+	 * @param objectWidth
+	 * @return
+	 */
 	public boolean isPlayerAttackingEnemies(Point2D objectPosition, int objectWidth) {
 		return (objectPosition.getX() + objectWidth > this.position.getX() &&
 				objectPosition.getX() < this.position.getX() + this.playerSize.getX());

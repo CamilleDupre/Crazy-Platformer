@@ -1038,7 +1038,7 @@ public class Model {
 
 	/**
 	 * Getter for gameOver
-	 * @return
+	 * @return gameOver
 	 */
 	public boolean isGameOver() {
 		return gameOver;

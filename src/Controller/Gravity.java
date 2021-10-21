@@ -7,15 +7,6 @@ public class Gravity extends Thread{
 	private int timer_repeat;
 
 
-
-	public int getTimer_repeat() {
-		return timer_repeat;
-	}
-
-	public void setTimer_repeat(int timer_repeat) {
-		this.timer_repeat = timer_repeat;
-	}
-
 	/*Constructeur*/
 	public Gravity(Control myctrl) {
 		ctrl = myctrl;
@@ -57,6 +48,14 @@ public class Gravity extends Thread{
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public int getTimer_repeat() {
+		return timer_repeat;
+	}
+
+	public void setTimer_repeat(int timer_repeat) {
+		this.timer_repeat = timer_repeat;
 	}
 
 }

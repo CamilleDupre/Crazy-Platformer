@@ -105,7 +105,7 @@ public class Control {
 
 
 	/**
-	 * 
+	 * Check if a CustomMenuButton have been click or ENTER key have been pressed on it
 	 * @param b
 	 * @param src
 	 * @param target
@@ -120,7 +120,7 @@ public class Control {
 	}
 
 	/**
-	 * 
+	 * use to hide the source Pane and show the target pane
 	 * @param src
 	 * @param target
 	 */
@@ -154,8 +154,9 @@ public class Control {
 		});
 
 	}
+	
 	/**
-	 * 
+	 * used to reload the current Level after winning or losing
 	 * @param b
 	 * @param src
 	 * @param target
@@ -185,7 +186,7 @@ public class Control {
 	}
 
 	/**
-	 * 
+	 * used to load the selected level and change the scene the first time
 	 * @param stg
 	 */
 	public void loadLevel(Stage stg) {
@@ -237,7 +238,7 @@ public class Control {
 	}
 
 	/**
-	 * 
+	 * used load le level and chnage the scne if it's not the first time
 	 * @param stg
 	 */
 	public void reloadLevel(Stage stg) {
@@ -310,7 +311,7 @@ public class Control {
 	}
 
 	/**
-	 * 
+	 * this function is used to calculate the direction and intensity of swiping interaction and return the direction 
 	 * @param e
 	 * @param boo
 	 * @return
@@ -343,11 +344,47 @@ public class Control {
 		return 0;
 
 	}
+	
+	
+	/**
+	 * used to go from WinMenu or LooseMenu to level selection when selectLevel button is click or press ENTER key on it
+	 * @param playAgain
+	 * @param winMenu
+	 * @param gamePane
+	 */
+	public void levelSelect(CustomMenuButton playAgain, BorderPane winMenu, BorderPane gamePane) {
+		playAgain.setOnMouseClicked(e ->{
+			model.initLevel(menuView.getLevelId());			
+			menuView.getPrimaryStage().setScene(menuView.getScene());
+			menuView.getPrimaryStage().setResizable(false);
+			menuView.getPrimaryStage().show();
 
+		});
+
+		playAgain.setOnKeyPressed(e -> {
+			if(e.getCode()==KeyCode.ENTER) {
+
+				model.initLevel(menuView.getLevelId());			
+				menuView.getPrimaryStage().setScene(menuView.getScene());
+				menuView.getPrimaryStage().setResizable(false);
+				menuView.getPrimaryStage().show();
+
+			}
+		});
+
+	}
+	
+
+	/**
+	 * use to display the pause Menu
+	 */
 	public void pauseGame() {
 		displayMenu(gameView.getGamePane(), gameView.getPauseMenu());
 	}
 
+	/**
+	 * use to go from pause menu to game Menu
+	 */
 	public void resumeGame() {
 		displayMenu(gameView.getPauseMenu(), gameView.getGamePane());
 	}
@@ -409,32 +446,5 @@ public class Control {
 		this.menuView = menuView;
 	}
 
-	/**
-	 * 
-	 * @param playAgain
-	 * @param winMenu
-	 * @param gamePane
-	 */
-	public void levelSelect(CustomMenuButton playAgain, BorderPane winMenu, BorderPane gamePane) {
-		playAgain.setOnMouseClicked(e ->{
-			model.initLevel(menuView.getLevelId());			
-			menuView.getPrimaryStage().setScene(menuView.getScene());
-			menuView.getPrimaryStage().setResizable(false);
-			menuView.getPrimaryStage().show();
-
-		});
-
-		playAgain.setOnKeyPressed(e -> {
-			if(e.getCode()==KeyCode.ENTER) {
-
-				model.initLevel(menuView.getLevelId());			
-				menuView.getPrimaryStage().setScene(menuView.getScene());
-				menuView.getPrimaryStage().setResizable(false);
-				menuView.getPrimaryStage().show();
-
-			}
-		});
-
-	}
 
 }

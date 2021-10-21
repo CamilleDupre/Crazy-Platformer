@@ -72,6 +72,11 @@ public class MenuView extends Application{
 	public static int HEIGHT;
 	public static int WIDTH;
 	private Sound sound;
+	
+	ImageView frontImage = null;
+	ImageView leftImage = null;
+	ImageView rightImage = null;
+	ImageView backImage = null;
 
 
 	public void start(Stage stg) throws IOException {
@@ -475,38 +480,49 @@ public class MenuView extends Application{
 		StackPane stacklevel = new StackPane();
 		stacklevel.setAlignment(Pos.CENTER);
 
+		File frontFile = new File(control.getModel().getBackgroundList().get(0));
+		File leftFile = new File(control.getModel().getBackgroundList().get(3));
+		File rightFile = new File(control.getModel().getBackgroundList().get(1));
+		File backFile = new File(control.getModel().getBackgroundList().get(2));
+		
+		try {
 
-		ImageView current = new ImageView(control.getModel().getBackgroundList().get(0));
-		current.setId("0");
-		current.setPreserveRatio(true);
-		current.setFitHeight(WIDTH/5);
-		Button currentB = new Button("",current);
+			frontImage = new ImageView( new Image(frontFile.toURI().toURL().toString()));
+			leftImage = new ImageView( new Image(leftFile.toURI().toURL().toString()));
+			rightImage = new ImageView( new Image(rightFile.toURI().toURL().toString()));
+			backImage = new ImageView( new Image(backFile.toURI().toURL().toString()));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		frontImage.setId("0");
+		frontImage.setPreserveRatio(true);
+		frontImage.setFitHeight(WIDTH/5);
+		Button currentB = new Button("",frontImage);
 		currentB.setDisable(true);
 		currentB.setOpacity(1);
 		Text currentLevelTitle = new Text("Level 1"); 
 		currentLevelTitle.getStyleClass().add("title");
 
-		ImageView left = new ImageView(control.getModel().getBackgroundList().get(1));
-		left.setId("3");
-		left.setPreserveRatio(true);
-		left.setFitHeight(WIDTH/6);
-		Button leftB = new Button("",left);
+		leftImage.setId("3");
+		leftImage.setPreserveRatio(true);
+		leftImage.setFitHeight(WIDTH/6);
+		Button leftB = new Button("",leftImage);
 		leftB.setDisable(true);
 
 
-		ImageView right = new ImageView(control.getModel().getBackgroundList().get(2));
-		right.setId("1");
-		right.setPreserveRatio(true);
-		right.setFitHeight(WIDTH/6);
-		Button rightB = new Button("",right);
+		rightImage.setId("1");
+		rightImage.setPreserveRatio(true);
+		rightImage.setFitHeight(WIDTH/6);
+		Button rightB = new Button("",rightImage);
 		rightB.setDisable(true);
 
 
-		ImageView back = new ImageView(control.getModel().getBackgroundList().get(0));
-		back.setId("2");
-		back.setPreserveRatio(true);
-		back.setFitHeight(WIDTH/6);
-		Button backB = new Button("",back);
+		backImage.setId("2");
+		backImage.setPreserveRatio(true);
+		backImage.setFitHeight(WIDTH/6);
+		Button backB = new Button("",backImage);
 		backB.setDisable(true);
 
 
@@ -544,38 +560,38 @@ public class MenuView extends Application{
 			Image temp;
 			String tempId;
 			if(control.swipeCheck(e, true)==1) {//left
-				temp = current.getImage();
-				tempId = current.getId();
+				temp = frontImage.getImage();
+				tempId = frontImage.getId();
 
-				current.setImage(right.getImage()); 
-				current.setId(right.getId());
+				frontImage.setImage(rightImage.getImage()); 
+				frontImage.setId(rightImage.getId());
 
-				right.setImage(back.getImage());
-				right.setId(back.getId());
+				rightImage.setImage(backImage.getImage());
+				rightImage.setId(backImage.getId());
 
-				back.setImage(left.getImage());
-				back.setId(left.getId());
+				backImage.setImage(leftImage.getImage());
+				backImage.setId(leftImage.getId());
 
-				left.setImage(temp);
-				left.setId(tempId);
+				leftImage.setImage(temp);
+				leftImage.setId(tempId);
 
 			}else if(control.swipeCheck(e, true)==2) {//right
-				temp = current.getImage();
-				tempId = current.getId();
+				temp = frontImage.getImage();
+				tempId = frontImage.getId();
 
-				current.setImage(left.getImage()); 
-				current.setId(left.getId());
+				frontImage.setImage(leftImage.getImage()); 
+				frontImage.setId(leftImage.getId());
 
-				left.setImage(back.getImage());
-				left.setId(back.getId());
+				leftImage.setImage(backImage.getImage());
+				leftImage.setId(backImage.getId());
 
-				back.setImage(right.getImage());
-				back.setId(right.getId());
+				backImage.setImage(rightImage.getImage());
+				backImage.setId(rightImage.getId());
 
-				right.setImage(temp);
-				right.setId(tempId);
+				rightImage.setImage(temp);
+				rightImage.setId(tempId);
 			}
-			switch(current.getId()) {
+			switch(frontImage.getId()) {
 			case "0" :
 				levelId = 1;
 				break;
@@ -597,38 +613,38 @@ public class MenuView extends Application{
 			Image temp;
 			String tempId;
 			if(e.getCode()==KeyCode.D || e.getCode()==KeyCode.RIGHT ) {
-				temp = current.getImage();
-				tempId = current.getId();
+				temp = frontImage.getImage();
+				tempId = frontImage.getId();
 
-				current.setImage(right.getImage()); 
-				current.setId(right.getId());
+				frontImage.setImage(rightImage.getImage()); 
+				frontImage.setId(rightImage.getId());
 
-				right.setImage(back.getImage());
-				right.setId(back.getId());
+				rightImage.setImage(backImage.getImage());
+				rightImage.setId(backImage.getId());
 
-				back.setImage(left.getImage());
-				back.setId(left.getId());
+				backImage.setImage(leftImage.getImage());
+				backImage.setId(leftImage.getId());
 
-				left.setImage(temp);
-				left.setId(tempId);
+				leftImage.setImage(temp);
+				leftImage.setId(tempId);
 			}
 			if(e.getCode()==KeyCode.Q || e.getCode()==KeyCode.LEFT) {
-				temp = current.getImage();
-				tempId = current.getId();
+				temp = frontImage.getImage();
+				tempId = frontImage.getId();
 
-				current.setImage(left.getImage()); 
-				current.setId(left.getId());
+				frontImage.setImage(leftImage.getImage()); 
+				frontImage.setId(leftImage.getId());
 
-				left.setImage(back.getImage());
-				left.setId(back.getId());
+				leftImage.setImage(backImage.getImage());
+				leftImage.setId(backImage.getId());
 
-				back.setImage(right.getImage());
-				back.setId(right.getId());
+				backImage.setImage(rightImage.getImage());
+				backImage.setId(rightImage.getId());
 
-				right.setImage(temp);
-				right.setId(tempId);
+				rightImage.setImage(temp);
+				rightImage.setId(tempId);
 			}
-			switch(current.getId()) {
+			switch(frontImage.getId()) {
 			case "0" :
 				levelId = 1;
 				break;

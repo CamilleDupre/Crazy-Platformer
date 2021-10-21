@@ -180,9 +180,10 @@ public class Model {
 	 */
 	public void initBackgroundRessources() {
 		backgroundList = new ArrayList<String>();
-		backgroundList.add("/other/background_clair.png");
-		backgroundList.add("/other/background_fonce.png");
-		backgroundList.add("/other/background_neon.png");
+		backgroundList.add("img/other/Level_1.png");
+		backgroundList.add("img/other/Level_2.png");
+		backgroundList.add("img/other/Level_3.png");
+		backgroundList.add("img/other/Level_4.png");
 	}
 
 	/**
@@ -421,6 +422,7 @@ public class Model {
 		if(player.isPlayerTouchingObject(treasure, TREASURE_WIDTH, TREASURE_HEIGHT) && player.getNbCoinsCollected() == currentLevel.getMaxCoins() ){
 
 			this.setGameOver(true);
+			gameOver = true;
 			//here add the victory screen !
 			gameView.score = String.valueOf(currentLevel.getTimeLeft());
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());

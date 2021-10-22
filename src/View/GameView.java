@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import Controller.Control;
-import Controller.KeyControl;
 import Model.Block;
 import Model.Enemy;
 import Model.Model;
@@ -43,6 +41,9 @@ import javafx.scene.text.TextAlignment;
 
 public class GameView {
 
+	/**
+	 *  attribute control
+	 */
 	private Control control;
 
 
@@ -54,7 +55,8 @@ public class GameView {
 	private BorderPane winMenu = new BorderPane();
 	private BorderPane looseMenu = new BorderPane();
 
-	
+	private StackPane mainGameView;
+
 	CustomMenuButton resume;
 	CustomMenuButton exitP;
 	private CustomMenuButton tryAgain;
@@ -62,20 +64,25 @@ public class GameView {
 	private CustomMenuButton levelSelectionWin;
 	private CustomMenuButton levelSelectionLoose;
 
+	/**
+	 * Attribute context
+	 */
 	private GraphicsContext context;
 
 	public static final int CANVAS_WIDTH = MenuView.WIDTH;
 	public static final int CANVAS_HEIGHT = MenuView.HEIGHT;
 
 
-	private StackPane mainGameView;
-
 	private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
 
+	/**
+	 *  Attribute canvas, for the drawing
+	 */
 	private Canvas canvas;
 
-	public String score = "";
-
+	/**
+	 * All images
+	 */
 	private Image imgRight = null;
 	private Image imgLeft = null;
 	private Image imgCoin = null;
@@ -85,28 +92,30 @@ public class GameView {
 	private Image imgHeartLost=null;
 	private Image imgTreasure = null;
 	private Image imgSpikes = null;
-
 	private Image cloudPower = null;
 	private Image jumpPower = null;
 	private Image block = null;
 	private Image block2 = null;
-	
 	private Image plateform = null;
 	private Image specialBlock = null;
-	
 	private Image lock = null;
 	private Image eclair = null;
 	private Image eclairLeft = null;
-	
-	
-	
-	
 	private Image tree = null;
-	
+
+	/**
+	 *  Attribute displayHorizontalLeftMargin, use to center the view if the player 
+	 */
 	private int displayHorizontalLeftMargin;
+	/**
+	 *  Attribute displayHorizontalRightMargin, use to center the view if the player 
+	 */
 	private int displayHorizontalRightMargin;
+	/**
+	 *  Attribute displayVerticalMargin, use to center the view if the player 
+	 */
 	private int displayVerticalMargin;
-	
+
 	DecimalFormat df;
 
 	/**
@@ -129,14 +138,14 @@ public class GameView {
 		mainGameView.getChildren().add(pauseMenu);
 		mainGameView.getChildren().add(looseMenu);
 		mainGameView.getChildren().add(winMenu);
-		
-		
+
+
 
 		gamePane.setVisible(true);
 		pauseMenu.setVisible(false);
 		looseMenu.setVisible(false);	
 		winMenu.setVisible(false);
-		
+
 		df = new DecimalFormat("##.#");
 		df.setRoundingMode(RoundingMode.DOWN);
 
@@ -153,21 +162,21 @@ public class GameView {
 			imgHeartLost= new Image(new FileInputStream("img/other/Heart_lost.png"));
 			imgTreasure = new Image(new FileInputStream("img/other/chest.png"));
 			imgSpikes = new Image(new FileInputStream("img/other/Spikes.png"));
-			
+
 			cloudPower = new Image(new FileInputStream("img/other/Cloudpng.png"));
 			jumpPower  = new Image(new FileInputStream("img/other/jump.png"));
-			
+
 			block  = new Image(new FileInputStream("img/other/block2.png"));
 			block2  = new Image(new FileInputStream("img/other/block3.png"));
-			
+
 			tree  = new Image(new FileInputStream("img/other/tree2.png"));
 			specialBlock  = new Image(new FileInputStream("img/other/platform.png"));
-			
+
 			plateform  = new Image(new FileInputStream("img/other/BlockObstacle.png"));
 			lock  = new Image(new FileInputStream("img/other/lock.png"));
 			eclair = new Image(new FileInputStream("img/other/eclair.png"));
 			eclairLeft = new Image(new FileInputStream("img/other/eclair2.png"));
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -217,72 +226,66 @@ public class GameView {
 		//context.setFill(Color.TRANSPARENT);
 		context.setFill(null);
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
+
 		context = canvas.getGraphicsContext2D();
-		
+
 		displayHorizontalLeftMargin = 0;
 		displayHorizontalRightMargin = 0;
 		displayVerticalMargin = 0;
 		context.setFont(new Font("Arial Black", 30));
-		
+
 		if(control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() >= canvas.getWidth()/2) {
 			displayHorizontalLeftMargin = (int) (control.getModel().getPlayer().getPosition().getX() + control.getModel().getPlayer().getPlayerSize().getX() - canvas.getWidth()/2);
 		}
 		if(control.getModel().getCurrentLevel().getMaxSize() - control.getModel().getPlayer().getPosition().getX() <= canvas.getWidth()/2) {
 			displayHorizontalRightMargin = (int) (control.getModel().getPlayer().getPosition().getX() - control.getModel().getCurrentLevel().getMaxSize() + canvas.getWidth()/2);
 		}
-		
+
 		if(control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() <= canvas.getHeight()/3) {
 			displayVerticalMargin = (int) (control.getModel().getPlayer().getPosition().getY() + control.getModel().getPlayer().getPlayerSize().getY() - canvas.getHeight()/3);
 		}
-		
-		
+
+
 		for ( int i= 200 ; i< control.getModel().getCurrentLevel().getMaxSize() - 500 ; i = i + 700) {
 			context.drawImage(tree, i + - displayHorizontalLeftMargin + displayHorizontalRightMargin, Model.MIN_FLOOR_HEIGHT - 380- displayVerticalMargin, 400, 400);
 		}
-		
-		
-		
+
+
+
 		//blocks	
 		paintBlocks(control.getModel().getCurrentLevel().getBlocks()); 
-		/*
-		for (int i = 0; i< this.canvas.getWidth(); i= i + 50) {
-			context.drawImage(block, i , control.getModel().MIN_FLOOR_HEIGHT, 50, 50);
-			context.drawImage(block2, i , control.getModel().MIN_FLOOR_HEIGHT + 50, 50, 50);
-			
-			context.drawImage(plateform, i , control.getModel().MIN_FLOOR_HEIGHT - 200, 50, 50);
-		}*/
+
 		//coins
 		paintOtherComponent(control.getModel().getCurrentLevel().getCoins(),Model.COINS_SIZE,Model.COINS_SIZE, imgCoin);
 		//enemies
 		paintEnemies(control.getModel().getCurrentLevel().getEnemies());
 		//traps
 		paintOtherComponent(control.getModel().getCurrentLevel().getTrap(),Model.TRAP_WIDTH,Model.TRAP_HEIGHT, imgSpikes);
-		
+
 		//Power
 		paintPower(control.getModel().getCurrentLevel().getPowers(),Model.COINS_SIZE,Model.COINS_SIZE);
 		context.setFont(new Font("Arial Black", 30));
-		
-		
+
+
 		//Power actif
-		
-			if (control.getModel().getPlayer().isInvisible()) {
-				context.drawImage(cloudPower, 10 , 100, Model.HEART_SIZE, Model.HEART_SIZE);
-			}
-			
-			if (control.getModel().getPlayer().isSuperJump()) {
-				context.drawImage(jumpPower, 10 , 100 + Model.HEART_SIZE , Model.HEART_SIZE, Model.HEART_SIZE);
-			}
-		
+
+		if (control.getModel().getPlayer().isInvisible()) {
+			context.drawImage(cloudPower, 10 , 100, Model.HEART_SIZE, Model.HEART_SIZE);
+		}
+
+		if (control.getModel().getPlayer().isSuperJump()) {
+			context.drawImage(jumpPower, 10 , 100 + Model.HEART_SIZE , Model.HEART_SIZE, Model.HEART_SIZE);
+		}
+
 		//chest
-			if (control.getModel().getPlayer().getNbCoinsCollected() != control.getModel().getCurrentLevel().getMaxCoins()) {
-				context.drawImage(lock, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin + 25, 
-						control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin -50, 70, 70);
-			}
-		
+		if (control.getModel().getPlayer().getNbCoinsCollected() != control.getModel().getCurrentLevel().getMaxCoins()) {
+			context.drawImage(lock, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin + 25, 
+					control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin -50, 70, 70);
+		}
+
 		context.drawImage(imgTreasure, control.getModel().getCurrentLevel().getTreasure().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, 
 				control.getModel().getCurrentLevel().getTreasure().getY() - displayVerticalMargin, Model.TREASURE_WIDTH, Model.TREASURE_HEIGHT);
-		
+
 		//number of life
 		for (int i = 0 ; i < control.getModel().getPlayer().getLife() ; i++) {
 			context.drawImage(imgHeart,10 + i* Model.HEART_SIZE, 50, Model.HEART_SIZE, Model.HEART_SIZE);
@@ -290,28 +293,31 @@ public class GameView {
 		for (int i = control.getModel().getPlayer().getLife() ; i < 3 ; i++) {
 			context.drawImage(imgHeartLost,10 + i* Model.HEART_SIZE, 50, Model.HEART_SIZE, Model.HEART_SIZE);
 		}
-		
+
 		//number of coins
 		context.drawImage(imgCoin,1750, 50, Model.COINS_SIZE, Model.COINS_SIZE);
 		context.setFill(Color.GOLD);
 		context.fillText( control.getModel().getPlayer().getNbCoinsCollected()+" / "+ control.getModel().getCurrentLevel().getMaxCoins() , 1750 + 1.25 *Model.COINS_SIZE, 75 );
-		
+
 		context.fillText("Time Left : " + df.format(control.getModel().getCurrentLevel().getTimeLeft()), 1650 ,35);
-		
+
+
+		//notes for 1st level
 		if (control.getModel().getCurrentLevel().getId() == 1) {
 			context.setFill(Color.BLACK);
 			context.setFont(new Font("Arial Black", 15));
 			context.fillText("Press Q to move left", 20 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 800 - displayVerticalMargin );
 			context.fillText("Press D to move right", 20 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 830 - displayVerticalMargin );
-			
+
 			context.fillText("Press SPACE to jump", 500 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 850 - displayVerticalMargin );
 			context.fillText("Press A to attack", 2000 - displayHorizontalLeftMargin + displayHorizontalRightMargin , 300 - displayVerticalMargin );
 
 		}
-		
+
+		//direction of pikachu image
 		if (control.getModel().getDirection() == Model.FACE_RIGHT) {
 			context.drawImage(imgLeft,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-			
+
 			if (control.getModel().getPlayer().isAttacking()) {
 				context.drawImage(eclairLeft,control.getModel().getPlayer().getPosition().getX()- 40 - displayHorizontalLeftMargin + displayHorizontalRightMargin,
 						control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin + control.getModel().getPlayer().PLAYER_HEIGHT/2 - 10 ,40 , 30);
@@ -319,24 +325,24 @@ public class GameView {
 		}
 		else {
 			context.drawImage(imgRight,control.getModel().getPlayer().getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, control.getModel().getPlayer().getPosition().getY()  - displayVerticalMargin,control.getModel().getPlayer().getPlayerSize().getX(), control.getModel().getPlayer().getPlayerSize().getY());
-			
+
 			if (control.getModel().getPlayer().isAttacking()) {
 				context.drawImage(eclair,control.getModel().getPlayer().getPosition().getX()+ control.getModel().getPlayer().PLAYER_WIDTH- displayHorizontalLeftMargin + displayHorizontalRightMargin,
 						control.getModel().getPlayer().getPosition().getY() - displayVerticalMargin + control.getModel().getPlayer().PLAYER_HEIGHT/2 - 10 ,40 , 30);
 			}
-		
-		
+
+
 		}
-		
-		
+
+
 	}
-	
+
 	/**
 	 * draw the enemies
 	 * @param enemyList
 	 */
 	public void paintEnemies(ArrayList<Enemy> enemyList) {
-		
+
 		for(Enemy enemy : enemyList) {
 			if(enemy.isDead()) {
 				context.drawImage(this.imgEnemyDead, enemy.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, enemy.getPosition().getY()- displayVerticalMargin, Model.ENEMIES_WIDTH, Model.ENEMIES_HEIGHT);
@@ -351,9 +357,9 @@ public class GameView {
 	 * @param blockList
 	 */
 	public void paintBlocks(ArrayList<Block> blockList) {
-		
+
 		//int marginHeight = 30;
-		
+
 		for(Block b : blockList) {
 			if(!b.isInvisible()) {
 				if (b.getPosition().getY() == Model.MIN_FLOOR_HEIGHT) {
@@ -364,13 +370,7 @@ public class GameView {
 				}else {
 					context.drawImage(plateform, b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
 				}
-				//context.setFill(Color.GREEN);
-				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), marginHeight);
-				//context.setFill(Color.SADDLEBROWN);
-				//context.fillRect(b.getPosition().getX() - displayHorizontalMargin, b.getPosition().getY()+marginHeight- displayVerticalMargin, b.getWidth(), b.getHeight() - marginHeight);
 			}else {
-				//context.setFill(Color.BLANCHEDALMOND);
-				//context.fillRect(b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
 				context.drawImage(specialBlock, b.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, b.getPosition().getY()- displayVerticalMargin, b.getWidth(), b.getHeight());
 			}
 		}
@@ -388,15 +388,19 @@ public class GameView {
 			context.drawImage(img, obj.getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, obj.getY()- displayVerticalMargin, componentWidth, componentHeight);
 		}
 	}
-	
+
+	/**
+	 * Draw the powers in a level
+	 * @param powers
+	 * @param componentWidth
+	 * @param componentHeight
+	 */
 	public void paintPower(ArrayList<Power> powers, int componentWidth, int componentHeight) {
 		for(Power power : powers) {
 			if (power.getType() == 0) {
 				if (control.getModel().getCurrentLevel().getId() == 2) {
 					context.setFill(Color.BLACK);
-					//context.strokeText( "WALL PASS", , );
 					context.fillText("WALL PASS", power.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin - 60, power.getPosition().getY()- displayVerticalMargin - 5);
-				   //  context.strokeText("WALL PASS", power.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin - 60, power.getPosition().getY()- displayVerticalMargin - 5);
 				}
 				context.drawImage(cloudPower, power.getPosition().getX() - displayHorizontalLeftMargin + displayHorizontalRightMargin, power.getPosition().getY()- displayVerticalMargin, componentWidth, componentHeight);
 			}
@@ -409,11 +413,6 @@ public class GameView {
 			}
 		}
 	}
-	/*public void paintCoin(ArrayList<Point2D> objPositions, int componentWidth, int componentHeight) {
-		for(Point2D obj : objPositions) {
-			context.drawImage(imgCoin,obj.getX() - displayMargin, obj.getY(), componentWidth, componentHeight);
-		}
-	}*/
 
 	/**
 	 * draw the pause menu
@@ -450,19 +449,6 @@ public class GameView {
 		pauseHB.setAlignment(Pos.CENTER);
 		pauseHB.setSpacing(70);
 
-		//	File soundFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/sound.png/");
-		//	ImageView imgSoundP = new ImageView( new Image(soundFileP.toURI().toURL().toString(),50,50,false,false));
-		//Button soundP = new Button("",imgSoundP);
-		//	soundP.setPrefSize(WIDTH/5,WIDTH/5);
-		//	soundP.setCursor(Cursor.HAND);
-
-		//	File musicFileP = new File("C:/Users/daman/eclipse-workspace/Don'tTouchTheMines/assets/img/music.png/");
-		//	ImageView imgMusicP = new ImageView( new Image(musicFileP.toURI().toURL().toString(),50,50,false,false));
-		//	Button musicP = new Button("",imgMusicP);
-		//	musicP.setPrefSize(WIDTH/5,WIDTH/5);
-		//	musicP.setCursor(Cursor.HAND);
-
-
 		VBox pauseVB = new VBox();
 		pauseVB.setAlignment(Pos.CENTER_LEFT);
 		pauseVB.setSpacing(30);
@@ -495,9 +481,6 @@ public class GameView {
 		pauseVB.getChildren().add(whiteP);
 		pauseVB.getChildren().add(darkP);
 		pauseVB.getChildren().add(neonP);
-
-		//	pauseHB.getChildren().add(soundP);
-		//	pauseHB.getChildren().add(musicP);
 		pauseHB.getChildren().add(pauseVB);
 
 		mainPauseVB.getChildren().add(resume);
@@ -512,9 +495,6 @@ public class GameView {
 
 
 		///PAUSE///
-		//resume.setOnAction(e -> timeline.play());
-		//control.checkActions(resume, pauseMenu, gamePane);
-		
 		resume.setOnMouseClicked(e -> {
 			control.displayMenu(pauseMenu, gamePane);
 			control.getModel().setGamePaused(false);
@@ -526,19 +506,19 @@ public class GameView {
 			}
 		});
 		control.checkActions(exitP, pauseMenu, gamePane);
-		
+
 		exitP.setOnMouseClicked(e -> control.exitApp());
 		exitP.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 				control.exitApp();
 			}
 		});
-		
+
 	}
-	
- 	/**
- 	 * draw the Vitory Menu
- 	 */
+
+	/**
+	 * draw the Vitory Menu
+	 */
 	public void setUpVictoryPanel() {
 		////////WIN MENU/////////
 
@@ -568,7 +548,7 @@ public class GameView {
 		playAgain = new CustomMenuButton("PLAY AGAIN");
 		CustomMenuButton exitGame = new CustomMenuButton("EXIT GAME");
 		levelSelectionWin = new CustomMenuButton("LEVEL SELECTION");
-		
+
 		botWinHB.getChildren().add(playAgain);
 		botWinHB.getChildren().add(levelSelectionWin);
 		botWinHB.getChildren().add(exitGame);
@@ -576,9 +556,9 @@ public class GameView {
 		winMenu.setCenter(botWinHB);
 
 		///WIN///
-		
+
 		control.tryAgainLevel(playAgain, winMenu, gamePane);
-		
+
 		control.levelSelect(levelSelectionWin, winMenu, gamePane);
 
 		exitGame.setOnMouseClicked(e -> control.exitApp());
@@ -587,7 +567,7 @@ public class GameView {
 				control.exitApp();
 			}
 		});
-		
+
 
 	}
 
@@ -599,7 +579,7 @@ public class GameView {
 	public void setUpLosingPanel() {
 		////////LOOSE MENU/////////
 
-		
+
 		looseMenu.setId("looseMenu");
 
 		////TOP////
@@ -633,22 +613,20 @@ public class GameView {
 
 		///LOOSE///
 		control.tryAgainLevel(tryAgain, looseMenu, gamePane);	
-		
+
 		control.levelSelect(levelSelectionLoose, looseMenu, gamePane);
-		
-		
+
+
 		exitGame2.setOnMouseClicked(e -> control.exitApp());
 		exitGame2.setOnKeyPressed(e -> {
 			if(e.getCode()==KeyCode.ENTER) {
 				control.exitApp();
 			}
 		});
-					
-		
-	
 	}
 
 
+	// Getter & Setter //
 
 	public BorderPane getGamePane() {
 		return gamePane;
@@ -718,7 +696,7 @@ public class GameView {
 	public void setImgSpikes(Image imgSpikes) {
 		this.imgSpikes = imgSpikes;
 	}
-	
+
 	public BorderPane getWinMenu() {
 		return winMenu;
 	}

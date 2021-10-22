@@ -61,7 +61,6 @@ public class Control {
 	 */
 	private boolean dPressed;
 
-
 	/**
 	 * Left value for turning ship
 	 */
@@ -402,7 +401,6 @@ public class Control {
 	public void setGravity(Gravity gravity) {
 		this.gravity = gravity;
 	}
-
 
 	public GameView getGameView() {
 		return this.gameView;

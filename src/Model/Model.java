@@ -424,7 +424,6 @@ public class Model {
 			this.setGameOver(true);
 			gameOver = true;
 			//here add the victory screen !
-			gameView.score = String.valueOf(currentLevel.getTimeLeft());
 			menuView.getControl().displayMenu(gameView.getGamePane(), gameView.getWinMenu());
 			//menuView.getControl().getGravity().interrupt();
 		}

@@ -62,7 +62,9 @@ public class MenuView extends Application{
 	CustomMenuButton backButtonS;
 	CustomMenuButton backButtonL;
 
-
+	/**
+	 * Attribute game scene
+	 */
 	private Scene gameScene;
 
 	private CustomMenuButton validatelevel;
@@ -72,7 +74,7 @@ public class MenuView extends Application{
 	public static int HEIGHT;
 	public static int WIDTH;
 	private Sound sound;
-	
+
 	ImageView frontImage = null;
 	ImageView leftImage = null;
 	ImageView rightImage = null;
@@ -346,7 +348,7 @@ public class MenuView extends Application{
 		HBox botRuleHB = new HBox();
 		botRuleHB.setAlignment(Pos.BOTTOM_RIGHT);
 		botRuleHB.setPadding(new Insets(0,30,30,30));
-		backButtonR = new CustomMenuButton("←");
+		backButtonR = new CustomMenuButton("Back");
 		backButtonR.setPrefWidth(WIDTH/8);
 
 		botRuleHB.getChildren().add(backButtonR);
@@ -440,7 +442,7 @@ public class MenuView extends Application{
 		botSetHB.setAlignment(Pos.BOTTOM_RIGHT);
 		botSetHB.setPadding(new Insets(0,30,30,30));
 
-		backButtonS = new CustomMenuButton("←");
+		backButtonS = new CustomMenuButton("Back");
 		backButtonS.setPrefWidth(WIDTH/8);
 		botSetHB.getChildren().add(backButtonS);
 		settingMenu.setBottom(botSetHB);	
@@ -484,7 +486,7 @@ public class MenuView extends Application{
 		File leftFile = new File(control.getModel().getBackgroundList().get(3));
 		File rightFile = new File(control.getModel().getBackgroundList().get(1));
 		File backFile = new File(control.getModel().getBackgroundList().get(2));
-		
+
 		try {
 
 			frontImage = new ImageView( new Image(frontFile.toURI().toURL().toString()));
@@ -495,7 +497,7 @@ public class MenuView extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		frontImage.setId("0");
 		frontImage.setPreserveRatio(true);
 		frontImage.setFitHeight(WIDTH/5);
@@ -678,7 +680,7 @@ public class MenuView extends Application{
 		validatelevelHB.getChildren().add(validatelevel);
 		validatelevelHB.setAlignment(Pos.CENTER);
 
-		backButtonL = new CustomMenuButton("←");
+		backButtonL = new CustomMenuButton("Back");
 		backButtonL.setPrefWidth(WIDTH/8);
 		validatelevelHB.setSpacing(100);
 

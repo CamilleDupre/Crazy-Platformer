@@ -4,7 +4,14 @@ import javafx.geometry.Point2D;
 
 public class Enemy {
 
+	/**
+	 * Attribute dead, if dead the enemy can not deal damage
+	 */
 	private boolean dead;
+	
+	/**
+	 * Attribute position, x & y in the level
+	 */
 	private Point2D position;
 	
 	/**

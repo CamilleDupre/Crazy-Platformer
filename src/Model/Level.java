@@ -7,19 +7,58 @@ import javafx.geometry.Point2D;
 public class Level {
 
 	/**
-	 * Attribute 
+	 * Attribute maxSize of the level in the x coordinate
 	 */
 	private int maxSize;
+	
+	/**
+	 * Attribute id of the level
+	 */
 	private int id;
+	
+	/**
+	 * Attribute max coins, how many coins to unlock the chest
+	 */
 	private int maxCoins;
 	
+	/**
+	 * Attribute enemies, all the enemies in the level
+	 */
 	private ArrayList<Enemy> enemies;
+	
+	/**
+	 * Attribute coins, all the coins in the level
+	 */
 	private ArrayList<Point2D> coins;
+	
+	/**
+	 * Attribute blocks, all the blocks in the level
+	 */
 	private ArrayList<Block> blocks;
+	
+	/**
+	 * Attribute power, all the power of the level
+	 */
 	private ArrayList<Power> powers;
+	
+	/**
+	 * Attribute trap, all the traps in the level
+	 */
 	private ArrayList<Point2D> trap;
+	
+	/**
+	 * Attribute treasure, position of the treasure to finish the level
+	 */
 	private Point2D treasure;
+	
+	/**
+	 * Attribute timeLimite, max time of the level
+	 */
 	private double timeLimit;
+	
+	/**
+	 * attribute timeLeft,  how much time player have left in the level
+	 */
 	private double timeLeft;
 
 	/**
@@ -132,7 +171,7 @@ public class Level {
 	}
 
 	/**
-	 * Getter for the treasrure 
+	 * Getter for the treasure 
 	 * @return treasure
 	 */
 	public Point2D getTreasure() {
@@ -140,7 +179,7 @@ public class Level {
 	}
 
 	/**
-	 * Setter for the treasuer
+	 * Setter for the treasure
 	 * @param treasure
 	 */
 	public void setTreasure(Point2D treasure) {

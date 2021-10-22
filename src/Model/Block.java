@@ -4,9 +4,24 @@ import javafx.geometry.Point2D;
 
 public class Block {
 
+	/**
+	 * Attribute position, x & y in the level
+	 */
 	private Point2D position;
+	
+	/**
+	 * Attribute width of the block
+	 */
 	private int width;
+	
+	/**
+	 * Attribute height of the block
+	 */
 	private int height;
+	
+	/**
+	 * Attribute invisible, special block for wall pass power
+	 */
 	private boolean invisible;
 	
 	/**
@@ -24,6 +39,8 @@ public class Block {
 		this.setInvisible(invisible);
 	}
 	
+	
+	//Getter & Setter // 
 
 	public Point2D getPosition() {
 		return position;

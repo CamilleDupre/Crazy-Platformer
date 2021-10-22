@@ -125,7 +125,7 @@ public class Control {
 	}
 
 	/**
-	 * 
+	 * Load the level selector
 	 * @param b
 	 * @param src
 	 * @param target
@@ -232,7 +232,7 @@ public class Control {
 	}
 
 	/**
-	 * used load le level and chnage the scne if it's not the first time
+	 * used load the level and change the scene if it's not the first time
 	 * @param stg
 	 */
 	public void reloadLevel(Stage stg) {

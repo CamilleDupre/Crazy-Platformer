@@ -7,26 +7,73 @@ import javafx.geometry.Pos;
 
 public class Player {
 
+	/**
+	 * Attribute width of the player
+	 */
 	public static final int PLAYER_WIDTH = 70;
+
+	/**
+	 * Attribute height of the player
+	 */
 	public static final int PLAYER_HEIGHT = 100;
 
+	/**
+	 * Attribute position of the player in the level
+	 */
 	private Point2D position;
 	private ArrayList<Power> powerList;
 
+	/**
+	 * Attribute invincibleAfterAttack, player has a 1s invisibility
+	 */
 	private boolean invincibleAfterAttack;
+
+
 	private Point2D playerSize;
+	
+	/**
+	 * Attribute playerSpeed, speed for right and left movement
+	 */
 	private int playerSpeed = 7;
+	
+	/**
+	 * Attribute playerJump, height for a jump
+	 */
 	private int playerJump = - 220;
 
+	/**
+	 * Attribute number of life of the player
+	 */
 	private int life;
 
+	/**
+	 * Attribute nb of coins collected in the level
+	 */
+	private int nbCoinsCollected;
+
+	/**
+	 * Attribute jumping, true if player is jumping
+	 */
 	private boolean jumping;
+
+	/**
+	 * Attribute intheAir, true if the player is in the air
+	 */
 	private boolean inTheAir;
 
+	/**
+	 * Attribute invisible, true if wall pass power up
+	 */
 	private boolean invisible;
-
-	private int nbCoinsCollected;
+	
+	/**
+	 *Attribute superJump, true if super jump power true 
+	 */
 	private boolean superJump;
+	
+	/**
+	 * Attribute Attacking, true if player is Attacking
+	 */
 	private boolean Attacking;
 
 	/**
@@ -88,7 +135,7 @@ public class Player {
 				objectPosition.getY() + objectHeight > this.position.getY() &&
 				objectPosition.getY() < this.position.getY() + this.playerSize.getY());
 	}
-	
+
 
 	/**
 	 * used to know if the player hits an enemy
@@ -102,6 +149,9 @@ public class Player {
 	}
 
 
+	
+	//Getter & Setter 
+	
 	public Point2D getPosition() {
 		return position;
 	}
@@ -186,7 +236,7 @@ public class Player {
 
 	/**
 	 * Getter for nbCoinsCollected
-	 * @return
+	 * @return nbCoinsCollected
 	 */
 	public int getNbCoinsCollected() {
 		return nbCoinsCollected;

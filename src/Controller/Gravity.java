@@ -2,13 +2,24 @@ package Controller;
 
 public class Gravity extends Thread{
 
+	/**
+	 * Attribute control
+	 */
 	private Control ctrl;
+	
+	/**
+	 * Attribute active, false at the beginning until we start a level
+	 */
 	private boolean active = false;
+	
+	/**
+	 * Attribute time_repeat, to decrease the time every second
+	 */
 	private int timer_repeat;
 
 
 	/**
-	 * Contructor of Gravity
+	 * Constructor of Gravity
 	 * @param myctrl
 	 */
 	public Gravity(Control myctrl) {
@@ -45,6 +56,7 @@ public class Gravity extends Thread{
 		}
 	}
 
+	// Getter & Setter //
 	public boolean isActive() {
 		return active;
 	}

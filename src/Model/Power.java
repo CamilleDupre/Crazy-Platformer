@@ -5,8 +5,19 @@ import javafx.geometry.Pos;
 
 public class Power {
 
+	/**
+	 * Attribute type, wall pass or juper jump
+	 */
 	private int type;
-	private int duration; //time in milliseconds
+	
+	/**
+	 * Attribute duration of the power, time in milliseconds
+	 */
+	private int duration;
+	
+	/**
+	 * Attribute position of the power
+	 */
 	private Point2D position;
 
 	
@@ -22,6 +33,9 @@ public class Power {
 		setPosition(position);
 	}
 
+	
+	// Getter & Setter 
+	
 	public int getType() {
 		return type;
 	}
